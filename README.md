@@ -11,11 +11,11 @@ A memory card game that will test your wits! How many rounds can you complete in
  - Real-time leaderboard
  - Account sign-up page
  - Login system with forgot password and reset password
- - Showcasing Continuous Delivery from CA Technologies:
- -- [waffle.io](https://waffle.io)
- -- [cddirector.io](https://cddirector.io/#/home)
- -- [blazemeter.com](https://www.blazemeter.com)
- -- [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)
+ - Showcasing various **Continuous Delivery** solutions from CA Technologies:
+   - [Waffle](https://waffle.io)
+   - [Continuous Delivery Director](https://cddirector.io/#/home)
+   - [BlazeMeter](https://www.blazemeter.com)
+   - [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)
 
 
 ## Technology
@@ -148,6 +148,6 @@ $ npm test
 MIT
 
 
-## Speacial Thanks
+## Special Thanks
 
 A special thanks goes out to Reza Akhavan from Aqua who created the boilerplate project with built-in registration, user management and more!
