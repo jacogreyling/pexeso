@@ -1,5 +1,6 @@
 /* global window */
 'use strict';
+
 const Actions = require('./actions');
 const Alert = require('../../../../components/alert.jsx');
 const Button = require('../../../../components/form/button.jsx');

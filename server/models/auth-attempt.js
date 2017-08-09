@@ -1,4 +1,5 @@
 'use strict';
+
 const Async = require('async');
 const Config = require('../../config/config');
 const Joi = require('joi');

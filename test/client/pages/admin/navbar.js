@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Lab = require('lab');
 const Navbar = require('../../../../client/pages/admin/navbar.jsx');

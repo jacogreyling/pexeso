@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Config = require('../../../config/config');
 const Hapi = require('hapi');
@@ -45,7 +46,7 @@ lab.experiment('Index Plugin', () => {
 
         server.inject(request, (response) => {
 
-            Code.expect(response.result.message).to.match(/welcome to pexeso/i);
+            Code.expect(response.result.message).to.match(/welcome to the plot device/i);
             Code.expect(response.statusCode).to.equal(200);
 
             done();

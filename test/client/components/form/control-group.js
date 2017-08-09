@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const ControlGroup = require('../../../../client/components/form/control-group.jsx');
 const Lab = require('lab');

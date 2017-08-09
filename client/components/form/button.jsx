@@ -1,4 +1,5 @@
 'use strict';
+
 const ClassNames = require('classnames');
 const ObjectAssign = require('object-assign');
 const PropTypes = require('prop-types');

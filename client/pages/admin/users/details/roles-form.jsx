@@ -1,4 +1,5 @@
 'use strict';
+
 const ControlGroup = require('../../../../components/form/control-group.jsx');
 const PropTypes = require('prop-types');
 const React = require('react');

@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Constants = require('../../../../../../client/pages/admin/admins/details/constants');
 const FluxConstant = require('flux-constant');

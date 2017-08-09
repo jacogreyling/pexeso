@@ -8,6 +8,6 @@ Here are your login credentials:
 | Username: | {{username}} |
 | Email:    | {{email}}    |
 
-Regards,
+Love,
 
-The Pexeso Team
+The Plot Device

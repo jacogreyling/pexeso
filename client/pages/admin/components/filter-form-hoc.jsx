@@ -1,4 +1,5 @@
 'use strict';
+
 const LinkState = require('../../../helpers/link-state');
 const ObjectAssign = require('object-assign');
 const PropTypes = require('prop-types');

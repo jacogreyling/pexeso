@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Lab = require('lab');
 const NotFound = require('../../../../client/pages/admin/not-found.jsx');

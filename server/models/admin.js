@@ -1,4 +1,5 @@
 'use strict';
+
 const AdminGroup = require('./admin-group');
 const Async = require('async');
 const Joi = require('joi');

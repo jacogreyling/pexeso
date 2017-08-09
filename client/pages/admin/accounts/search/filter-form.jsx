@@ -1,4 +1,5 @@
 'use strict';
+
 const FilterFormHoc = require('../../../../pages/admin/components/filter-form-hoc.jsx');
 const PropTypes = require('prop-types');
 const React = require('react');

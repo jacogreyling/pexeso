@@ -1,4 +1,5 @@
 'use strict';
+
 const Async = require('async');
 const Bcrypt = require('bcrypt');
 const Joi = require('joi');

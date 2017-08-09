@@ -6,6 +6,6 @@ need this key to do it.
 __Key:__  
 {{baseHref}}/{{email}}/{{key}}
 
-Regards,
+Love,
 
-The Pexeso Team
+The Plot Device

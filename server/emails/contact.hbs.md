@@ -6,6 +6,6 @@
 | Email:   | {{email}}   |
 | Message: | {{message}} |
 
-Regards,
+Love,
 
-The Pexeso Team 
+The Plot Device

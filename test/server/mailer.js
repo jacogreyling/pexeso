@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Config = require('../../config/config');
 const Hapi = require('hapi');

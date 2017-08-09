@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Hoek = require('hoek');
 const Lab = require('lab');

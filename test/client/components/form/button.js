@@ -1,4 +1,5 @@
 'use strict';
+
 const Button = require('../../../../client/components/form/button.jsx');
 const Code = require('code');
 const Lab = require('lab');

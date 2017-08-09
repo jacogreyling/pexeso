@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Lab = require('lab');
 const NoteEntry = require('../../../server/models/note-entry');
@@ -7,7 +8,7 @@ const NoteEntry = require('../../../server/models/note-entry');
 const lab = exports.lab = Lab.script();
 
 
-lab.experiment('Status Entry Class', () => {
+lab.experiment('Note Entry Class', () => {
 
     lab.test('it instantiates an instance', (done) => {
 

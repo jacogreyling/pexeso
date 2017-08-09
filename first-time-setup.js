@@ -38,6 +38,7 @@ Async.auto({
     }],
     setupRootUser: ['rootPassword', (results, done) => {
 
+        const Account = require('./server/models/account');
         const AdminGroup = require('./server/models/admin-group');
         const Admin = require('./server/models/admin');
         const AuthAttempt = require('./server/models/auth-attempt');
@@ -52,6 +53,7 @@ Async.auto({
             clean: ['connect', (dbResults, done) => {
 
                 Async.parallel([
+                    Account.deleteMany.bind(Account, {}),
                     AdminGroup.deleteMany.bind(AdminGroup, {}),
                     Admin.deleteMany.bind(Admin, {}),
                     AuthAttempt.deleteMany.bind(AuthAttempt, {}),

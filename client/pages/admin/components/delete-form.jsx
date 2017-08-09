@@ -1,5 +1,6 @@
 /* global window */
 'use strict';
+
 const Alert = require('../../../components/alert.jsx');
 const Button = require('../../../components/form/button.jsx');
 const PropTypes = require('prop-types');

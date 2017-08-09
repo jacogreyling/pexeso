@@ -1,4 +1,5 @@
 'use strict';
+
 const Alert = require('../../../components/alert.jsx');
 const ControlGroup = require('../../../components/form/control-group.jsx');
 const LinkState = require('../../../helpers/link-state');

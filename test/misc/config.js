@@ -1,4 +1,5 @@
 'use strict';
+
 const Code = require('code');
 const Config = require('../../config/config');
 const Lab = require('lab');

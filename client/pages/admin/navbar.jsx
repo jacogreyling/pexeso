@@ -1,4 +1,5 @@
 'use strict';
+
 const PropTypes = require('prop-types');
 const React = require('react');
 const ReactRouter = require('react-router-dom');
@@ -55,7 +56,6 @@ class Navbar extends React.Component {
                                 src="/public/media/logo-square-inverse.png"
                             />
                             <span className="navbar-brand-label">Pexeso</span>
-
                         </Link>
                         <button
                             className="navbar-toggle collapsed"

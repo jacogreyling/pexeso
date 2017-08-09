@@ -1,4 +1,5 @@
 'use strict';
+
 const ClassNames = require('classnames');
 const ControlGroup = require('./control-group.jsx');
 const ObjectAssign = require('object-assign');

@@ -1,4 +1,5 @@
 'use strict';
+
 const ClassNames = require('classnames');
 const PropTypes = require('prop-types');
 const React = require('react');

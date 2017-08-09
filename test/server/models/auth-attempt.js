@@ -1,4 +1,5 @@
 'use strict';
+
 const Async = require('async');
 const AuthAttempt = require('../../../server/models/auth-attempt');
 const Code = require('code');

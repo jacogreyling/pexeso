@@ -1,4 +1,5 @@
 'use strict';
+
 const Alert = require('../../../client/components/alert.jsx');
 const Code = require('code');
 const Lab = require('lab');

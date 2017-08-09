@@ -1,6 +1,5 @@
 'use strict';
 
-
 exports.register = function (server, options, next) {
 
     server.route({
@@ -8,7 +7,7 @@ exports.register = function (server, options, next) {
         path: '/',
         handler: function (request, reply) {
 
-            reply({ message: 'Welcome to Pexeso.' });
+            reply({ message: 'Welcome to the plot device.' });
         }
     });
 
