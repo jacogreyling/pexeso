@@ -51,7 +51,7 @@ const config = {
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
-        auth: {
+        auth: { 
             user: 'ca.pexeso@gmail.com',
             pass: process.env.SMTP_PASSWORD
         }
