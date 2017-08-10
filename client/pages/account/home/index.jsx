@@ -1,7 +1,11 @@
 'use strict';
 
-const Moment = require('moment');
 const React = require('react');
+const Store = require('./store');
+const PropTypes = require('prop-types');
+const Actions = require('./actions');
+const Header = require('./header.jsx');
+const CardList = require('./card-list.jsx');
 
 
 class HomePage extends React.Component {
@@ -9,36 +13,22 @@ class HomePage extends React.Component {
 
         super(props);
 
-        this.state = this.getThisMoment();
+        this.state = Store.getState();
     }
 
     componentDidMount() {
 
-        this.interval = setInterval(this.refreshTime.bind(this), 1000);
+        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
     }
 
     componentWillUnmount() {
 
-        clearInterval(this.interval);
+        this.unsubscribeStore();
     }
 
-    refreshTime() {
+    onStoreChange() {
 
-        this.setState(this.getThisMoment());
-    }
-
-    getThisMoment() {
-
-        const thisMoment = Moment();
-
-        return {
-            second: thisMoment.format('ss'),
-            minute: thisMoment.format('mm'),
-            hour: thisMoment.format('HH'),
-            day: thisMoment.format('DD'),
-            month: thisMoment.format('MM'),
-            year: thisMoment.format('YYYY')
-        };
+        this.setState(Store.getState());
     }
 
     render() {
@@ -46,62 +36,13 @@ class HomePage extends React.Component {
         return (
             <section className="section-home container">
                 <div className="row">
-                    <div className="col-sm-7">
-                        <h1 className="page-header">My account</h1>
-                        <div className="row">
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.hour}
-                                    </div>
-                                    <div className="stat-label">hour</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.minute}
-                                    </div>
-                                    <div className="stat-label">minute</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.second}
-                                    </div>
-                                    <div className="stat-label">second</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.year}
-                                    </div>
-                                    <div className="stat-label">year</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.month}
-                                    </div>
-                                    <div className="stat-label">month</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.day}
-                                    </div>
-                                    <div className="stat-label">day</div>
-                                </div>
+                    <div className="col-sm-12">
+                        <div className="well text-center">
+                            <div className="board container">
+                                <Header round={this.state.memory.round} restart={Actions.restart} />
+                                <CardList cards={this.state.memory.cards} flipCard={Actions.flipCard} />
                             </div>
                         </div>
-                    </div>
-                    <div className="col-sm-5 text-center">
-                        <h1 className="page-header">Throttle guage</h1>
-                        <i className="fa fa-dashboard bamf"></i>
                     </div>
                 </div>
             </section>

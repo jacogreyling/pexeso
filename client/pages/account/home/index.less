@@ -9,3 +9,74 @@
         font-size: 3em;
     }
 }
+
+.board {
+    max-width: 65em;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/*
+ | ----------------------------------------------------
+ | MEMORY GAME
+ | ----------------------------------------------------
+ */
+
+.cards {
+    margin-top: 1.8em;
+}
+
+.flip-container {
+	perspective: 1000;
+    padding: 0;
+    float: left;
+    margin: 10px;
+    list-style: none;
+    width: 176px;
+    height: 176px;
+    border: 2px solid #2b2b2b;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.flip-container img {
+	max-width: 100%;
+}
+
+.flip-container:hover .front {
+    -webkit-box-shadow: 0 0 10px #ccc;
+}
+
+.flip-container .flipper.flipped {
+	transform: rotateY(180deg);
+    cursor: not-allowed;
+}
+
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	position: relative;
+}
+
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+    line-height: 0;
+}
+
+.front {
+    width: 176px;
+    height: 176px;
+    z-index: 2;
+	transform: rotateY(0deg);
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSIxMDAiPgo8cmVjdCB3aWR0aD0iNzUiIGhlaWdodD0iMTAwIiBmaWxsPSJzbGF0ZWdyYXkiPjwvcmVjdD4KPGNpcmNsZSBjeD0iNzUiIGN5PSI1MCIgcj0iMjguMyUiIHN0cm9rZS13aWR0aD0iMTIiIHN0cm9rZT0iIzlhYTZiMiIgZmlsbD0ibm9uZSI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjAiIHI9IjI4LjMlIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2U9IiM5YWE2YjIiIGZpbGw9Im5vbmUiPjwvY2lyY2xlPgo8Y2lyY2xlIGN5PSIxMDAiIHI9IjI4LjMlIiBzdHJva2Utd2lkdGg9IjEyIiBzdHJva2U9IiM5YWE2YjIiIGZpbGw9Im5vbmUiPjwvY2lyY2xlPgo8L3N2Zz4=");
+    -webkit-transition-property: opacity, transform, box-shadow;
+    -webkit-transition-duration: .3s;
+    -webkit-backface-visibility: hidden;
+}
+
+.back {
+	transform: rotateY(180deg);
+}
