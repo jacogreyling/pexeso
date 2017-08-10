@@ -52,18 +52,18 @@ const config = {
         port: 465,
         secure: true,
         auth: {
-            user: 'Create Email Address@gmail.com',
+            user: 'ca.pexeso@gmail.com',
             pass: process.env.SMTP_PASSWORD
         }
     },
     system: {
         fromAddress: {
             name: 'Pexeso Admin',
-            address: 'Create Email Address@gmail.com'
+            address: 'ca.pexeso@gmail.com'
         },
         toAddress: {
             name: 'Pexeso Admin',
-            address: 'Create Email Address@gmail.com'
+            address: 'ca.pexeso@gmail.com'
         }
     }
 };
