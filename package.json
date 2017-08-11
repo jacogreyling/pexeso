@@ -12,7 +12,13 @@
     "postinstall": "gulp build"
   },
   "author": "Jaco Greyling <jgreyling@gmail.com>",
-  "contributors": [],
+  "contributors": [
+    "Charl-Adrian Klein <charl.klein@caafrica.co.za>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jacogreyling/pexeso.git"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=8.1.4"
