@@ -1,17 +1,35 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html
-    destination: /var/www/html/
+  - source: /client
+    destination: /var/node/pexeso/client
+  - source: /config
+    destination: /var/node/pexeso/config
+  - source: /gulp
+    destination: /var/node/pexeso/gulp
+  - source: /node_modules
+    destination: /var/node/pexeso/node_modules
+  - source: /public
+    destination: /var/node/pexeso/public
+  - source: /scripts
+    destination: /var/node/pexeso/scripts
+  - source: /server
+    destination: /var/node/pexeso/server
+  - source: /test
+    destination: /var/node/pexeso/test
+  - source: /first-time-setup.js
+    destination: /var/node/pexeso/first-time-setup.js
+  - source: /server.js
+    destination: /var/node/pexeso/server.js
+  - source: /package.json
+    destination: /var/node/pexeso/package.json
+
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
       timeout: 300
       runas: root
-    - location: scripts/start_server
-      timeout: 300
-      runas: root
-  ApplicationStop:
-    - location: scripts/stop_server
+  AfterInstall:
+    - location: scripts/setup_environment
       timeout: 300
       runas: root

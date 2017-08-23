@@ -24,5 +24,6 @@ Glue.compose(Manifest.get('/'), composeOptions, (err, server) => {
     server.start(() => {
 
         console.log('Server is listening on ' + server.info.uri.toLowerCase());
+        console.log('NODE_ENV is  ' + `"${process.env.NODE_ENV}"`);
     });
 });

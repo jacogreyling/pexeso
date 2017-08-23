@@ -1,3 +1,8 @@
 #!/bin/bash
-yum install -y httpd
+yum install -y git
 
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+
+nvm install 8
+
+mkdir /var/node/pexeso

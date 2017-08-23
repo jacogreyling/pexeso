@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /var/node/pexeso
+
+npm install
