@@ -2,27 +2,27 @@ version: 0.0
 os: linux
 files:
   - source: /client
-    destination: /var/node/pexeso/client
+    destination: /var/app/current/client
   - source: /config
-    destination: /var/node/pexeso/config
+    destination: /var/app/current/config
   - source: /gulp
-    destination: /var/node/pexeso/gulp
+    destination: /var/app/current/gulp
   - source: /node_modules
-    destination: /var/node/pexeso/node_modules
+    destination: /var/app/current/node_modules
   - source: /public
-    destination: /var/node/pexeso/public
+    destination: /var/app/current/public
   - source: /scripts
-    destination: /var/node/pexeso/scripts
+    destination: /var/app/current/scripts
   - source: /server
-    destination: /var/node/pexeso/server
+    destination: /var/app/current/server
   - source: /test
-    destination: /var/node/pexeso/test
+    destination: /var/app/current/test
   - source: /first-time-setup.js
-    destination: /var/node/pexeso/first-time-setup.js
+    destination: /var/app/current/first-time-setup.js
   - source: /server.js
-    destination: /var/node/pexeso/server.js
+    destination: /var/app/current/server.js
   - source: /package.json
-    destination: /var/node/pexeso/package.json
+    destination: /var/app/current/package.json
 
 hooks:
   BeforeInstall:
