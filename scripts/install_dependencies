@@ -1,4 +1,6 @@
 #!/bin/bash
-rm -rf /var/app/current
+cd /var/app
 
-mkdir /var/app/current
+rm -rf current
+
+mkdir current

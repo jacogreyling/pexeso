@@ -1,2 +1,5 @@
 #!/bin/bash
 
+export PATH=$PATH:/opt/elasticbeanstalk/node-install/node-v8.1.4-linux-x64/bin
+
+
