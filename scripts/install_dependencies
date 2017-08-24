@@ -4,3 +4,5 @@ cd /var/app
 rm -rf current
 
 mkdir current
+
+yum install -y openssl-devel
