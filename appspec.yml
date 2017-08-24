@@ -13,15 +13,15 @@ files:
     destination: /var/app/current/server
   - source: /test
     destination: /var/app/current/test
-  - source: /first-time-setup.js
+  - source: first-time-setup.js
     destination: /var/app/current/first-time-setup.js
-  - source: /server.js
+  - source: server.js
     destination: /var/app/current/server.js
-  - source: /package.json
+  - source: package.json
     destination: /var/app/current/package.json
-  - source: /package.json
+  - source: package-lock.json
     destination: /var/app/current/package-lock.json
-  - source: /node-app
+  - source: node-app
     destination: /var/app/current/node-app
 
 hooks:
