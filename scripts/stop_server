@@ -2,4 +2,6 @@
 
 export PATH=$PATH:/opt/elasticbeanstalk/node-install/node-v8.1.4-linux-x64/bin
 
+cd /var/app/current
 
+./node-app start
