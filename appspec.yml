@@ -16,13 +16,13 @@ files:
   - source: first-time-setup.js
     destination: /var/app/current/first-time-setup.js
   - source: server.js
-    destination: /var/app/current/server.js
+    destination: /var/app/current/
   - source: package.json
-    destination: /var/app/current/package.json
+    destination: /var/app/current/
   - source: package-lock.json
-    destination: /var/app/current/package-lock.json
+    destination: /var/app/current/
   - source: node-app
-    destination: /var/app/current/node-app
+    destination: /var/app/current/
 
 hooks:
   BeforeInstall:
