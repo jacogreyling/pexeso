@@ -7,10 +7,6 @@ files:
     destination: /var/app/current/config
   - source: /gulp
     destination: /var/app/current/gulp
-  - source: /node_modules
-    destination: /var/app/current/node_modules
-  - source: /public
-    destination: /var/app/current/public
   - source: /scripts
     destination: /var/app/current/scripts
   - source: /server
