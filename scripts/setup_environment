@@ -2,9 +2,7 @@
 
 export PATH=$PATH:/opt/elasticbeanstalk/node-install/node-v8.1.4-linux-x64/bin
 
-npm install --global node-pre-gyp
-
-npm config set unsafe-perm true
+npm install node-pre-gyp
 
 cd /var/app/current
 
