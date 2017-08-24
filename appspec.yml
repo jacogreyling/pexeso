@@ -19,6 +19,10 @@ files:
     destination: /var/app/current/server.js
   - source: /package.json
     destination: /var/app/current/package.json
+  - source: /package.json
+    destination: /var/app/current/package-lock.json
+  - source: /node-app
+    destination: /var/app/current/node-app
 
 hooks:
   BeforeInstall:
