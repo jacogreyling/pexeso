@@ -1,9 +1,9 @@
 #!/bin/bash
-cd /var/app
+export PATH=$PATH:/jet/bin/
+
+cd /jet/app
 
 rm -rf current
 
 mkdir current
-
-yum install -y openssl-devel
 

@@ -1,9 +1,9 @@
 #!/bin/bash
+export PATH=$PATH:/jet/bin/
 
-export PATH=$PATH:/opt/elasticbeanstalk/node-install/node-v8.1.4-linux-x64/bin
-
-npm install node-pre-gyp
-
-cd /var/app/current
+cd /jet/app/current
 
 npm install 
+
+aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP}/env .env
+

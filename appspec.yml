@@ -2,27 +2,29 @@ version: 0.0
 os: linux
 files:
   - source: /client
-    destination: /var/app/current/client
+    destination: /jet/app/current/client
   - source: /config
-    destination: /var/app/current/config
+    destination: /jet/app/current/config
   - source: /gulp
-    destination: /var/app/current/gulp
+    destination: /jet/app/current/gulp
   - source: /scripts
-    destination: /var/app/current/scripts
+    destination: /jet/app/current/scripts
   - source: /server
-    destination: /var/app/current/server
+    destination: /jet/app/current/server
   - source: /test
-    destination: /var/app/current/test
+    destination: /jet/app/current/test
   - source: first-time-setup.js
-    destination: /var/app/current/first-time-setup.js
+    destination: /jet/app/current/first-time-setup.js
   - source: server.js
-    destination: /var/app/current/
+    destination: /jet/app/current/
   - source: package.json
-    destination: /var/app/current/
+    destination: /jet/app/current/
   - source: package-lock.json
-    destination: /var/app/current/
+    destination: /jet/app/current/
   - source: node-app
-    destination: /var/app/current/
+    destination: /jet/app/current/
+  - source: gulpfile.js
+    destination: /jet/app/current/
 
 hooks:
   BeforeInstall:

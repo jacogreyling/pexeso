@@ -1,7 +1,6 @@
 #!/bin/bash
+export PATH=$PATH:/jet/bin/
 
-export PATH=$PATH:/opt/elasticbeanstalk/node-install/node-v8.1.4-linux-x64/bin
-
-cd /var/app/current
+cd /jet/app/current
 
 ./node-app start
