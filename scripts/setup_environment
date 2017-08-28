@@ -3,6 +3,8 @@ export PATH=$PATH:/jet/bin/
 
 cd /jet/app/current
 
+npm install bcrypt
+
 npm install 
 
 aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP}/env .env
