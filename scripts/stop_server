@@ -2,6 +2,12 @@
 
 export PATH=$PATH:/jet/bin/
 
-cd /jet/app/current
+if [ -d "/jet/app/current" ]; then
+  cd /jet/app/current
 
-./node-app stop --force
+  ./node-app stop --force
+
+else 
+  pkill node
+  
+fi
