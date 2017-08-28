@@ -3,7 +3,7 @@ export PATH=$PATH:/jet/bin/
 
 #Install Code Deploy Agent - ami-94bfa9f0
 sudo yum update -y
-sudo yum install -y ruby wget git 
+sudo yum install -y ruby wget git gcc44 gcc44-c++
 cd /home/ec2-user
 wget https://aws-codedeploy-eu-west-2.s3.amazonaws.com/latest/install
 sudo chmod +x ./install
