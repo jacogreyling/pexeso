@@ -4,4 +4,4 @@ export PATH=$PATH:/jet/bin/
 
 cd /jet/app/current
 
-./node-app start
+./node-app stop --force
