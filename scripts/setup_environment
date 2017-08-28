@@ -1,13 +1,14 @@
 #!/bin/bash
 export PATH=$PATH:/jet/bin/
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/bin/node-pre-gyp
 
 cd /jet/app/current
 
-npm install bcrypt
+npm install -g bcrypt
 
 npm install 
 
-echo ${DEPLOYMENT_GROUP}
+echo "Deployment Group is : " ${DEPLOYMENT_GROUP}
 
 aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP}/env .env
 
