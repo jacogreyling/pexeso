@@ -8,3 +8,5 @@ cd /home/ec2-user
 wget https://aws-codedeploy-eu-west-2.s3.amazonaws.com/latest/install
 sudo chmod +x ./install
 sudo ./install auto
+
+pkill node
