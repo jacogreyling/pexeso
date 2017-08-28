@@ -7,7 +7,9 @@ npm install -g node-pre-gyp
 
 export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
 
-npm install bcrypt@1.0.2
+cd /jet/app/current
+
+npm install bcrypt
 
 npm install 
 

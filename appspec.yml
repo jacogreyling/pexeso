@@ -14,7 +14,7 @@ files:
   - source: /test
     destination: /jet/app/current/test
   - source: first-time-setup.js
-    destination: /jet/app/current/first-time-setup.js
+    destination: /jet/app/current/
   - source: server.js
     destination: /jet/app/current/
   - source: package.json
