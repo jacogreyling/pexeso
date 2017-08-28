@@ -7,5 +7,7 @@ npm install bcrypt
 
 npm install 
 
+echo ${DEPLOYMENT_GROUP}
+
 aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP}/env .env
 

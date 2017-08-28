@@ -10,3 +10,7 @@ sudo chmod +x ./install
 sudo ./install auto
 
 pkill node
+
+npm install -g node-pre-gyp
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/bin/node-pre-gyp
+
