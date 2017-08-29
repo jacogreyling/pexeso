@@ -3,13 +3,7 @@ export PATH=$PATH:/jet/bin/
 
 cd /jet/app/current
 
-npm install -g node-pre-gyp
-
-export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
-
-cd /jet/app/current
-
-npm install bcrypt
+npm install  node-pre-gyp
 
 npm install 
 
