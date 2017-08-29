@@ -14,3 +14,20 @@ pkill node
 npm install -g node-pre-gyp
 export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
 
+ #   1  export PATH=$PATH:/jet/bin/
+ #   2  npm install
+ #   3  npm install node-pre-gyp
+ #   4  export PATH=$PATH:/jet/bin/
+ #   5  npm install
+ #   6  npm start
+ #   7  cd config/
+ #   8  ls
+ #   9  vi config.js
+ #  10  cd ..
+ #  11  npm run first-time-setup.js
+ #  12  npm run first-time-setup
+ #  13  ls
+ #  14  npm start
+ #  15  PORT=3000 npm start
+ #  16  NODE_ENV=production PORT=3000 node server.js
+ #  17  history

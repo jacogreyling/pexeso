@@ -1,9 +1,12 @@
 #!/bin/bash
+
+sudo -s 
+
 export PATH=$PATH:/jet/bin/
 
 cd /jet/app/current
 
-npm install  node-pre-gyp
+npm install node-pre-gyp
 
 npm install 
 
