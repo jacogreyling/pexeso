@@ -25,7 +25,16 @@ files:
     destination: /jet/app/current/
   - source: gulpfile.js
     destination: /jet/app/current/
-
+  - source: .babelrc
+    destination: /jet/app/current/
+  - source: .editorconfig
+    destination: /jet/app/current/
+  - source: .eslintignore
+    destination: /jet/app/current/
+  - source: .eslintrc.json
+    destination: /jet/app/current/
+  - source: .travis.yml
+    destination: /jet/app/current/
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
