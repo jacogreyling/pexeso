@@ -4,11 +4,9 @@ export PATH=$PATH:/jet/bin/
 export HOME=/root
 export USERPROFILE=/root
 
-export PATH=$PATH:/jet/var/nodejs/node_modules/node-pre-gyp/bin/
-
 cd /jet/app/current
 
-npm install --verbose
+npm install --verbose --unsafe-perm
 
 echo "Deployment Group is : " ${DEPLOYMENT_GROUP_NAME}
 

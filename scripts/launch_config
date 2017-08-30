@@ -11,11 +11,6 @@ sudo ./install auto
 
 pkill node
 
-npm install -g node-pre-gyp
-export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
-
-npm install -g bcrypt
-
  #   1  export PATH=$PATH:/jet/bin/
  #   2  npm install
  #   3  npm install node-pre-gyp
