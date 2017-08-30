@@ -1,24 +1,12 @@
 #!/bin/bash
 
 export PATH=$PATH:/jet/bin/
-export CC="gcc44"
-export CXX="g++44"
-export HOME=/home/ec2-user
-export USERPROFILE=/home/ec2-user
+export HOME=/root
+export USERPROFILE=/root
 
 cd /jet/app/current
 
-npm install -g node-pre-gyp
-npm install -g node-gyp
-
-export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
-export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-gyp/bin/
-
-chown -R $USERNAME /home/ec2-user/.node-gyp/
-
-npm install bcrypt --verbose
-
-##npm install --verbose
+npm install --verbose
 
 echo "Deployment Group is : " ${DEPLOYMENT_GROUP_NAME}
 
