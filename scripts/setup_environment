@@ -6,6 +6,14 @@ export USERPROFILE=/root
 
 cd /jet/app/current
 
+npm install -g node-pre-gyp
+npm install -g node-gyp
+
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-gyp/bin/
+
+npm isntall bcrypt --verbose
+
 npm install --verbose
 
 echo "Deployment Group is : " ${DEPLOYMENT_GROUP_NAME}
