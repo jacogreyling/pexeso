@@ -8,7 +8,13 @@ export USERPROFILE=/home/ec2-user
 
 cd /jet/app/current
 
-npm install 
+npm install -g node-pre-gyp
+npm install -g node-gyp
+
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-gyp/bin/
+
+npm install --verbose
 
 echo "Deployment Group is : " ${DEPLOYMENT_GROUP_NAME}
 
