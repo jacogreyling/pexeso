@@ -34,7 +34,7 @@ hooks:
   AfterInstall:
     - location: scripts/setup_environment
       timeout: 600
-      runas: ec2-user
+      runas: root
   ApplicationStart:
     - location: scripts/start_server
       timeout: 600
