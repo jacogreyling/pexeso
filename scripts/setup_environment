@@ -16,7 +16,7 @@ export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-gyp
 
 chown -R $USERNAME /home/ec2-user/.node-gyp/
 
-npm install bcrypt
+npm install bcrypt --verbose
 
 ##npm install --verbose
 
