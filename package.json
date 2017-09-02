@@ -1,7 +1,7 @@
 {
   "name": "pexeso",
   "version": "0.0.1",
-  "description": "A memory card game that will test your wits! How many rounds can you complete in 60 seconds?! Remember each round is harder than the previous.",
+  "description": "A memory card game that will test your wits! How many rounds can you complete in 90 seconds?! Remember each round is harder than the previous.",
   "main": "server.js",
   "scripts": {
     "start": "gulp",

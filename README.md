@@ -2,7 +2,7 @@
 
 # Pexeso
 
-A memory card game that will test your wits! How many rounds can you complete in 60 seconds?! Remember each round is harder than the previous. It also includes user registration and a leaderboard for those who dare to compete!
+A memory card game that will test your wits! How many rounds can you complete in 90 seconds?! Remember each round is harder than the previous. It also includes user registration and a leaderboard for those who dare to compete!
 
 
 ## Features
@@ -29,7 +29,7 @@ We're using [Gulp](http://gulpjs.com/) for the build system and [CA CD Director]
 
 ## Requirements
 
-You need [Node.js](http://nodejs.org/download/) installed and you'll need [MongoDB](http://www.mongodb.org/downloads) installed and running. You will also need to download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html).
+You need [Node.js](http://nodejs.org/download/) v8.1.x or above installed and you'll need [MongoDB](http://www.mongodb.org/downloads) installed and running. You will also need to download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html).
 
 We use [`bcrypt`](https://github.com/ncb000gt/node.bcrypt.js) for hashing secrets.
 
@@ -150,4 +150,6 @@ MIT
 
 ## Special Thanks
 
-A special thanks goes out to Reza Akhavan from Aqua who created the boilerplate project with built-in registration, user management and more!
+A special thanks goes out to Reza Akhavan from [Aqua](https://github.com/jedireza/aqua) who created the boilerplate project with built-in registration, user management and more!
+
+The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the Pexeso development team.
