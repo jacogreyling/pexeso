@@ -48,6 +48,8 @@ const manifest = {
         {
             plugin: 'hapi-auth-cookie'
         },
+        //TODO: Enable this only in production
+        /*
         {
             plugin: {
                 register: 'crumb',
@@ -56,6 +58,7 @@ const manifest = {
                 }
             }
         },
+        */
         {
             plugin: {
                 register: 'visionary',
@@ -80,7 +83,8 @@ const manifest = {
                         Admin: './server/models/admin',
                         AuthAttempt: './server/models/auth-attempt',
                         Session: './server/models/session',
-                        User: './server/models/user'
+                        User: './server/models/user',
+                        Stat: './server/models/stat'
                     },
                     autoIndex: Config.get('/hapiMongoModels/autoIndex')
                 }
@@ -177,6 +181,12 @@ const manifest = {
         },
         {
             plugin: './server/api/users',
+            options: {
+                routes: { prefix: '/api' }
+            }
+        },
+        {
+            plugin: './server/api/stats',
             options: {
                 routes: { prefix: '/api' }
             }

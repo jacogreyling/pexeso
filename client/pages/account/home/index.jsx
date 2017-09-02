@@ -4,8 +4,9 @@ const React = require('react');
 const Store = require('./store');
 const PropTypes = require('prop-types');
 const Actions = require('./actions');
-const Header = require('./header.jsx');
-const CardList = require('./card-list.jsx');
+const Tiles = require('./tiles.jsx');
+const Board = require('./board.jsx');
+const ClassNames = require('classnames');
 
 
 class HomePage extends React.Component {
@@ -13,12 +14,15 @@ class HomePage extends React.Component {
 
         super(props);
 
+        Actions.getStats();
+
         this.state = Store.getState();
     }
 
     componentDidMount() {
 
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+
     }
 
     componentWillUnmount() {
@@ -35,15 +39,16 @@ class HomePage extends React.Component {
 
         return (
             <section className="section-home container">
-                <div className="row">
-                    <div className="col-sm-12">
-                        <div className="well text-center">
-                            <div className="board container">
-                                <Header round={this.state.memory.round} restart={Actions.restart} />
-                                <CardList cards={this.state.memory.cards} flipCard={Actions.flipCard} />
-                            </div>
-                        </div>
-                    </div>
+                <div className="game">
+
+                    <Board
+                        {...this.state.board}
+                        statistics={this.state.stats}/>
+
+                    <Tiles
+                        {...this.state.tiles}
+                        boardActive={this.state.board.active}
+                        statistics={this.state.stats}/>
                 </div>
             </section>
         );
