@@ -60,29 +60,29 @@ class Statistics extends React.Component {
                 </h2>
                 <ul>
                     <li>
-                        <b>Best Casual:</b>
+                        <b>Best Casual:&nbsp;</b>
                         <span>{this.props.highscores.casual > 0 ? this.props.highscores.casual : '-'}</span>
                     </li>
                     <li>
-                        <b>Best Medium:</b>
+                        <b>Best Medium:&nbsp;</b>
                         <span>{this.props.highscores.medium > 0 ? this.props.highscores.medium : '-'}</span>
                     </li>
                     <li>
-                        <b>Best Hard:</b>
+                        <b>Best Hard:&nbsp;</b>
                         <span>{this.props.highscores.hard > 0 ? this.props.highscores.hard : '-'}</span>
                     </li>
                 </ul>
                 <ul>
                     <li>
-                        <b>Total Flips:</b>
+                        <b>Total Flips:&nbsp;</b>
                         <span>{this.props.flips.total > 0 ? this.props.flips.total : '-'}</span>
                     </li>
                     <li>
-                        <b>Matched Flips:</b>
+                        <b>Matched Flips:&nbsp;</b>
                         <span>{this.props.flips.matched > 0 ? this.props.flips.matched : '-'}</span>
                     </li>
                     <li>
-                        <b>Wrong Flips:</b>
+                        <b>Wrong Flips:&nbsp;</b>
                         <span>{this.props.flips.wrong > 0 ? this.props.flips.wrong : '-'}</span>
                     </li>
                 </ul>

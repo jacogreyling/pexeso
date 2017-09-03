@@ -18,10 +18,6 @@ class Footer extends React.Component {
                     <span className="copyright pull-right">
                         &#169; {year} Acme, Inc.
                     </span>
-                    <ul className="links">
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/contact">Contact</Link></li>
-                    </ul>
                     <div className="clearfix"></div>
                 </div>
             </div>

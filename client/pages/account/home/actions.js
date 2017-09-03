@@ -31,6 +31,7 @@ class Actions {
             Constants.GET_STATS,
             Constants.GET_STATS_RESPONSE, (err, response) => {
                 if (err && err.message === "Not Found") {
+                    
                     // No document found, let's initialize it
                     this.createStats();
                 }

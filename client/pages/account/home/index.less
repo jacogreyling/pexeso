@@ -67,18 +67,8 @@ html, body, #app-mount {height:100%;}
 #g .found{display:inline-block}
 .card{display:inline-block;-webkit-perspective:1000;-moz-perspective:1000;}
 .card:not(.active):hover{opacity:.8}
-
-/* Casual */
-.card .b.casual::before{content:attr(data-f);display:block;font:normal 100px/100px "GeneralFoundicons";
+.card .b::before{content:attr(data-f);display:block;font:normal 100px/100px "GeneralFoundicons";
 position:absolute;top:50%;margin-top:-50px;width:100%;text-align:center}
-
-/* Medium */
-.card .b.medium::before{content:attr(data-f);display:block;font:normal 75px/75px "GeneralFoundicons";
-position:absolute;top:50%;margin-top:-38px;width:100%;text-align:center}
-
-/* Hard */
-.card .b::before{content:attr(data-f);display:block;font:normal 50px/50px "GeneralFoundicons";
-position:absolute;top:50%;margin-top:-25px;width:100%;text-align:center}
 
 /* flip cards */
 .flipper {position:relative;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d}
