@@ -4,8 +4,6 @@ const FluxConstant = require('flux-constant');
 
 
 module.exports = FluxConstant.set([
-    'FLIP_TILE',
-    'ADD_TILE',
     'CHANGE_LOGO',
     'GET_STATS',
     'GET_STATS_RESPONSE',
@@ -15,7 +13,7 @@ module.exports = FluxConstant.set([
     'CREATE_STATS',
     'CREATE_STATS_RESPONSE',
     'START_GAME',
-    'STOP_GAME',
+    'END_GAME',
     'FLIP_CARD',
     'RESET_CARDS'
 ]);

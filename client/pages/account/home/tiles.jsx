@@ -12,8 +12,7 @@ const ClassNames = require('classnames');
 const propTypes = {
     boardActive: PropTypes.bool,
     logo: PropTypes.string,
-    statistics: PropTypes.object,
-    tile: PropTypes.array
+    statistics: PropTypes.object
 };
 
 
@@ -23,16 +22,14 @@ class Tiles extends React.Component {
         super(props);
 
         this.state = {
-            logo: props.logo,
-            tile: props.tile
+            logo: props.logo
         }
     }
 
     componentWillReceiveProps(nextProps) {
 
         this.setState({
-            logo: nextProps.logo,
-            tile: nextProps.tile
+            logo: nextProps.logo
         });
     }
 
@@ -53,11 +50,8 @@ class Tiles extends React.Component {
         return (
             <div className={logoClass}>
             <Tile
-                id={1}
                 position="left"
-                tiles={this.props.tile}
-                twist={false}
-                statistics={true}>
+                twist={false}>
                 <div className="f c1">{logoArray[0]}</div>
                 <div className="b contentbox" id="stats">
                     <Statistics
@@ -66,9 +60,7 @@ class Tiles extends React.Component {
             </Tile>
 
             <Tile
-                id={2}
                 position="right"
-                tiles={this.props.tile}
                 twist={true}>
                 <div className="b f">
                     <div className="c2">{logoArray[1]}</div>
@@ -76,9 +68,7 @@ class Tiles extends React.Component {
             </Tile>
 
             <Tile
-                id={3}
                 position="left"
-                tiles={this.props.tile}
                 twist={false}>
                 <div className="f c3">{logoArray[2]}</div>
                 <div className="b contentbox instructions">
@@ -93,9 +83,7 @@ class Tiles extends React.Component {
             </Tile>
 
             <Tile
-                id={4}
                 position="right"
-                tiles={this.props.tile}
                 twist={false}>
                 <div className="f c4">{logoArray[3]}</div>
                 <div className="b contentbox levels">

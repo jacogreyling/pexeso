@@ -35,7 +35,6 @@ class Statistics extends React.Component {
         });
     }
 
-
     render() {
 
         if (!this.props.hydrated) {

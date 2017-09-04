@@ -6,22 +6,6 @@ const Store = require('./store');
 
 
 class Actions {
-    static flipTile(id) {
-
-        Store.dispatch({
-            type: Constants.FLIP_TILE,
-            id
-        });
-    }
-
-    static addTile(id) {
-
-        Store.dispatch({
-            type: Constants.ADD_TILE,
-            id
-        });
-    }
-
     static getStats() {
 
         ApiActions.get(
@@ -31,7 +15,7 @@ class Actions {
             Constants.GET_STATS,
             Constants.GET_STATS_RESPONSE, (err, response) => {
                 if (err && err.message === "Not Found") {
-                    
+
                     // No document found, let's initialize it
                     this.createStats();
                 }
@@ -103,7 +87,7 @@ class Actions {
 
         // Stop the game
         Store.dispatch({
-            type: Constants.STOP_GAME
+            type: Constants.END_GAME
         });
 
         // Change the logo of the tiles
@@ -113,11 +97,11 @@ class Actions {
         });
     }
 
-    static stopGame(logo) {
+    static endGame(logo) {
 
         // Stop the game
         Store.dispatch({
-            type: Constants.STOP_GAME
+            type: Constants.END_GAME
         });
 
         // Change the logo of the tiles

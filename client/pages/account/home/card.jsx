@@ -112,7 +112,7 @@ class Card extends React.Component {
                 // We've won!
                 if (this.state.pairsToMatch === 0) {
 
-                    Actions.stopGame("nice");
+                    Actions.endGame("nice");
 
                 // Flip it back
                 } else {

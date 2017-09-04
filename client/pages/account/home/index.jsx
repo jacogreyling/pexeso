@@ -38,7 +38,7 @@ class HomePage extends React.Component {
     render() {
 
         return (
-            <section className="section-home container">
+            <section className="section-home container" onClick={() => (void(0))}>
                 <div className="game">
 
                     <Board

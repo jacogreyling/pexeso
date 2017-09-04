@@ -42,6 +42,7 @@ class Cards extends React.Component {
 
     render() {
 
+        // We don't need to pass the full cards array to each individual card
         const properties = Object.assign({}, this.props, {
             cards: undefined});
 

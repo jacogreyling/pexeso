@@ -68,7 +68,7 @@ class Board extends React.Component {
             }
         });
 
-        Actions.stopGame("fail");
+        Actions.endGame("fail");
     }
 
     onKeyPress(e) {
@@ -93,7 +93,7 @@ class Board extends React.Component {
                 }
             });
 
-            Actions.stopGame("flip");
+            Actions.endGame("flip");
         }
 
     }

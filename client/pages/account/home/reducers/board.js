@@ -154,7 +154,7 @@ const reducer = function (state = initialState, action) {
         })
     }
 
-    if (action.type === Constants.STOP_GAME) {
+    if (action.type === Constants.END_GAME) {
 
         return ObjectAssign({}, state, {
             active: false,
