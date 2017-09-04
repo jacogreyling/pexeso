@@ -6,7 +6,10 @@ const PropTypes = require('prop-types');
 const Actions = require('./actions');
 const Tiles = require('./tiles.jsx');
 const Board = require('./board.jsx');
-const ClassNames = require('classnames');
+const ReactHelmet = require('react-helmet');
+
+
+const Helmet = ReactHelmet.Helmet;
 
 
 class HomePage extends React.Component {
@@ -39,6 +42,9 @@ class HomePage extends React.Component {
 
         return (
             <section className="section-home container" onClick={() => (void(0))}>
+                <Helmet>
+                    <title>Home</title>
+                </Helmet>
                 <div className="game">
 
                     <Board

@@ -25,12 +25,12 @@ class AboutPage extends React.Component {
                                 </div>
                             </div>
                             <div className="media-body">
-                                <h4 className="media-heading">Leo Damon</h4>
+                                <h4 className="media-heading">Jaco Greyling</h4>
                                 <p>
-                                    Pork belly salvia tilde chia freegan four
-                                    loko. Fingerstache microdosing succulents
-                                    VHS venmo green juice wolf leggings hoodie
-                                    shabby chic direct trade flannel.
+                                    CTO Enterprise DevOps
+                                </p>
+                                <p>
+                                    <em>"The Developer"</em>
                                 </p>
                             </div>
                         </div>
@@ -42,13 +42,12 @@ class AboutPage extends React.Component {
                                 </div>
                             </div>
                             <div className="media-body">
-                                <h4 className="media-heading">Mathew DiCaprio</h4>
+                                <h4 className="media-heading">Charl-Andrian Klein</h4>
                                 <p>
-                                    Seitan cloud bread messenger bag small
-                                    batch. Green juice 90s banjo activated
-                                    charcoal wolf. Subway tile scenester
-                                    shoreditch, quinoa edison bulb kogi
-                                    microdosing cliche DIY tumeric meh.
+                                    Senior Consultant - DevOps
+                                </p>
+                                <p>
+                                    <em>"The Ops Guy"</em>
                                 </p>
                             </div>
                         </div>
@@ -60,23 +59,24 @@ class AboutPage extends React.Component {
                                 </div>
                             </div>
                             <div className="media-body">
-                                <h4 className="media-heading">Nick Jackson</h4>
+                                <h4 className="media-heading">Michael Brink</h4>
                                 <p>
-                                    Salvia man braid four dollar toast
-                                    chicharrones, selvage hell of selfies.
-                                    Try-hard crucifix cray freegan, viral
-                                    fingerstache aesthetic. Cronut butcher
-                                    irony brooklyn kitsch thundercats.
+                                    Solution Strategist
+                                </p>
+                                <p>
+                                    <em>"The Architect"</em>
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div className="col-sm-6 text-center">
-                        <h1 className="page-header">Prestige worldwide</h1>
+                        <h1 className="page-header">GitHub</h1>
                         <p className="lead">
-                            The first name in entertainment.
+                            Fork this project on Github and help us build Pexeso!
                         </p>
-                        <i className="fa fa-volume-up bamf"></i>
+                        <a href="https://github.com/jacogreyling/pexeso" target="_blank">
+                            <img height="300" width="300" src="/public/media/github.png" />
+                        </a>
                     </div>
                 </div>
             </section>

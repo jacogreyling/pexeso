@@ -6,6 +6,10 @@ const PasswordForm = require('./password-form.jsx');
 const React = require('react');
 const Store = require('./store');
 const UserForm = require('./user-form.jsx');
+const ReactHelmet = require('react-helmet');
+
+
+const Helmet = ReactHelmet.Helmet;
 
 
 class SettingsPage extends React.Component {
@@ -38,6 +42,9 @@ class SettingsPage extends React.Component {
 
         return (
             <section className="container">
+                <Helmet>
+                    <title>Settings</title>
+                </Helmet>
                 <h1 className="page-header">Account settings</h1>
                 <div className="row">
                     <div className="col-sm-6">
