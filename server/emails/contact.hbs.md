@@ -6,6 +6,6 @@
 | Email:   | {{email}}   |
 | Message: | {{message}} |
 
-Love,
+Cheers,
 
-The Plot Device
+The CA Southern Africa Team

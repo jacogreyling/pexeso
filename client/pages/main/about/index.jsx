@@ -64,7 +64,7 @@ class AboutPage extends React.Component {
                                     Solution Strategist
                                 </p>
                                 <p>
-                                    <em>"The Architect"</em>
+                                    <em>"The API Guy"</em>
                                 </p>
                             </div>
                         </div>
@@ -72,11 +72,12 @@ class AboutPage extends React.Component {
                     <div className="col-sm-6 text-center">
                         <h1 className="page-header">GitHub</h1>
                         <p className="lead">
-                            Fork this project on Github and help us build Pexeso!
+                            Fork&nbsp;
+                            <a href="https://github.com/jacogreyling/pexeso" target="_blank">
+                                this
+                            </a>&nbsp;project on Github and help us build Pexeso!
                         </p>
-                        <a href="https://github.com/jacogreyling/pexeso" target="_blank">
-                            <img height="300" width="300" src="/public/media/github.png" />
-                        </a>
+                        <img height="300" width="300" src="/public/media/github.png" />
                     </div>
                 </div>
             </section>

@@ -12,7 +12,7 @@ class Footer extends React.Component {
             <div className="footer">
                 <div className="container">
                     <span className="copyright pull-right">
-                        &#169; {year} Acme, Inc.
+                        &#169; {year} CA Southern Africa
                     </span>
                 </div>
             </div>
