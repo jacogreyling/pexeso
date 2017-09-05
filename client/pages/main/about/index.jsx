@@ -77,7 +77,10 @@ class AboutPage extends React.Component {
                                 this
                             </a>&nbsp;project on Github and help us build Pexeso!
                         </p>
-                        <img height="300" width="300" src="/public/media/github.png" />
+                        <a href="https://github.com/jacogreyling/pexeso" target="_blank">
+                            <img height="300" width="300" src="https://s3.eu-west-2.amazonaws.com/pexeso.io/public/Github.png" 
+                                 alt="Fork this project on Github and help us build pexeso" />
+                        </a>
                     </div>
                 </div>
             </section>
