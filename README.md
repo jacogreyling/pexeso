@@ -153,3 +153,5 @@ MIT
 A special thanks goes out to Reza Akhavan from [Aqua](https://github.com/jedireza/aqua) who created the boilerplate project with built-in registration, user management and more!
 
 The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the Pexeso development team.
+
+The Server side Startup script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for AWS environment.
