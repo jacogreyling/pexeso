@@ -42,17 +42,19 @@ const reducer = function (state = initialState, action) {
         }
 
         // Create the cards
-        for (let i = 0; i < number; i+=2) {
+        let code = null, count = 0;
+        for (let i = 0; i < number; i += 2) {
             let index = Math.floor(Math.random() * 10000);
 
             // Define the image to match
-            let code = i;
-            if (code < 10) {
-                code = "0" + code;
-            } else if (code == 30) {
-                code = 10;
-            } else if (code == 31) {
-                code = 21;
+            if (count < 10) {
+                code = "0" + count;
+            } else if (count == 30) {
+                code = "1a";
+            } else if (count == 31) {
+                code = "1d";
+            } else {
+                code = count;
             }
             const unicode = "0xf0" + code;
 
@@ -71,6 +73,8 @@ const reducer = function (state = initialState, action) {
                 discovered : false,
                 data: String.fromCharCode(unicode)
             });
+
+            count++;
         }
 
         return ObjectAssign({}, initialState, {
