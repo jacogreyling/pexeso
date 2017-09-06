@@ -47,7 +47,7 @@ html, body, #app-mount {
 	text-decoration: none;
 	text-transform: uppercase;
 }
-.flipper a:hover {
+.flipper a:hover, .flipper a:focus {
 	background: rgba(255, 255, 255, .1);
 	color: #fff;
 }
@@ -232,6 +232,12 @@ html, body, #app-mount {
 	width: 100%;
 }
 
+#g.medium .card .b::before {
+	font-size: 80px;
+}
+#g.hard .card .b::before {
+	font-size: 60px;
+}
 
 /* flip cards */
 .flipper {
