@@ -75,7 +75,7 @@ class AboutPage extends React.Component {
                             Fork&nbsp;
                             <a href="https://github.com/jacogreyling/pexeso" target="_blank">
                                 this
-                            </a>&nbsp;project on Github and help us build Pexeso!
+                            </a>&nbsp;project on Github and help us build pexeso!
                         </p>
                         <img height="300" width="300" src="public/media/github.png" 
                              alt="Fork this project on Github and help us build pexeso" />
