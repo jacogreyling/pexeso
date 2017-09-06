@@ -1,6 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/jacogreyling/pexeso.png?label=ready&title=Ready)](https://waffle.io/jacogreyling/pexeso?utm_source=badge)
 
-# Pexeso
+# pexeso
 
 A memory card game that will test your wits! How many rounds can you complete in 90 seconds?! Remember each round is harder than the previous. It also includes user registration and a leaderboard for those who dare to compete!
 
@@ -152,4 +152,6 @@ MIT
 
 A special thanks goes out to Reza Akhavan from [Aqua](https://github.com/jedireza/aqua) who created the boilerplate project with built-in registration, user management and more!
 
-The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the Pexeso development team.
+The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the pexeso development team.
+
+The Server side Startup script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for AWS environment.

@@ -55,7 +55,7 @@ class Navbar extends React.Component {
                                 className="navbar-logo"
                                 src="/public/media/logo-square-inverse.png"
                             />
-                            <span className="navbar-brand-label">Pexeso</span>
+                            <span className="navbar-brand-label">pexeso</span>
                         </Link>
                         <button
                             className="navbar-toggle collapsed"

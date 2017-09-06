@@ -40,14 +40,14 @@ html, body, #app-mount {
 .flipper a {
 	color: #fff;
 	display: block;
-	font: bold 18px/75px 'Open Sans', 'Helvetica Neue';
+	font: bold 18px/75px Arial, Helvetica, sans-serif;
 	margin: 0 1px;
 	padding: 0;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
 }
-.flipper a:hover {
+.flipper a:hover, .flipper a:focus {
 	background: rgba(255, 255, 255, .1);
 	color: #fff;
 }
@@ -87,21 +87,21 @@ html, body, #app-mount {
 	margin-left: -100%;
 }
 .logo .f {
-	font: normal 130px/225px 'Open Sans', 'Helvetica Neue';
+	font: normal 130px/225px Arial, Helvetica, sans-serif;
 	text-align: center;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 .logo .c2 {
-	-moz-transform: scale(-1, 1);
+	/*-moz-transform: scale(-1, 1);
 	-ms-transform: scale(-1, 1);
 	-webkit-transform: scale(-1, 1);
-	transform: scale(-1, 1);
+	transform: scale(-1, 1);*/
 }
 .logo .hidden {
 	display: none;
 }
 .logo .contentbox {
-	font: normal 12px/16px 'Open Sans', 'Helvetica Neue';
+	font: normal 12px/16px Arial, Helvetica, sans-serif;
 	text-align: left;
 	width: 200%;
 }
@@ -123,7 +123,7 @@ html, body, #app-mount {
 }
 #stats h2 i {
 	color: rgba(255,255,255, .4);
-	font: italic normal 9px/8px 'Open Sans', 'Helvetica Neue';
+	font: italic normal 9px/8px Arial, Helvetica, sans-serif;
 	margin-right: 10px;
 	vertical-align: top;
 }
@@ -232,6 +232,12 @@ html, body, #app-mount {
 	width: 100%;
 }
 
+#g.medium .card .b::before {
+	font-size: 80px;
+}
+#g.hard .card .b::before {
+	font-size: 60px;
+}
 
 /* flip cards */
 .flipper {
@@ -344,7 +350,7 @@ html, body, #app-mount {
 		width: 300px;
 	}
 	.logo .f {
-		font: normal 80px/150px 'Open Sans', 'Helvetica Neue';
+		font: normal 80px/150px Arial, Helvetica, sans-serif;
 	}
 	.logo .contentbox h2 {
 		font-size: 16px;

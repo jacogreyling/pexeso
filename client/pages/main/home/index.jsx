@@ -21,7 +21,7 @@ class HomePage extends React.Component {
         return (
             <section className="section-home container" onClick={() => (void(0))}>
                 <Helmet>
-                    <title>Pexeso</title>
+                    <title>pexeso</title>
                 </Helmet>
                 <div className="home">
                     <div className="logo">
@@ -31,7 +31,7 @@ class HomePage extends React.Component {
                                 <div className="f c1">p</div>
                                 <div className="b contentbox levels">
                                     <Link to="/login">
-                                        Play
+                                        Login
                                     </Link>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@ class HomePage extends React.Component {
                                 <div className="f c3">x</div>
                                 <div className="b contentbox levels">
                                     <Link to="/signup">
-                                        Signup
+                                        Sign-up
                                     </Link>
                                 </div>
                             </div>

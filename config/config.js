@@ -12,7 +12,7 @@ const criteria = {
 
 
 const config = {
-    projectName: 'Pexeso',
+    projectName: 'pexeso',
     port: {
         web: {
             $filter: 'env',
