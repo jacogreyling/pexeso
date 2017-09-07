@@ -1,5 +1,5 @@
 module.exports = function(data) {
-    const elapsed = (new Date() - data.timestamp) / 1000;
+    const elapsed = Math.round((new Date() - data.timestamp) / 1000);
 
     let score = 0;
     switch(data.level) {
