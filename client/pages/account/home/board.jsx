@@ -93,7 +93,7 @@ class Board extends React.Component {
                 }
             });
 
-            Actions.endGame("flip");
+            Actions.endGame("stop");
         }
 
     }

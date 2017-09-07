@@ -43,7 +43,7 @@ class HomePage extends React.Component {
         return (
             <section className="section-home container" onClick={() => (void(0))}>
                 <Helmet>
-                    <title>Home</title>
+                    <title>Account</title>
                 </Helmet>
                 <div className="game">
 
