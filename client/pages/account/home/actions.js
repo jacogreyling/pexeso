@@ -73,18 +73,18 @@ class Actions {
         let highscore = 0;
         switch(data.level) {
             case "casual":
-                highscore = (data.score > stats.highscores.casual) ?
-                    data.score :
+                highscore = (score > stats.highscores.casual) ?
+                    score :
                     stats.highscores.casual;
                 break;
             case "medium":
-                highscore = (data.score > stats.highscores.medium) ?
-                    data.score :
+                highscore = (score > stats.highscores.medium) ?
+                    score :
                     stats.highscores.medium;
                 break;
             case "hard":
-                highscore = (data.score > stats.highscores.hard) ?
-                    data.score :
+                highscore = (score > stats.highscores.hard) ?
+                    score :
                     stats.highscores.hard;
                 break;
             default:
@@ -149,9 +149,12 @@ class Actions {
 
     static startGame(level) {
 
+        const timeNow = new Date();
+
         Store.dispatch({
             type: Constants.START_GAME,
-            level
+            level,
+            timeNow
         });
     }
 

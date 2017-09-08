@@ -22,7 +22,7 @@ const propTypes = {
     pairsToMatch: PropTypes.number,
     round: PropTypes.number,
     status: PropTypes.string,
-    timestamp: PropTypes.instanceOf(Date)
+    timestamp: PropTypes.string
 };
 
 

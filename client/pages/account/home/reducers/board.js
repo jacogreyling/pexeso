@@ -34,7 +34,7 @@ const reducer = function (state = initialState, action) {
                 break;
             case "medium":
                 number = 36;
-                pairsToMatch = 16;
+                pairsToMatch = 18;
                 break;
             case "hard":
                 number = 64;
@@ -63,14 +63,14 @@ const reducer = function (state = initialState, action) {
 
             cards.push({
                 id : i,
-                rel : i+1,
+                rel : i + 1,
                 flipped : false,
                 discovered : false,
                 data: String.fromCharCode(unicode)
             });
 
             cards.push({
-                id : i+1,
+                id : i + 1,
                 rel : i,
                 flipped : false,
                 discovered : false,
@@ -85,10 +85,9 @@ const reducer = function (state = initialState, action) {
             status: "in-progress",
             pairsToMatch: pairsToMatch,
             level: action.level,
-            //cards: Shuffle(cards),
-            cards: cards,
+            cards: Shuffle(cards),
             cardSize: 100/Math.sqrt(number),
-            timestamp: new Date()
+            timestamp: action.timeNow
         });
     }
 

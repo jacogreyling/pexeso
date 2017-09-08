@@ -36,7 +36,7 @@ class Card extends React.Component {
 
                     Actions.resetCards();
                 }
-            }, 500);
+            }, 401); // Timeout for 'active' cards
         }
 
     }

@@ -75,9 +75,9 @@ class Tiles extends React.Component {
                 <div className="b contentbox instructions">
                     <div className="padded">
                         <h2>Instructions</h2>
-                        <p>Click the 'P' tile to select a level to play. Press [ESC] in-game to abandon the game.</p>
+                        <p>Click the 'P' tile to select a level to play. Press [ESC] in game to abandon the game.</p>
                         <p>Click the gray cards to see what symbol they uncover and try to find the matching symbol underneath the other cards.</p>
-                        <p>Uncover two matching symbols at once to eliminate them from the game.</p>
+                        <p>Uncover two matching symbols to eliminate them from the game.</p>
                         <p>Eliminate all cards as fast as you can to win the game.</p>
                     </div>
                 </div>
