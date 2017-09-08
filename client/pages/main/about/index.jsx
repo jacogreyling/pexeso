@@ -73,11 +73,12 @@ class AboutPage extends React.Component {
                         <h1 className="page-header">GitHub</h1>
                         <p className="lead">
                             Fork&nbsp;
-                            <a href="https://github.com/jacogreyling/pexeso" target="_blank">
+                            <a href="https://github.com/jacogreyling/pexeso"
+                                style={{outline: '0'}} target="_blank">
                                 this
                             </a>&nbsp;project on Github and help us build pexeso!
                         </p>
-                        <img height="250" width="250" src="public/media/github.png" 
+                        <img height="250" width="250" src="public/media/github.png"
                              alt="Fork this project on Github and help us build pexeso" />
                     </div>
                 </div>

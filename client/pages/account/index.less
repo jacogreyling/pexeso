@@ -25,9 +25,10 @@ select, textarea, input, .form-control {
         .navbar-logo {
             position: relative;
             display: inline-block;
-            top: -4px;
+            top: -5px;
             height: 32px;
             width: 32px;
+            /*vertical-align: initial;*/
         }
     }
 
@@ -174,3 +175,71 @@ a:hover, a:focus {
 }
 
 /* End of styling */
+
+/* Used for the waffle.io icon */
+@font-face {
+    font-family: "icomoon";
+    src: url("/public/media/fonts/icomoon.eot");
+    src: url("/public/media/fonts/icomoon.eot?#iefix") format("embedded-opentype"),
+         url("/public/media/fonts/icomoon.woff") format("woff"),
+         url("/public/media/fonts/icomoon.ttf") format("truetype"),
+         url("/public/media/fonts/icomoon.svg#icomoon") format("svg");
+    font-weight:400;
+    font-style:normal;
+}
+[class*=" ico-"],[class^=ico-] {
+ font-family:icomoon;
+ speak:none;
+ font-style:normal;
+ font-weight:400;
+ font-variant:normal;
+ text-transform:none;
+ line-height:1;
+ display:inline-block;
+ -webkit-font-smoothing:antialiased;
+}
+.ico-logo:before {
+ content:"\E600"
+}
+.nav-list-icon {
+    font-size: 28px;
+    line-height: 50px;
+    padding: 0 15px;
+    vertical-align: middle;
+    text-align: center;
+    width: 40px;
+    color: #000;
+    outline: 0;
+    width: 50px;
+}
+.navbar-nav .nav-list-icon span {
+    font-size: 13px;
+    line-height: 20px;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    padding-top: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: Arial,Helvetica,sans-serif;
+    text-decoration: none;
+    color: #777;
+}
+@media all and (max-width: 768px) and (min-width: 0px) {
+    .ico-logo:before {
+        display: none;
+    };
+    .navbar-nav > li > a.nav-list-icon{
+        width: 100%;
+        text-align: left;
+    }
+    .navbar-nav .nav-list-icon span {
+        padding: 0px;
+    }
+}
+@media all and (min-width: 768px) {
+    .navbar-nav .nav-list-icon span {
+        display: none;
+    }
+}
