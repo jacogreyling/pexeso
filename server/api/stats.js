@@ -152,7 +152,8 @@ internals.applyRoutes = function (server, next) {
                 $set: {
                     figures: request.payload.figures,
                     highscores: request.payload.highscores,
-                    flips: request.payload.flips
+                    flips: request.payload.flips,
+                    lastPlayed: new Date()
                 }
             };
 

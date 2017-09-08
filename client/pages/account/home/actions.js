@@ -3,6 +3,7 @@
 const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
 const Store = require('./store');
+const CalculateScore = require('../../../helpers/calculate-score');
 
 
 class Actions {
@@ -25,7 +26,7 @@ class Actions {
 
     static createStats() {
 
-        // We need to create this object to update the database
+        // We need to create this 'empty' object to update the database
         const data = {
             figures: {
                 won: 0,
@@ -55,24 +56,95 @@ class Actions {
 
     static updateStats(data) {
 
-        // Commit changes to the database
-        if (['won', 'lost', 'abandoned'].indexOf(data.status) > -1) {
+        // Retrieve the global state
+        const stats = Store.getState().stats;
 
-            ApiActions.put(
-                '/api/stats/my',
-                data.statistics,
-                Store,
-                Constants.SAVE_STATS,
-                Constants.SAVE_STATS_RESPONSE
-            );
-        } else {
-
-            // Just update the internal state (cache)
-            Store.dispatch({
-                type: Constants.UPDATE_STATS,
-                stats: data.statistics
+        // Calculate the score for this game
+        let score = 0;
+        if (data.status === "won") {
+            score = CalculateScore({
+                level: data.level,
+                flips: data.flips,
+                start: data.timestamp
             });
         }
+
+        // Calculate highscore
+        let highscore = 0;
+        switch(data.level) {
+            case "casual":
+                highscore = (data.score > stats.highscores.casual) ?
+                    data.score :
+                    stats.highscores.casual;
+                break;
+            case "medium":
+                highscore = (data.score > stats.highscores.medium) ?
+                    data.score :
+                    stats.highscores.medium;
+                break;
+            case "hard":
+                highscore = (data.score > stats.highscores.hard) ?
+                    data.score :
+                    stats.highscores.hard;
+                break;
+            default:
+                // Do nothing
+        }
+
+        // Build new statistics object (state)
+        const newStats = {
+            figures: {
+                won: data.status === "won" ?
+                    stats.figures.won + 1 :
+                    stats.figures.won,
+                lost: data.status === "lost" ?
+                    stats.figures.lost + 1 :
+                    stats.figures.lost,
+                abandoned: data.status === "abandoned" ?
+                    stats.figures.abandoned + 1 :
+                    stats.figures.abandoned
+            },
+            highscores: {
+                casual: data.level === "casual" ?
+                    highscore :
+                    stats.highscores.casual,
+                medium: data.level === "medium" ?
+                    highscore :
+                    stats.highscores.medium,
+                hard: data.level === "hard" ?
+                    highscore :
+                    stats.highscores.hard
+            },
+            flips: {
+                total: (isNaN(stats.flips.total) ?
+                    0 :
+                    stats.flips.total) + ((isNaN(data.flips.total) ||
+                    (typeof data.flips.total === 'undefined')) ?
+                        0 :
+                        data.flips.total),
+                matched: (isNaN(stats.flips.matched) ?
+                    0 :
+                    stats.flips.matched) + ((isNaN(data.flips.matched) ||
+                    (typeof data.flips.matched === 'undefined')) ?
+                        0 :
+                        data.flips.matched),
+                wrong: (isNaN(stats.flips.wrong) ?
+                    0 :
+                    stats.flips.wrong) + ((isNaN(data.flips.wrong) ||
+                    (typeof data.flips.wrong === 'undefined')) ?
+                        0 :
+                        data.flips.wrong)
+            }
+        }
+
+        // Update the database
+        ApiActions.put(
+            '/api/stats/my',
+            newStats,
+            Store,
+            Constants.SAVE_STATS,
+            Constants.SAVE_STATS_RESPONSE
+        );
     }
 
     static startGame(level) {
@@ -83,35 +155,43 @@ class Actions {
         });
     }
 
-    static cancelGame() {
+    static changeLogo(logo) {
 
-        // Stop the game
-        Store.dispatch({
-            type: Constants.END_GAME
-        });
-
-        // Change the logo of the tiles
-        Store.dispatch({
-            type: Constants.CHANGE_LOGO,
-            logo: "flip"
-        });
-    }
-
-    static endGame(logo) {
-
-        // Stop the game
-        Store.dispatch({
-            type: Constants.END_GAME
-        });
-
-        // Change the logo of the tiles
+        // Change the logo, in the tiles reducer
         Store.dispatch({
             type: Constants.CHANGE_LOGO,
             logo
         });
     }
 
+    static endGame() {
+
+        // Stop the game, in the board reducer
+        Store.dispatch({
+            type: Constants.END_GAME
+        });
+    }
+
+    static gameStatisticsSaved() {
+
+        // Finished processing the statistics, reset status
+        Store.dispatch({
+            type: Constants.UPDATE_HYDRATED
+        });
+    }
+
+    static endGameAndUpdateStatus(status) {
+
+        // Finished processing the statistics, reset status
+        Store.dispatch({
+            type: Constants.END_GAME_UPDATE_STATUS,
+            status
+        });
+    }
+
     static flipCard(id) {
+
+        //TODO: Move the business logic from the reducer to here
 
         Store.dispatch({
             type: Constants.FLIP_CARD,

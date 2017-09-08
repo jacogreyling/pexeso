@@ -7,40 +7,23 @@ const React = require('react');
 
 const propTypes = {
     _id: PropTypes.string,
-    statsAvailable: PropTypes.bool,
     figures: PropTypes.object,
-    highscores: PropTypes.object,
     flips: PropTypes.object,
+    highscores: PropTypes.object,
+    hydrated: PropTypes.bool,
+    showFetchFailure: PropTypes.bool,
+    statsAvailable: PropTypes.bool
 };
 
 
 class Statistics extends React.Component {
-    constructor(props) {
-
-        super(props);
-
-        this.state = {
-            figures: props.figures,
-            highscores: props.highscores,
-            flips: props.flips
-        };
-    }
-
-    componentWillReceiveProps(nextProps) {
-
-        this.setState({
-            figures: nextProps.figures,
-            highscores: nextProps.highscores,
-            flips: nextProps.flips
-        });
-    }
 
     render() {
 
         if (!this.props.hydrated) {
             return (
                 <div className="loading padded">
-                    <h3>Loading statistics...</h3>
+                    <h4>Loading statistics...</h4>
                 </div>
             );
         }

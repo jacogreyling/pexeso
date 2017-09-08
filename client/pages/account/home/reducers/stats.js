@@ -9,7 +9,6 @@ const initialState = {
     showFetchFailure: false,
     statsAvailable: false,
     _id: undefined,
-    status: undefined,
     figures: {
         won: undefined,
         lost: undefined,
@@ -50,7 +49,6 @@ const reducer = function (state = initialState, action) {
             hydrated: true,
             showFetchFailure: !!action.err,
             _id: action.response._id,
-            status: undefined,
             figures: action.response.figures,
             highscores: action.response.highscores,
             flips: action.response.flips
@@ -78,21 +76,9 @@ const reducer = function (state = initialState, action) {
             hydrated: true,
             showFetchFailure: !!action.err,
             _id: action.response._id,
-            status: undefined,
             figures: action.response.figures,
             highscores: action.response.highscores,
             flips: action.response.flips
-        });
-    }
-
-    if (action.type === Constants.UPDATE_STATS) {
-
-        return ObjectAssign({}, state, {
-            hydrated: true,
-            status: action.stats.status,
-            figures: action.stats.figures,
-            highscores: action.stats.highscores,
-            flips: action.stats.flips
         });
     }
 
@@ -108,16 +94,15 @@ const reducer = function (state = initialState, action) {
         if (action.err) {
             return ObjectAssign({}, state, {
                 hydrated: true,
-                showFetchedFailure: true,
+                showFetchFailure: true,
                 statsAvailable: false
             })
         }
-        
+
         return ObjectAssign({}, state, {
             hydrated: true,
             showFetchFailure: !!action.err,
             _id: action.response._id,
-            status: undefined,
             figures: action.response.figures,
             highscores: action.response.highscores,
             flips: action.response.flips

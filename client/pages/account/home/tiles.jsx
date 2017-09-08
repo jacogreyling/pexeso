@@ -10,7 +10,7 @@ const ClassNames = require('classnames');
 
 
 const propTypes = {
-    boardActive: PropTypes.bool,
+    active: PropTypes.bool,
     logo: PropTypes.string,
     statistics: PropTypes.object
 };
@@ -22,19 +22,20 @@ class Tiles extends React.Component {
         super(props);
 
         this.state = {
-            logo: props.logo
+            active: props.active
         }
     }
 
     componentWillReceiveProps(nextProps) {
 
         this.setState({
-            logo: nextProps.logo
+            active: nextProps.active
         });
     }
 
     startGame(level) {
 
+        // Let the games begin!
         Actions.startGame(level);
     }
 
@@ -42,7 +43,7 @@ class Tiles extends React.Component {
 
         const logoClass = ClassNames({
             'logo' : true,
-            'hidden' : this.props.boardActive
+            'hidden' : this.props.active
         });
 
         const logoArray = this.props.logo.split('');
@@ -77,7 +78,7 @@ class Tiles extends React.Component {
                         <p>Click the 'P' tile to select a level to play. Press [ESC] in-game to abandon the game.</p>
                         <p>Click the gray cards to see what symbol they uncover and try to find the matching symbol underneath the other cards.</p>
                         <p>Uncover two matching symbols at once to eliminate them from the game.</p>
-                        <p>Eliminate all cards as fast as you can to win the game. Have fun!</p>
+                        <p>Eliminate all cards as fast as you can to win the game.</p>
                     </div>
                 </div>
             </Tile>
