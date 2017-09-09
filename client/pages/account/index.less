@@ -28,7 +28,6 @@ select, textarea, input, .form-control {
             top: -5px;
             height: 32px;
             width: 32px;
-            /*vertical-align: initial;*/
         }
     }
 
@@ -184,14 +183,12 @@ a:hover, a:focus {
          url("/public/media/fonts/icomoon.woff") format("woff"),
          url("/public/media/fonts/icomoon.ttf") format("truetype"),
          url("/public/media/fonts/icomoon.svg#icomoon") format("svg");
-    font-weight:400;
+    font-weight:normal;
     font-style:normal;
 }
 [class*=" ico-"],[class^=ico-] {
  font-family:icomoon;
  speak:none;
- font-style:normal;
- font-weight:400;
  font-variant:normal;
  text-transform:none;
  line-height:1;
@@ -213,18 +210,24 @@ a:hover, a:focus {
     width: 50px;
 }
 .navbar-nav .nav-list-icon span {
+    color: #777;
     font-size: 13px;
     line-height: 20px;
     position: relative;
     display: block;
     padding: 10px 15px;
-    padding-top: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     font-family: Arial,Helvetica,sans-serif;
     text-decoration: none;
-    color: #777;
+    -webkit-font-smoothing: auto;
+    -webkit-font-kerning: auto;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.navbar-nav .nav-list-icon span:hover {
+    color: #333;
+    background-color: transparent;
+    outline-offset: -2px;
+    outline: 0;
 }
 @media all and (max-width: 768px) and (min-width: 0px) {
     .ico-logo:before {
