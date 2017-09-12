@@ -80,12 +80,14 @@ const reducer = function (state = initialState, action) {
             count += 1;
         }
 
+        //If users' browser is using localhost
+        // Assumption is that the User is a Developer - Do not shuffle the cards
         return ObjectAssign({}, initialState, {
             active: true,
             status: "in-progress",
             pairsToMatch: pairsToMatch,
             level: action.level,
-            cards: Shuffle(cards),
+            cards: (window.location.hostname == "localhost") ? cards : Shuffle(cards),
             cardSize: 100/Math.sqrt(number),
             timestamp: action.timeNow
         });
