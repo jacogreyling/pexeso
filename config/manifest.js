@@ -114,6 +114,12 @@ const manifest = {
             }
         },
         {
+            plugin: 'hapi-io'
+        },
+        {
+            plugin: './server/telemetry'
+        },
+        {
             plugin: './server/auth'
         },
         {
@@ -187,6 +193,12 @@ const manifest = {
         },
         {
             plugin: './server/api/stats',
+            options: {
+                routes: { prefix: '/api' }
+            }
+        },
+        {
+            plugin: './server/api/monitor',
             options: {
                 routes: { prefix: '/api' }
             }

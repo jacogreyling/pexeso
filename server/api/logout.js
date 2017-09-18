@@ -40,6 +40,14 @@ internals.applyRoutes = function (server, next) {
                     return reply(Boom.notFound('Document not found.'));
                 }
 
+                // Get the socket.io object
+                const io = request.plugins['hapi-io'].io;
+
+                // Successfully logged out, decrement the login count
+                io.emit('logged_in', {
+                    count: -1
+                });
+
                 request.cookieAuth.clear();
 
                 reply({ success: true });

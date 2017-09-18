@@ -22,7 +22,6 @@ const propTypes = {
     pairsToMatch: PropTypes.number,
     round: PropTypes.number,
     status: PropTypes.string,
-    timestamp: PropTypes.string
 };
 
 
@@ -32,9 +31,15 @@ class Board extends React.Component {
         super(props);
 
         this.state = {
+            active: props.active,
             status: props.status
         }
 
+    }
+
+    componentDidMount() {
+
+        window.addEventListener("beforeunload", (e) => this.handleWindowClose(e));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -56,6 +61,7 @@ class Board extends React.Component {
         }
 
         this.setState({
+            active: nextProps.active,
             status: nextProps.status
         });
     }
@@ -77,12 +83,12 @@ class Board extends React.Component {
         Actions.endGameAndUpdateStatus(status);
     }
 
-    onKeyPress(e) {
+    abandonActiveGame(activeState) {
 
-        const status = "abandoned";
+        // If we're still in the game whilst exiting
+        if (activeState) {
 
-        // If Escape is pressed
-        if(e.keyCode === 27) {
+            const status = "abandoned";
 
             // Update the statistics
             Actions.updateStats({
@@ -96,6 +102,28 @@ class Board extends React.Component {
             Actions.changeLogo("stop");
             Actions.endGameAndUpdateStatus(status);
         }
+    }
+
+    onKeyPress(e) {
+
+        // If Escape is pressed
+        if (e.keyCode === 27) {
+
+            this.abandonActiveGame(this.state.active);
+        }
+    }
+
+    handleWindowClose(e) {
+
+        this.abandonActiveGame(this.state.active);
+    }
+
+    componentWillUnmount() {
+
+        this.abandonActiveGame(this.state.active);
+
+        // Remove the event handler
+        window.removeEventListener('onbeforeunload', (e) => this.handleWindowClose(e));
     }
 
     render() {

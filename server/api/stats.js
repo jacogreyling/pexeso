@@ -140,7 +140,8 @@ internals.applyRoutes = function (server, next) {
                         total: Joi.number().integer(),
                         matched: Joi.number().integer(),
                         wrong: Joi.number().integer()
-                    })
+                    }),
+                    status: Joi.string()
                 }
             }
         },
@@ -165,8 +166,6 @@ internals.applyRoutes = function (server, next) {
 
                 reply(stat);
             });
-
-
         }
     });
 

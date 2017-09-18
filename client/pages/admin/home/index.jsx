@@ -2,106 +2,145 @@
 
 const React = require('react');
 const Moment = require('moment');
+const io = require('socket.io-client');
+const Actions = require('./actions');
+const Store = require('./store');
+const ReactFitText = require('react-fittext');
 
+let socket;
 
 class HomePage extends React.Component {
     constructor(props) {
 
         super(props);
 
-        this.state = this.getThisMoment();
+        // Retrieve the registered users
+        Actions.getUserCount();
+
+        // Retrieve logged in users
+        Actions.getSessionCount();
+
+        // Retrieve the telemetry statistics
+        Actions.getAllStatistics();
+
+
+        this.state = Store.getState();
     }
 
     componentDidMount() {
 
-        this.interval = setInterval(this.refreshTime.bind(this), 1000);
+        this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+
+        // Connect to socket.io on the same hostname and port number from the server
+        socket = io.connect(window.location.hostname + ':' + window.location.port);
+
+        // Let's create all our socket listeners!
+        socket.on('logged_in', (res) => {
+
+            Actions.updateSessionCount(res);
+        });
+
+        socket.on('new_user', (res) => {
+
+            Actions.updateActiveUserCount(res);
+        });
+
+        socket.on('statistics', (res) => {
+
+            Actions.updateGameStatistics(res);
+        });
+
+        socket.on('api_calls', (res) => {
+
+            Actions.updateApiStatistics(res);
+        });
     }
 
     componentWillUnmount() {
 
-        clearInterval(this.interval);
+        this.unsubscribeStore();
+
+        socket.disconnect();
     }
 
-    refreshTime() {
+    onStoreChange() {
 
-        this.setState(this.getThisMoment());
-    }
-
-    getThisMoment() {
-
-        const thisMoment = Moment();
-
-        return {
-            second: thisMoment.format('ss'),
-            minute: thisMoment.format('mm'),
-            hour: thisMoment.format('HH'),
-            day: thisMoment.format('DD'),
-            month: thisMoment.format('MM'),
-            year: thisMoment.format('YYYY')
-        };
+        this.setState(Store.getState());
     }
 
     render() {
 
+        const formatUsers = typeof this.state.telemetry.users === 'number' ?
+                this.state.telemetry.users.toLocaleString('en') :
+                0;
+
+        const formatSessions = typeof this.state.telemetry.sessions === 'number' ?
+                this.state.telemetry.sessions.toLocaleString('en') :
+                0;
+
+        const formatApiCalls = typeof this.state.telemetry.apiCalls === 'number' ?
+                this.state.telemetry.apiCalls.toLocaleString('en') :
+                0;
+
+        const formatGamesWon = typeof this.state.telemetry.games.won === 'number' ?
+                this.state.telemetry.games.won.toLocaleString('en') :
+                0;
+
+        const formatGamesLost = typeof this.state.telemetry.games.lost === 'number' ?
+                this.state.telemetry.games.lost.toLocaleString('en') :
+                0;
+
+        const formatGamesAbandoned = typeof this.state.telemetry.games.abandoned === 'number' ?
+                this.state.telemetry.games.abandoned.toLocaleString('en') :
+                0;
+
+
         return (
             <section className="section-home container">
-                <div className="row">
-                    <div className="col-sm-7">
-                        <h1 className="page-header">Admin</h1>
-                        <div className="row">
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.hour}
-                                    </div>
-                                    <div className="stat-label">hour</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.minute}
-                                    </div>
-                                    <div className="stat-label">minute</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.second}
-                                    </div>
-                                    <div className="stat-label">second</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.year}
-                                    </div>
-                                    <div className="stat-label">year</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.month}
-                                    </div>
-                                    <div className="stat-label">month</div>
-                                </div>
-                            </div>
-                            <div className="col-sm-4">
-                                <div className="well text-center">
-                                    <div className="stat-value">
-                                        {this.state.day}
-                                    </div>
-                                    <div className="stat-label">day</div>
-                                </div>
+                <div className="home">
+                    <div className="stats">
+
+                        <div className="card">
+                            <div className="f c1">
+                                <div className="description">Registered Users</div>
+                                <div className="contentbox">{formatUsers}</div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col-sm-5 text-center">
-                        <h1 className="page-header">Throttle guage</h1>
-                        <i className="fa fa-dashboard bamf"></i>
+
+                        <div className="card">
+                            <div className="f c2">
+                                <div className="description">Active Sessions</div>
+                                <div className="contentbox">{formatSessions}</div>
+                            </div>
+                        </div>
+
+                        <div className="card">
+                                <div className="f c3">
+                                    <div className="description">API Calls</div>
+                                    <div className="contentbox">{formatApiCalls}</div>
+                                </div>
+                        </div>
+
+                        <div className="card">
+                            <div className="f c4">
+                                <div className="description">Games Won</div>
+                                <div className="contentbox">{formatGamesWon}</div>
+                            </div>
+                        </div>
+
+                        <div className="card">
+                            <div className="f c5">
+                                <div className="description">Games Lost</div>
+                                <div className="contentbox">{formatGamesLost}</div>
+                            </div>
+                        </div>
+
+                        <div className="card">
+                            <div className="f c6">
+                                <div className="description">Games Abandoned</div>
+                                <div className="contentbox">{formatGamesAbandoned}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

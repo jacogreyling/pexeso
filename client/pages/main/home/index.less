@@ -11,7 +11,7 @@
 	overflow: hidden;
 	user-select: none;
 }
-[data-reactroot], .game, .flipper, .f, .b, #g {
+[data-reactroot], .flipper, .f, .b {
 	height: 100%;
 	width: 100%;
 }
@@ -27,7 +27,6 @@ html, body, #app-mount {
 .flipper a {
 	align-items: center;
 	color: #fff;
-	display: block;
 	display: flex;
 	font: bold 32px/75px Arial, Helvetica, sans-serif;
 	height: 100%;
@@ -158,24 +157,21 @@ html, body, #app-mount {
 /*Responsive Stuff*/
 @media all and (max-width: 768px) and (min-width: 0px) {
 	.flipper a {
-		font-size: 18px;
-		line-height: 25px;
+		font-size: 24px;
+		line-height: 28px;
 	}
 	.logo {
-		height: 200px;
-		width: 300px;
+		height: 300px;
+		width: 450px;
 	}
 	.logo .f {
-		font: normal 60px/100px Arial, Helvetica, sans-serif;
+		font: normal 80px/140px Arial, Helvetica, sans-serif;
 	}
 	.logo .contentbox h2 {
 		font-size: 16px;
 		margin: 24px 0;
 	}
 	.logo .instructions h2 {
-		display: none;
-	}
-	.logo .instructions.contentbox p:nth-child(3) {
 		display: none;
 	}
 }

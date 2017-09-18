@@ -134,7 +134,8 @@ class Actions {
                     (typeof data.flips.wrong === 'undefined')) ?
                         0 :
                         data.flips.wrong)
-            }
+            },
+            status: data.status
         }
 
         // Update the database

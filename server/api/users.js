@@ -65,6 +65,35 @@ internals.applyRoutes = function (server, next) {
         }
     });
 
+    server.route({
+        method: 'GET',
+        path: '/users/count',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            pre: [
+                AuthPlugin.preware.ensureAdminGroup('root')
+            ]
+        },
+        handler: function (request, reply) {
+
+            const query = {};
+
+            // Only count 'active' users
+            query.isActive = true;
+
+            User.count(query, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                reply(results);
+            });
+        }
+    });
 
     server.route({
         method: 'GET',
@@ -526,6 +555,14 @@ internals.applyRoutes = function (server, next) {
                 if (!user) {
                     return reply(Boom.notFound('Document not found.'));
                 }
+
+                // Get the socket.io object
+                const io = request.plugins['hapi-io'].io;
+
+                // Successfully logged in, increment the login count
+                io.emit('new_user', {
+                    count: -1
+                });
 
                 reply({ success: true });
             });

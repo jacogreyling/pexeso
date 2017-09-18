@@ -114,6 +114,14 @@ internals.applyRoutes = function (server, next) {
                 authHeader
             };
 
+            // Get the socket.io object
+            const io = request.plugins['hapi-io'].io;
+
+            // Successfully logged in, increment the login count
+            io.emit('logged_in', {
+                count: 1
+            });
+
             request.cookieAuth.set(result);
             reply(result);
         }

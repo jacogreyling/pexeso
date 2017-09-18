@@ -174,6 +174,19 @@ internals.applyRoutes = function (server, next) {
                     authHeader
                 };
 
+                // Get the socket.io object
+                const io = request.plugins['hapi-io'].io;
+
+                // Successfully created a new user, increment the user count
+                io.emit('new_user', {
+                    count: 1
+                });
+
+                // Session also created, let's increment that too
+                io.emit('logged_in', {
+                    count: 1
+                });
+
                 request.cookieAuth.set(result);
                 reply(result);
             });

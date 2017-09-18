@@ -52,6 +52,32 @@ internals.applyRoutes = function (server, next) {
         }
     });
 
+    server.route({
+        method: 'GET',
+        path: '/sessions/count',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            pre: [
+                AuthPlugin.preware.ensureAdminGroup('root')
+            ]
+        },
+        handler: function (request, reply) {
+
+            const query = {};
+
+            Session.count(query, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                reply(results);
+            });
+        }
+    });
 
     server.route({
         method: 'GET',

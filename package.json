@@ -41,6 +41,7 @@
     "handlebars": "4.x.x",
     "hapi": "16.x.x",
     "hapi-auth-cookie": "7.x.x",
+    "hapi-io": "^0.2.1",
     "hapi-mongo-models": "6.x.x",
     "hapi-react-views": "9.x.x",
     "hoek": "4.x.x",
@@ -56,6 +57,7 @@
     "react-timeout": "^1.0.1",
     "redux": "3.x.x",
     "slug": "0.9.x",
+    "socket-io": "^1.0.0",
     "uuid": "3.x.x",
     "vision": "4.x.x",
     "visionary": "6.x.x"
