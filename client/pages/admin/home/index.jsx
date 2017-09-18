@@ -5,7 +5,6 @@ const Moment = require('moment');
 const io = require('socket.io-client');
 const Actions = require('./actions');
 const Store = require('./store');
-const ReactFitText = require('react-fittext');
 
 let socket;
 

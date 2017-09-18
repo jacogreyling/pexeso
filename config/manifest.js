@@ -48,8 +48,6 @@ const manifest = {
         {
             plugin: 'hapi-auth-cookie'
         },
-        //TODO: Enable this only in production
-        /*
         {
             plugin: {
                 register: 'crumb',
@@ -58,7 +56,6 @@ const manifest = {
                 }
             }
         },
-        */
         {
             plugin: {
                 register: 'visionary',
