@@ -12,7 +12,7 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const User = server.plugins['hapi-mongo-models'].User;
-
+    const Stat = server.plugins['hapi-mongo-models'].Stat;
 
     server.route({
         method: 'GET',
@@ -555,6 +555,16 @@ internals.applyRoutes = function (server, next) {
                 if (!user) {
                     return reply(Boom.notFound('Document not found.'));
                 }
+
+                // Let's delete the game statistics as well
+                const filter = { 'userId': request.params.id.toLowerCase() };
+                Stat.findOneAndDelete(filter, (err, stat) => {
+
+                    if (err) {
+                        // Don't through it back to the UI, log to output
+                        console.error(err);
+                    }
+                });
 
                 // Get the socket.io object
                 const io = request.plugins['hapi-io'].io;
