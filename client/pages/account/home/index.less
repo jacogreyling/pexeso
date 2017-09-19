@@ -106,8 +106,8 @@ html, body, #app-mount {
 	padding: 0 15px;
 }
 .logo .contentbox h2 {
-	font-size: 24px;
-	margin: 22px 0;
+	font-size: 26px;
+	margin: 28px 0;
 	padding: 0;
 	text-transform: uppercase;
 }
@@ -137,11 +137,12 @@ html, body, #app-mount {
 }
 #stats li b {
 	display: inline-block;
-	font-size: 13px;
-	width: 95px;
+	font-size: 16px;
+	font-weight: normal;
+	width: auto;
 }
 #stats li span {
-	font-size: 13px;
+	font-size: 16px;
 }
 #stats a {
 	bottom: 0;
@@ -337,9 +338,36 @@ html, body, #app-mount {
 		font-size: 32px;
 	}
 }
-@media all and (max-width: 768px) and (min-width: 0px) {
-	a {
-		font-size: 13px;
+@media all and (max-width: 768px) and (min-width: 470px) {
+	.flipper a {
+		font-size: 16px;
+		line-height: 66.6667px;
+	}
+	.logo {
+		height: 400px;
+		width: 400px;
+	}
+	.logo .f {
+		font: normal 100px/200px Arial, Helvetica, sans-serif;
+	}
+	.logo .contentbox h2 {
+		font-size: 20px;
+		margin: 24px 0;
+	}
+	.logo .instructions.contentbox p:nth-child(3) {
+		display: none;
+	}
+	#stats li b {
+		width: auto;
+		font-size: 14px;
+	}
+	#stats li span {
+    	font-size: 14px;
+	}
+}
+@media all and (max-width: 470px) and (min-width: 0px) {
+	.flipper a {
+		font-size: 14px;
 		line-height: 50px;
 	}
 	.logo {
@@ -351,7 +379,7 @@ html, body, #app-mount {
 	}
 	.logo .contentbox h2 {
 		font-size: 16px;
-		margin: 24px 0;
+		margin: 22px 0;
 	}
 	.logo .instructions h2 {
 		display: none;
@@ -361,5 +389,9 @@ html, body, #app-mount {
 	}
 	#stats li b {
 		width: auto;
+		font-size: 12px;
+	}
+	#stats li span {
+    	font-size: 12px;
 	}
 }

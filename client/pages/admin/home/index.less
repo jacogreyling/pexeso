@@ -58,7 +58,7 @@ html, body, #app-mount {
     line-height: normal;
     overflow-wrap: break-word;
     -webkit-text-stroke: 1px #333;
-    font-size: 65px;
+    font-size: 72px;
 }
 .stats .f .description {
     font: normal 24px/28px Arial, Helvetica, sans-serif;
@@ -91,7 +91,23 @@ html, body, #app-mount {
 
 
 /*Responsive Stuff*/
-@media all and (max-width: 768px) and (min-width: 0px) {
+@media all and (max-width: 976px) and (min-width: 768px) {
+	.stats {
+		height: 400px;
+		width: 600px;
+	}
+	.stats .f {
+		font: normal 100px/200px Arial, Helvetica, sans-serif;
+	}
+    .stats .f .description {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .stats .f .contentbox {
+        font-size: 48px;
+    }
+}
+@media all and (max-width: 768px) and (min-width: 471px) {
 	.stats {
 		height: 300px;
 		width: 450px;
@@ -104,6 +120,22 @@ html, body, #app-mount {
         line-height: 18px;
     }
     .stats .f .contentbox {
-        font-size: 30px;
+        font-size: 36px;
+    }
+}
+@media all and (max-width: 470px) and (min-width: 0px) {
+	.stats {
+		height: 200px;
+		width: 300px;
+	}
+	.stats .f {
+		font: normal 60px/100px Arial, Helvetica, sans-serif;
+	}
+    .stats .f .description {
+        font-size: 12px;
+        line-height: 14px;
+    }
+    .stats .f .contentbox {
+        font-size: 22px;
     }
 }

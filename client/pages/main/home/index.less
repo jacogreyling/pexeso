@@ -155,7 +155,7 @@ html, body, #app-mount {
 
 
 /*Responsive Stuff*/
-@media all and (max-width: 768px) and (min-width: 0px) {
+@media all and (max-width: 768px) and (min-width: 470px) {
 	.flipper a {
 		font-size: 24px;
 		line-height: 28px;
@@ -167,11 +167,17 @@ html, body, #app-mount {
 	.logo .f {
 		font: normal 80px/140px Arial, Helvetica, sans-serif;
 	}
-	.logo .contentbox h2 {
-		font-size: 16px;
-		margin: 24px 0;
+}
+@media all and (max-width: 470px) and (min-width: 0px) {
+	.flipper a {
+		font-size: 18px;
+		line-height: 24px;
 	}
-	.logo .instructions h2 {
-		display: none;
+	.logo {
+		height: 200px;
+		width: 300px;
+	}
+	.logo .f {
+		font: normal 60px/92px Arial, Helvetica, sans-serif;
 	}
 }
