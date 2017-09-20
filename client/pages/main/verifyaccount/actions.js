@@ -7,18 +7,18 @@ const Store = require('./store');
 
 
 class Actions {
-    static sendRequest(data) {
+    static verifyAccount(data) {
 
         ApiActions.post(
-            '/api/signup',
+            '/api/verify',
             data,
             Store,
-            Constants.REGISTER,
-            Constants.REGISTER_RESPONSE,
+            Constants.VERIFYACCOUNT,
+            Constants.VERIFYACCOUNT_RESPONSE,
             (err, response) => {
 
                 if (!err) {
-                    window.location.href = '/thanks';
+                    window.location.href = '/login';
                 }
             }
         );

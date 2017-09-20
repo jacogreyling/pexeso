@@ -183,6 +183,12 @@ const manifest = {
             }
         },
         {
+            plugin: './server/api/verify-account',
+            options: {
+                routes: { prefix: '/api' }
+            }
+        },
+        {
             plugin: './server/api/users',
             options: {
                 routes: { prefix: '/api' }

@@ -25,7 +25,7 @@ const config = {
         $filter: 'env',
         $meta: 'values should not end in "/"',
         production: process.env.PUBLIC_URL,
-        $default: 'http://127.0.0.1:8000'
+        $default: 'http://localhost:8000'
     },
     authAttempts: {
         forIp: 50,

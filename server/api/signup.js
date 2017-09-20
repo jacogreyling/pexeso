@@ -4,7 +4,7 @@ const Async = require('async');
 const Boom = require('boom');
 const Config = require('../../config/config');
 const Joi = require('joi');
-
+const hexGen = require('../helpers/hex-generator');
 
 const internals = {};
 
@@ -82,7 +82,7 @@ internals.applyRoutes = function (server, next) {
             }]
         },
         handler: function (request, reply) {
-
+            
             const mailer = request.server.plugins.mailer;
 
             Async.auto({
@@ -130,7 +130,25 @@ internals.applyRoutes = function (server, next) {
 
                     User.findByIdAndUpdate(id, update, done);
                 }],
-                welcome: ['linkUser', 'linkAccount', function (results, done) {
+                generateVerificationCode: ['account', function (results, done) {
+                    const id = results.user._id.toString();
+                    const verificationToken = hexGen(24).toLowerCase();
+
+                    const update = {
+                        $set: {
+                            verification: {
+                                token: verificationToken,
+                                validated: false
+                            }
+                        }
+                    };
+
+                    User.findByIdAndUpdate(id, update, done);
+                    request.payload.verificationToken = verificationToken;
+                }],
+                welcome: ['linkUser', 'linkAccount', 'generateVerificationCode', function (results, done) {
+                    
+                    request.payload.publicURL = Config.get('/baseUrl') + "/verify";
 
                     const emailOptions = {
                         subject: 'Your ' + Config.get('/projectName') + ' account',
@@ -149,11 +167,12 @@ internals.applyRoutes = function (server, next) {
                     });
 
                     done();
-                }],
-                session: ['linkUser', 'linkAccount', function (results, done) {
+                }]
+                /*,
+                session: ['linkUser', 'linkAccount', 'generateVerificationCode', function (results, done) {
 
                     Session.create(results.user._id.toString(), done);
-                }]
+                }] */
             }, (err, results) => {
 
                 if (err) {
@@ -161,8 +180,8 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 const user = results.linkAccount;
-                const credentials = user.username + ':' + results.session.key;
-                const authHeader = 'Basic ' + new Buffer(credentials).toString('base64');
+                /*const credentials = user.username + ':' + results.session.key;
+                const authHeader = 'Basic ' + new Buffer(credentials).toString('base64');*/
                 const result = {
                     user: {
                         _id: user._id,
@@ -170,8 +189,6 @@ internals.applyRoutes = function (server, next) {
                         email: user.email,
                         roles: user.roles
                     },
-                    session: results.session,
-                    authHeader
                 };
 
                 // Get the socket.io object
@@ -183,11 +200,11 @@ internals.applyRoutes = function (server, next) {
                 });
 
                 // Session also created, let's increment that too
-                io.emit('logged_in', {
-                    count: 1
-                });
+                //io.emit('logged_in', {
+                //    count: 1
+                //});
 
-                request.cookieAuth.set(result);
+                //request.cookieAuth.set(result);
                 reply(result);
             });
         }
@@ -196,6 +213,8 @@ internals.applyRoutes = function (server, next) {
 
     next();
 };
+
+
 
 
 exports.register = function (server, options, next) {
