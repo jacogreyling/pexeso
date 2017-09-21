@@ -15,15 +15,25 @@ const initialState = {
         abandoned: undefined
     },
     highscores: {
-        casual: undefined,
-        medium: undefined,
-        hard: undefined
+        casual: {
+            score: undefined,
+            timestamp: undefined
+        },
+        medium: {
+            score: undefined,
+            timestamp: undefined
+        },
+        hard: {
+            score: undefined,
+            timestamp: undefined
+        }
     },
     flips: {
         total: undefined,
         matched: undefined,
         wrong: undefined
-    }
+    },
+    lastPlayed: undefined
 };
 const reducer = function (state = initialState, action) {
 
@@ -51,7 +61,8 @@ const reducer = function (state = initialState, action) {
             _id: action.response._id,
             figures: action.response.figures,
             highscores: action.response.highscores,
-            flips: action.response.flips
+            flips: action.response.flips,
+            lastPlayed: action.response.lastPlayed
         });
     }
 

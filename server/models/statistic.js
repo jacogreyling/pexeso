@@ -4,7 +4,7 @@ const Joi = require('joi');
 const MongoModels = require('mongo-models');
 
 
-class Stat extends MongoModels {
+class Statistic extends MongoModels {
     static create(userId, stats, callback) {
 
         const document = {
@@ -15,16 +15,25 @@ class Stat extends MongoModels {
                 abandoned: stats.figures.abandoned
             },
             highscores: {
-                casual: stats.highscores.casual,
-                medium: stats.highscores.medium,
-                hard: stats.highscores.hard
+                casual: {
+                    score: stats.highscores.casual.score,
+                    timestamp: undefined
+                },
+                medium: {
+                    score: stats.highscores.medium.score,
+                    timestamp: undefined
+                },
+                hard: {
+                    score: stats.highscores.hard.score,
+                    timestamp: undefined
+                }
             },
             flips: {
                 total: stats.flips.total,
                 matched: stats.flips.matched,
                 wrong: stats.flips.wrong
             },
-            lastPlayed: new Date()
+            lastPlayed: undefined
         };
 
         this.insertOne(document, (err, docs) => {
@@ -46,34 +55,43 @@ class Stat extends MongoModels {
 }
 
 
-Stat.collection = 'stats';
+Statistic.collection = 'statistics';
 
 
-Stat.schema = Joi.object().keys({
+Statistic.schema = Joi.object().keys({
     _id: Joi.object(),
     userId: Joi.string().lowercase().required(),
     figures: Joi.object().keys({
         won: Joi.number().integer(),
         lost: Joi.number().integer(),
         abandoned: Joi.number().integer()
-    }),
+    }).required(),
     highscores: Joi.object().keys({
-        casual: Joi.number().integer(),
-        medium: Joi.number().integer(),
-        hard: Joi.number().integer()
-    }),
+        casual: Joi.object().keys({
+            score: Joi.number().integer(),
+            timestamp: Joi.date()
+        }),
+        medium: Joi.object().keys({
+            score: Joi.number().integer(),
+            timestamp: Joi.date()
+        }),
+        hard: Joi.object().keys({
+            score: Joi.number().integer(),
+            timestamp: Joi.date()
+        }),
+    }).required(),
     flips: Joi.object().keys({
         total: Joi.number().integer(),
-        mmatched: Joi.number().integer(),
+        matched: Joi.number().integer(),
         wrong: Joi.number().integer()
-    }),
-    lastPlayed: Joi.date()
+    }).required(),
+    lastPlayed: Joi.date().required()
 });
 
 
-Stat.indexes = [
+Statistic.indexes = [
     { key: { userId: 1, unique: 1 } }
 ];
 
 
-module.exports = Stat;
+module.exports = Statistic;

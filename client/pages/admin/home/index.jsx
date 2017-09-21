@@ -69,6 +69,7 @@ class HomePage extends React.Component {
 
     render() {
 
+        // Format the numbers, for pretty printing
         const formatUsers = typeof this.state.telemetry.users === 'number' ?
                 this.state.telemetry.users.toLocaleString('en') :
                 0;

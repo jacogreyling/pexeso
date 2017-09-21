@@ -43,15 +43,15 @@ class Statistics extends React.Component {
                 <ul>
                     <li>
                         <b>Best Casual:&nbsp;</b>
-                        <span>{this.props.highscores.casual > 0 ? this.props.highscores.casual : '-'}</span>
+                        <span>{this.props.highscores.casual.score > 0 ? this.props.highscores.casual.score : '-'}</span>
                     </li>
                     <li>
                         <b>Best Medium:&nbsp;</b>
-                        <span>{this.props.highscores.medium > 0 ? this.props.highscores.medium : '-'}</span>
+                        <span>{this.props.highscores.medium.score > 0 ? this.props.highscores.medium.score : '-'}</span>
                     </li>
                     <li>
                         <b>Best Hard:&nbsp;</b>
-                        <span>{this.props.highscores.hard > 0 ? this.props.highscores.hard : '-'}</span>
+                        <span>{this.props.highscores.hard.score > 0 ? this.props.highscores.hard.score : '-'}</span>
                     </li>
                 </ul>
                 <ul>

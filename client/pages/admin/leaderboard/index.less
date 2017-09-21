@@ -1,0 +1,84 @@
+.cards {
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	background: #fff;
+	color: rgba(0, 0, 0, 0.7);
+	font: normal 0/0 Arial, Helvetica, sans-serif;
+	margin: 0;
+	overflow: hidden;
+	user-select: none;
+}
+[data-reactroot], .cards, .f {
+	width: 100%;
+}
+.container {
+	height: 90%;
+}
+
+
+/* Do this so that the tiles will fit inside the browser window */
+html, body, #app-mount {
+   height: 100%;
+}
+
+
+/* FRONT SCREEN */
+.difficulty {
+	height: 200px;
+	width: 100%;
+    margin: 40px 0 20px;
+    position: relative;
+}
+.difficulty .card {
+	cursor: default;
+	height: 100%;
+	position: relative;
+	width: 33.333%;
+}
+.difficulty .f {
+	font: normal 130px/200px Arial, Helvetica, sans-serif;
+}
+.difficulty .hidden {
+	display: none;
+}
+.difficulty .f .contentbox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    line-height: normal;
+    overflow-wrap: break-word;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.7);
+    font-size: 48px;
+}
+
+.difficulty .card .f:not(.active):hover {
+	opacity: .8;
+}
+
+/* TABLE */
+.table-results thead tr th.score {
+	width: auto !important;
+	width: 150px;
+	min-width: 150px;
+}
+
+.card .f.active {
+	background: #0b3be0;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+.card .f.active .contentbox {
+	-webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+}
+
+.leaderboard-table {
+	margin-left: 3px;
+	margin-right: 3px;
+}

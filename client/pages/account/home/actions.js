@@ -10,7 +10,7 @@ class Actions {
     static getStats() {
 
         ApiActions.get(
-            `/api/stats/my`,
+            `/api/statistics/my`,
             undefined,
             Store,
             Constants.GET_STATS,
@@ -26,7 +26,7 @@ class Actions {
 
     static createStats() {
 
-        // We need to create this 'empty' object to update the database
+        // We need to create this 'empty' object and update the database
         const data = {
             figures: {
                 won: 0,
@@ -34,19 +34,26 @@ class Actions {
                 abandoned: 0
             },
             highscores: {
-                casual: 0,
-                medium: 0,
-                hard: 0
+                casual: {
+                    score: 0
+                },
+                medium: {
+                    score: 0
+                },
+                hard: {
+                    score: 0
+                }
             },
             flips: {
                 total: 0,
                 matched: 0,
                 wrong: 0
-            }
+            },
+            status: "initialize",
         }
 
         ApiActions.post(
-            `/api/stats/my`,
+            `/api/statistics/my`,
             data,
             Store,
             Constants.CREATE_STATS,
@@ -57,7 +64,7 @@ class Actions {
     static updateStats(data) {
 
         // Retrieve the global state
-        const stats = Store.getState().stats;
+        const stats = Store.getState().statistics;
 
         // Calculate the score for this game
         let score = 0;
@@ -67,29 +74,34 @@ class Actions {
                 flips: data.flips,
                 start: data.timestamp
             });
-        }
+        };
 
         // Calculate highscore
         let highscore = 0;
         switch(data.level) {
             case "casual":
-                highscore = (score > stats.highscores.casual) ?
+                highscore = (score > stats.highscores.casual.score) ?
                     score :
-                    stats.highscores.casual;
+                    stats.highscores.casual.score;
                 break;
             case "medium":
-                highscore = (score > stats.highscores.medium) ?
+                highscore = (score > stats.highscores.medium.score) ?
                     score :
-                    stats.highscores.medium;
+                    stats.highscores.medium.score;
                 break;
             case "hard":
-                highscore = (score > stats.highscores.hard) ?
+                highscore = (score > stats.highscores.hard.score) ?
                     score :
-                    stats.highscores.hard;
+                    stats.highscores.hard.score;
                 break;
             default:
                 // Do nothing
-        }
+        };
+
+        // If the two scores are the same, it means we have a new highscore
+        const isHighscore = ((highscore === score) && (highscore > 0)) ?
+            true :
+            false;
 
         // Build new statistics object (state)
         const newStats = {
@@ -105,15 +117,21 @@ class Actions {
                     stats.figures.abandoned
             },
             highscores: {
-                casual: data.level === "casual" ?
-                    highscore :
-                    stats.highscores.casual,
-                medium: data.level === "medium" ?
-                    highscore :
-                    stats.highscores.medium,
-                hard: data.level === "hard" ?
-                    highscore :
-                    stats.highscores.hard
+                casual: {
+                    score: data.level === "casual" ?
+                        highscore :
+                        stats.highscores.casual.score
+                    },
+                medium: {
+                    score: data.level === "medium" ?
+                        highscore :
+                        stats.highscores.medium.score
+                    },
+                hard: {
+                    score: data.level === "hard" ?
+                        highscore :
+                        stats.highscores.hard.score
+                    }
             },
             flips: {
                 total: (isNaN(stats.flips.total) ?
@@ -135,12 +153,15 @@ class Actions {
                         0 :
                         data.flips.wrong)
             },
-            status: data.status
-        }
+            status: data.status,
+            highscore: isHighscore,
+            score: score,
+            level: data.level
+        };
 
         // Update the database
         ApiActions.put(
-            '/api/stats/my',
+            '/api/statistics/my',
             newStats,
             Store,
             Constants.SAVE_STATS,

@@ -6,6 +6,7 @@ const internals = {};
 internals.telemetry = function (server, next) {
 
     // Set-up the server-specific run-time application state
+    // TODO: Move this to the database, to keep central score
     server.app.telemetry = {
         apiCalls: 0,
         games: {
@@ -35,11 +36,11 @@ internals.telemetry = function (server, next) {
             return reply.continue();
         }
     }, {
-        // Only calculate the statistics if successfully authenticated and validated
-        type: 'onPreHandler',
+        // Only calculate the statistics after successful backend update
+        type: 'onPostHandler',
         method: function (request, reply) {
 
-            if ((request.path === '/api/stats/my') && (request.method === 'put')) {
+            if ((request.path === '/api/statistics/my') && (request.method === 'put')) {
 
                 // Update the server-side telemetry
                 switch (request.payload.status) {
@@ -63,6 +64,7 @@ internals.telemetry = function (server, next) {
                 io.emit('statistics', {
                     games: request.server.app.telemetry.games
                 });
+
             }
 
             return reply.continue();

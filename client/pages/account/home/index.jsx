@@ -54,7 +54,7 @@ class HomePage extends React.Component {
                     <Tiles
                         {...this.state.tiles}
                         active={this.state.board.active}
-                        statistics={this.state.stats}/>
+                        statistics={this.state.statistics}/>
                 </div>
             </section>
         );

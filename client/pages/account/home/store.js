@@ -1,6 +1,6 @@
 'use strict';
 
-const Stats = require('./reducers/stats');
+const Statistics = require('./reducers/statistics');
 const Tiles = require('./reducers/tiles');
 const Board = require('./reducers/board');
 const Redux = require('redux');
@@ -8,7 +8,7 @@ const Redux = require('redux');
 
 module.exports = Redux.createStore(
     Redux.combineReducers({
-        stats: Stats,
+        statistics: Statistics,
         tiles: Tiles,
         board: Board
     })
