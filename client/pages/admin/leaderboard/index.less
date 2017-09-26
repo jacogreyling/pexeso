@@ -14,37 +14,44 @@
 [data-reactroot], .cards, .f {
 	width: 100%;
 }
-.container {
-	height: 90%;
-}
 
+.date-picker * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
 
 /* Do this so that the tiles will fit inside the browser window */
 html, body, #app-mount {
    height: 100%;
 }
 
+// Reset to original for datepicker to work properly
+html {
+	font-size: 14px !important;
+}
+
 
 /* FRONT SCREEN */
-.difficulty {
+.level {
 	height: 200px;
 	width: 100%;
-    margin: 40px 0 20px;
+    margin: 40px 0 26px;
     position: relative;
 }
-.difficulty .card {
+.level .card {
 	cursor: default;
 	height: 100%;
 	position: relative;
-	width: 33.333%;
+	width: 25%;
 }
-.difficulty .f {
+.level .f {
 	font: normal 130px/200px Arial, Helvetica, sans-serif;
 }
-.difficulty .hidden {
+.level .hidden {
 	display: none;
 }
-.difficulty .f .contentbox {
+.level .f .contentbox {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -57,9 +64,13 @@ html, body, #app-mount {
     -webkit-text-stroke: 1px rgba(0, 0, 0, 0.7);
     font-size: 48px;
 }
-
-.difficulty .card .f:not(.active):hover {
+.level .card .f:not(.active):hover {
 	opacity: .8;
+}
+.leaderboard.page-header {
+    padding-bottom: 9px;
+    margin: 40px 3px 20px 3px;
+	border-bottom: none;
 }
 
 /* TABLE */
@@ -71,14 +82,121 @@ html, body, #app-mount {
 
 .card .f.active {
 	background: #0b3be0;
-	color: rgba(255, 255, 255, 0.9);
+	color: rgba(255, 255, 255, 1);
 }
 
 .card .f.active .contentbox {
-	-webkit-text-stroke: 1px rgba(255, 255, 255, 0.9);
+	-webkit-text-stroke: 1px rgba(255, 255, 255, 1);
+}
+
+.card .f .contentbox {
+	text-transform: capitalize;
 }
 
 .leaderboard-table {
 	margin-left: 3px;
 	margin-right: 3px;
+}
+
+.card .f.ph {
+	background: none;
+}
+
+/* FORMS */
+.row .col-sm-2.right {
+	float: right;
+}
+.leaderboard-form {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+.well {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+
+/* DATE PICKER */
+.level .card .f .box {
+	font: normal 16px/16px Arial,Helvetica,sans-serif;
+	padding: 10px;
+	width: 97%;
+	height: 97%;
+	border: thin solid rgba(168,152,146,0.2);
+	margin-top: 3px;
+	margin-left: 3px;
+}
+.level .card .f.ph:hover {
+    opacity: unset;
+}
+.cards {
+	display: contents;
+}
+.react-datepicker__time-container
+.react-datepicker__time
+.react-datepicker__time-box
+ul.react-datepicker__time-list {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	padding-bottom: 5px !important;
+}
+select, textarea, input, .form-control {
+    font-size: 14px !important;
+	border: none;
+	width: 100%;
+	color: rgba(0,0,0,0.5);
+}
+.react-datepicker-wrapper{
+	width: 80%;
+	margin-top: 10px;
+	border-bottom: thin solid rgba(0, 0, 0, 0.2);
+}
+.react-datepicker__input-container {
+    width: 100%;
+	margin-bottom: 2px;
+}
+.date-picker button {
+	bottom: 15%;
+	position: absolute;
+	transform: translate(-50%, 0);
+	left: 50%;
+	width: 25%;
+}
+.box .date-picker h2 {
+	margin-top: 15px;
+}
+
+/* SWITCH */
+
+.live {
+	border-radius: 7.5px;
+	background: #f00;
+	width: 15px;
+	height: 15px;
+	top: 18px;
+	right: 25px;
+	box-shadow: 0 0 0.5em 0px #f00;
+	-moz-transition: 400ms;
+	-ms-transition: 400ms;
+	-o-transition: 400ms;
+	-webkit-transition: 400ms;
+	transition: 400ms;
+}
+.pause {
+	border-radius: 7.5px;
+	background: #a89892;
+	width: 15px;
+	height: 15px;
+	top: 10px;
+	position: relative;
+}
+.switch {
+	border-radius: 8.5px;
+	background: none;
+	width: 15px;
+	height: 25px;
+	position: absolute;
+	top: 18px;
+	right: 25px;
+	border: thin solid #222;
 }

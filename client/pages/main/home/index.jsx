@@ -21,7 +21,7 @@ class HomePage extends React.Component {
         return (
             <section className="section-home container" onClick={() => (void(0))}>
                 <Helmet>
-                    <title>pexeso</title>
+                    <title>Pexeso - A memory card game that will test your wits!</title>
                 </Helmet>
                 <div className="home">
                     <div className="logo">

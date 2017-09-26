@@ -81,6 +81,70 @@ internals.applyRoutes = function (server, next) {
 
 
     server.route({
+        method: 'GET',
+        path: '/scores',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                query: {
+                    username: Joi.string().allow(''),
+                    dateFrom: Joi.date().allow(''),
+                    level: Joi.string().default('casual'),
+                    sort: Joi.string().default('-score'),
+                    limit: Joi.number().default(10),
+                    page: Joi.number().default(1)
+                }
+            },
+            pre: [
+                AuthPlugin.preware.ensureAdminGroup('root')
+            ]
+        },
+        handler: function (request, reply) {
+
+            const query = {
+                score: { $gt: 0 },
+                level: { $eq: request.query.level}
+            };
+            const lookup = {
+                from: "users",
+                localField: "userId",
+                foreignField: "_id",
+                as: "username"
+            }
+            const fields = {
+                username: { $arrayElemAt: [ "$username.username", 0 ] },
+                score: 1,
+                level: 1,
+                timestamp: 1
+            };
+
+            const sort = request.query.sort;
+            const limit = request.query.limit;
+            const page = request.query.page;
+
+            // Add date range if it's part of the request
+            if ((typeof request.query.dateFrom !== 'undefined') && (request.query.dateFrom !== '')) {
+
+                query.timestamp = {
+                    $gte: new Date(request.query.dateFrom)
+                };
+            }
+
+            Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {
+                if (err) {
+                    return reply(err);
+                }
+
+                return reply(results);
+            });
+        }
+    });
+
+
+    server.route({
         method: 'DELETE',
         path: '/scores/{userId}',
         config: {

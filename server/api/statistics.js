@@ -177,7 +177,7 @@ internals.applyRoutes = function (server, next) {
                                 userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
                                 score: request.payload.score,
                                 level: request.payload.level,
-                                timestamp: request.response.source.lastPlayed
+                                timestamp: new Date(request.response.source.lastPlayed)
                             }
 
                             Score.insertOne(document, (err, stat) => {

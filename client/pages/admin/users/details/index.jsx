@@ -9,6 +9,9 @@ const React = require('react');
 const ReactRouter = require('react-router-dom');
 const RolesForm = require('./roles-form.jsx');
 const Store = require('./store');
+const ReactHelmet = require('react-helmet');
+
+const Helmet = ReactHelmet.Helmet;
 
 
 const Link = ReactRouter.Link;
@@ -73,6 +76,9 @@ class DetailsPage extends React.Component {
 
         return (
             <section className="container">
+                <Helmet>
+                    <title>Admin - User Details</title>
+                </Helmet>
                 <h1 className="page-header">
                     <Link to="/admin/users">Users</Link> / {username}
                 </h1>

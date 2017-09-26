@@ -4,6 +4,7 @@
 const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
 const Store = require('./store');
+const Qs = require('qs');
 
 
 class Actions {
@@ -23,11 +24,11 @@ class Actions {
         );
     }
 
-    static resetDifficulty(level) {
+    static setLevel(level) {
 
         // Change the difficulty level, and reset the state
         Store.dispatch({
-            type: Constants.RESET_DIFFICULTY,
+            type: Constants.SET_LEVEL,
             level
         });
     }
@@ -76,6 +77,70 @@ class Actions {
             type: Constants.UPDATE_TOP_SCORES,
             data: newArray
         });
+    }
+
+    static changeDateFrom(date) {
+
+        // Update the date 'from'
+        Store.dispatch({
+            type: Constants.UPDATE_DATE_FROM,
+            date
+        });
+    }
+
+    static insertDateFrom(date) {
+
+        // Update the date 'from'
+        Store.dispatch({
+            type: Constants.INSERT_DATE_FROM,
+            date
+        });
+    }
+
+    static resetDateFrom() {
+
+        // Update the date 'from'
+        Store.dispatch({
+            type: Constants.RESET_DATE_FROM,
+        });
+    }
+
+    static toggleLiveMode() {
+
+        // Toggle between live and historical
+        Store.dispatch({
+            type: Constants.TOGGLE_LIVE_MODE
+        });
+    }
+
+    static getResults(data) {
+
+        ApiActions.get(
+            `/api/scores`,
+            data,
+            Store,
+            Constants.GET_RESULTS,
+            Constants.GET_RESULTS_RESPONSE
+        );
+    }
+
+    static changeSearchQuery(data, history) {
+
+        history.push({
+            pathname: '/admin/leaderboard',
+            search: `?${Qs.stringify(data)}`
+        });
+
+        window.scrollTo(0, 0);
+    }
+
+    static resetSearchQuery(history) {
+
+        history.push({
+            pathname: '/admin/leaderboard'
+        });
+
+        window.scrollTo(0, 0);
     }
 }
 

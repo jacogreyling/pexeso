@@ -15,7 +15,6 @@ const ReactRouter = require('react-router-dom');
 const UserDetails = require('./users/details/index.jsx');
 const UserSearch = require('./users/search/index.jsx');
 const Leaderboard = require('./leaderboard/index.jsx');
-// TODO: Add leaderboard search
 
 const Router = ReactRouter.BrowserRouter;
 const Route = ReactRouter.Route;

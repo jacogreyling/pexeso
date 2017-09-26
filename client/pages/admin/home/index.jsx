@@ -5,6 +5,9 @@ const Moment = require('moment');
 const io = require('socket.io-client');
 const Actions = require('./actions');
 const Store = require('./store');
+const ReactHelmet = require('react-helmet');
+
+const Helmet = ReactHelmet.Helmet;
 
 let socket;
 
@@ -97,6 +100,9 @@ class HomePage extends React.Component {
 
         return (
             <section className="section-home container">
+                <Helmet>
+                    <title>Admin</title>
+                </Helmet>
                 <div className="home">
                     <div className="stats">
 
@@ -123,21 +129,21 @@ class HomePage extends React.Component {
 
                         <div className="card">
                             <div className="f c4">
-                                <div className="description">Games Won</div>
+                                <div className="description">Won</div>
                                 <div className="contentbox">{formatGamesWon}</div>
                             </div>
                         </div>
 
                         <div className="card">
                             <div className="f c5">
-                                <div className="description">Games Lost</div>
+                                <div className="description">Lost</div>
                                 <div className="contentbox">{formatGamesLost}</div>
                             </div>
                         </div>
 
                         <div className="card">
                             <div className="f c6">
-                                <div className="description">Games Abandoned</div>
+                                <div className="description">Abandoned</div>
                                 <div className="contentbox">{formatGamesAbandoned}</div>
                             </div>
                         </div>

@@ -9,6 +9,9 @@ const React = require('react');
 const Results = require('./results.jsx');
 const Store = require('./store');
 const Qs = require('qs');
+const ReactHelmet = require('react-helmet');
+
+const Helmet = ReactHelmet.Helmet;
 
 
 const propTypes = {
@@ -76,6 +79,9 @@ class SearchPage extends React.Component {
 
         return (
             <section className="container">
+                <Helmet>
+                    <title>Admin - Accounts</title>
+                </Helmet>
                 <div className="page-header">
                     <button
                         ref={(c) => (this.els.createNew = c)}

@@ -53,6 +53,7 @@
     "nodemailer-markdown": "1.x.x",
     "object-assign": "4.x.x",
     "react": "15.x.x",
+    "react-datepicker": "^0.55.0",
     "react-helmet": "5.x.x",
     "react-timeout": "^1.0.1",
     "redux": "3.x.x",
@@ -70,6 +71,7 @@
     "bootstrap": "3.x.x",
     "code": "4.x.x",
     "cookie": "0.3.x",
+    "css-loader": "^0.28.7",
     "del": "3.x.x",
     "eslint-config-hapi": "10.x.x",
     "eslint-plugin-react": "7.x.x",
@@ -88,7 +90,7 @@
     "lab": "14.x.x",
     "lodash": "4.x.x",
     "merge-stream": "1.x.x",
-    "moment": "2.18.x",
+    "moment": "^2.18.1",
     "nodemon": "1.x.x",
     "promptly": "2.x.x",
     "prop-types": "15.x.x",
@@ -97,6 +99,7 @@
     "react-dom": "15.x.x",
     "react-router-dom": "4.x.x",
     "require-dir": "0.3.x",
+    "style-loader": "^0.18.2",
     "webpack": "3.x.x",
     "xhr": "2.x.x"
   }
