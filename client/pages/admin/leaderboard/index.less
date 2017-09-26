@@ -67,19 +67,6 @@ html {
 .level .card .f:not(.active):hover {
 	opacity: .8;
 }
-.leaderboard.page-header {
-    padding-bottom: 9px;
-    margin: 40px 3px 20px 3px;
-	border-bottom: none;
-}
-
-/* TABLE */
-.table-results thead tr th.score {
-	width: auto !important;
-	width: 150px;
-	min-width: 150px;
-}
-
 .card .f.active {
 	background: #0b3be0;
 	color: rgba(255, 255, 255, 1);
@@ -92,14 +79,34 @@ html {
 .card .f .contentbox {
 	text-transform: capitalize;
 }
+.card .f.ph {
+	background: none;
+}
 
+/* TABLE */
+.table-results thead tr th.score {
+	width: auto !important;
+	width: 150px;
+	min-width: 150px;
+}
 .leaderboard-table {
 	margin-left: 3px;
 	margin-right: 3px;
 }
-
-.card .f.ph {
-	background: none;
+.leaderboard.page-header {
+    padding-bottom: 9px;
+    margin: 40px 3px 20px 3px;
+	border-bottom: none;
+}
+.leaderboard-table table tr.active-state {
+	font-weight: bold;
+	background: #0b3be0 !important;
+	color: white;
+	-moz-transition: 400ms;
+	-ms-transition: 400ms;
+	-o-transition: 400ms;
+	-webkit-transition: 400ms;
+	transition: 400ms;
 }
 
 /* FORMS */

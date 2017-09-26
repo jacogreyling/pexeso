@@ -11,6 +11,7 @@ const initialState = {
     dateFrom: undefined,
     level: 'casual',
     live: true,
+    position: undefined,
     data: [],
     pages: {},
     items: {}
@@ -48,7 +49,15 @@ const reducer = function (state = initialState, action) {
     if (action.type === Constants.UPDATE_TOP_SCORES) {
 
         return ObjectAssign({}, state, {
-            data: action.data
+            data: action.data,
+            position: action.position
+        });
+    }
+
+    if (action.type === Constants.REMOVE_NEW_POSITION) {
+
+        return ObjectAssign({}, state, {
+            position: undefined
         });
     }
 

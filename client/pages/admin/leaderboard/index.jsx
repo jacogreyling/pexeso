@@ -123,14 +123,10 @@ class Leaderboard extends React.Component {
             const arrayLength = this.state.leaderboard.data.length;
 
             // If the score is not higher than the lowest then don't bother
-            if (arrayLength < 10) {
+            if ((arrayLength < 10) || (res.score > this.state.leaderboard.data[arrayLength - 1].score)) {
 
-                Actions.insertScore(res);
-            } else if (res.score > this.state.leaderboard.data[arrayLength - 1].score) {
-
-                Actions.insertScore(res);
+                Actions.insertScore(res, this.state.leaderboard.data);
             }
-
         });
     }
 
@@ -182,6 +178,15 @@ class Leaderboard extends React.Component {
         }
     }
 
+    changeActiveRow() {
+
+        setTimeout(() => {
+
+            Actions.removePosition();
+
+        }, 1000); // Timeout for highlighted state in milliseconds
+    }
+
     render() {
 
         // If we're still fetching results
@@ -205,6 +210,12 @@ class Leaderboard extends React.Component {
 
         // Only return top 10 results in 'live' mode, with no filters
         if (this.state.leaderboard.live) {
+
+            // If we have a new 'highscore' highlight it briefly
+            if (typeof this.state.leaderboard.position === 'number') {
+                this.changeActiveRow();
+            }
+
             return (
                 <section className="container">
                     <Helmet>
@@ -221,6 +232,7 @@ class Leaderboard extends React.Component {
                     <Results
                         level={this.state.leaderboard.level}
                         data={this.state.leaderboard.data}
+                        position={this.state.leaderboard.position}
                     />
                 </section>
             );

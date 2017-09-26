@@ -6,6 +6,7 @@ const FluxConstant = require('flux-constant');
 module.exports = FluxConstant.set([
     'GET_TOP_SCORES',
     'GET_TOP_SCORES_RESPONSE',
+    'REMOVE_NEW_POSITION',
     'SET_LEVEL',
     'UPDATE_TOP_SCORES',
     'UPDATE_DATE_FROM',

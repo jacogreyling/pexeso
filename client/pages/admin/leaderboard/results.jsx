@@ -10,7 +10,8 @@ const propTypes = {
     level: PropTypes.string,
     items: PropTypes.object,
     data: PropTypes.array,
-    query: PropTypes.object
+    query: PropTypes.object,
+    position: PropTypes.number
 };
 
 
@@ -52,6 +53,11 @@ class Results extends React.Component {
                 const timestamp = record.timestamp;
                 const score = record.score;
 
+                let activeClass = "";
+                if (count === this.props.position) {
+                    activeClass = "active-state";
+                }
+
                 if ((typeof sortDescending !== 'undefined') && (!sortDescending)) {
                     count -= 1;
                 } else {
@@ -59,7 +65,7 @@ class Results extends React.Component {
                 }
 
                 return (
-                    <tr key={record._id}>
+                    <tr className={activeClass} key={record._id}>
                         <td>{count}</td>
                         <td>{record.username}</td>
                         <td>{moment(timestamp).locale('en-gb').format("LLL")}</td>

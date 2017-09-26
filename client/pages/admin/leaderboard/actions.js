@@ -33,10 +33,10 @@ class Actions {
         });
     }
 
-    static insertScore(entry) {
+    static insertScore(entry, data) {
 
-        // Retrieve the global state
-        const data = Store.getState().leaderboard.data;
+        // Add 'new entry' flag
+        let newPosition;
 
         let newArray = [];
         let inserted = false;
@@ -52,6 +52,7 @@ class Actions {
             if (data.length - 1 < i) {
                 if (!inserted) {
                     newArray.push(entry);
+                    newPosition = i;
                 }
                 break;
             }
@@ -69,13 +70,23 @@ class Actions {
                 newArray.push(entry);
                 newArray.push(data[i]);
                 inserted = true;
+                newPosition = i;
             }
         }
 
         // Update the data
         Store.dispatch({
             type: Constants.UPDATE_TOP_SCORES,
-            data: newArray
+            data: newArray,
+            position: newPosition
+        });
+    }
+
+    static removePosition() {
+
+        // Update the date 'from'
+        Store.dispatch({
+            type: Constants.REMOVE_NEW_POSITION
         });
     }
 
