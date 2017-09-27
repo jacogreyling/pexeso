@@ -57,6 +57,18 @@ class Tile extends React.Component {
             content = "_empty";
         }
 
+        if (typeof this.props.onClick === 'undefined') {
+            return (
+                <div className="card">
+                    <div className={tileClass}>
+                        <div className={displayClass}>
+                            {content}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <div className="card" onClick={() => this.props.onClick(this.props.name, this.props.history)}>
                 <div className={tileClass}>

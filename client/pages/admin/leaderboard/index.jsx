@@ -47,9 +47,7 @@ class Leaderboard extends React.Component {
             }
             if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.insertDateFrom(moment(query.dateFrom));
-            } else {
-                Actions.toggleLiveMode();
+                Actions.setDateFrom(moment(query.dateFrom));
             }
 
             Actions.getResults(query);
@@ -61,24 +59,14 @@ class Leaderboard extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
-        // It seems like the local state has not yet been updated
+        // It seems like the local state has not yet been updated,
+        // take the global state instead
         const level = Store.getState().leaderboard.level;
-        const live = Store.getState().leaderboard.live;
 
         if (nextProps.location.search === "") {
 
-            // No search string, it means we're in 'live' mode
-            if (!live) {
-                Actions.toggleLiveMode();
-            }
-
             Actions.retrieveTopTen(level);
         } else {
-
-            // We shouldn't be in 'live' mode, let's change it
-            if (live) {
-                Actions.toggleLiveMode();
-            }
 
             const query = Qs.parse(nextProps.location.search.substring(1));
 
@@ -88,7 +76,7 @@ class Leaderboard extends React.Component {
             }
             if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.insertDateFrom(moment(query.dateFrom));
+                Actions.setDateFrom(moment(query.dateFrom));
             }
 
             Actions.getResults(query);

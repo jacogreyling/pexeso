@@ -5,7 +5,7 @@
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	background: #fff;
-	color: rgba(0, 0, 0, 0.7);
+	color: rgba(0, 0, 0, 0.8);
 	font: normal 0/0 Arial, Helvetica, sans-serif;
 	margin: 0;
 	overflow: hidden;
@@ -44,6 +44,13 @@ html, body, #app-mount {
 .stats .f {
 	font: normal 130px/200px Arial, Helvetica, sans-serif;
 }
+.stats .f.active {
+	background: #0b3be0;
+	color: white;
+}
+.stats .f.active .description {
+	color: rgba(255,255,255,0.3);
+}
 .stats .hidden {
 	display: none;
 }
@@ -57,8 +64,14 @@ html, body, #app-mount {
     text-align: center;
     line-height: normal;
     overflow-wrap: break-word;
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.7);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.8);
     font-size: 72px;
+}
+.stats .f .contentbox.small {
+	font-size: 24px;
+	font-weight: normal;
+	-webkit-text-stroke: 1px rgba(0,0,0,0.6);
+	color: rgba(0,0,0,0.6);
 }
 .stats .f .description {
     font: italic 18px/24px Arial, Helvetica, sans-serif;

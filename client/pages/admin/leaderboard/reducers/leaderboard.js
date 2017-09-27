@@ -18,7 +18,7 @@ const initialState = {
 };
 const reducer = function (state = initialState, action) {
 
-    if (action.type === Constants.GET_TOP_SCORES) {
+    if (action.type === Constants.GET_LIVE_SCORES) {
 
         return ObjectAssign({}, state, {
             hydrated: false,
@@ -26,30 +26,35 @@ const reducer = function (state = initialState, action) {
         });
     }
 
-    if (action.type === Constants.GET_TOP_SCORES_RESPONSE) {
+    if (action.type === Constants.GET_LIVE_SCORES_RESPONSE) {
 
         return ObjectAssign({}, state, {
             hydrated: true,
             loading: false,
+            live: true,
             data: action.response
         });
     }
 
     if (action.type === Constants.SET_LEVEL) {
 
-        // We must also clear the data object since we're changing levels
-        return ObjectAssign({}, state, {
+        if (typeof action.live === 'undefined') {
+            return ObjectAssign({}, initialState, {
+                level: action.level
+            });
+        }
+
+        return ObjectAssign({}, initialState, {
             level: action.level,
-            data: [],
-            pages: {},
-            items: {}
+            live: action.live
         });
     }
 
-    if (action.type === Constants.UPDATE_TOP_SCORES) {
+    if (action.type === Constants.UPDATE_LIVE_SCORES) {
 
         return ObjectAssign({}, state, {
             data: action.data,
+            live: true,
             position: action.position
         });
     }
@@ -68,7 +73,7 @@ const reducer = function (state = initialState, action) {
         });
     }
 
-    if (action.type === Constants.INSERT_DATE_FROM) {
+    if (action.type === Constants.SET_DATE_FROM) {
 
         return ObjectAssign({}, state, {
             dateFrom: action.date,
@@ -83,10 +88,10 @@ const reducer = function (state = initialState, action) {
         });
     }
 
-    if (action.type === Constants.TOGGLE_LIVE_MODE) {
+    if (action.type === Constants.SET_LIVE_MODE) {
 
         return ObjectAssign({}, state, {
-            live: !state.live
+            live: action.condition
         });
     }
 
@@ -101,6 +106,7 @@ const reducer = function (state = initialState, action) {
         return ObjectAssign({}, state, {
             hydrated: true,
             loading: false,
+            live: false,
             data: action.response.data,
             pages: action.response.pages,
             items: action.response.items

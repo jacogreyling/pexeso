@@ -19,17 +19,18 @@ class Actions {
             `/api/scores/top/${level}`,
             query,
             Store,
-            Constants.GET_TOP_SCORES,
-            Constants.GET_TOP_SCORES_RESPONSE
+            Constants.GET_LIVE_SCORES,
+            Constants.GET_LIVE_SCORES_RESPONSE
         );
     }
 
-    static setLevel(level) {
+    static setLevel(level, live) {
 
         // Change the difficulty level, and reset the state
         Store.dispatch({
             type: Constants.SET_LEVEL,
-            level
+            level,
+            live
         });
     }
 
@@ -76,7 +77,7 @@ class Actions {
 
         // Update the data
         Store.dispatch({
-            type: Constants.UPDATE_TOP_SCORES,
+            type: Constants.UPDATE_LIVE_SCORES,
             data: newArray,
             position: newPosition
         });
@@ -99,11 +100,11 @@ class Actions {
         });
     }
 
-    static insertDateFrom(date) {
+    static setDateFrom(date) {
 
         // Update the date 'from'
         Store.dispatch({
-            type: Constants.INSERT_DATE_FROM,
+            type: Constants.SET_DATE_FROM,
             date
         });
     }
@@ -116,11 +117,12 @@ class Actions {
         });
     }
 
-    static toggleLiveMode() {
+    static setLiveMode(condition) {
 
         // Toggle between live and historical
         Store.dispatch({
-            type: Constants.TOGGLE_LIVE_MODE
+            type: Constants.SET_LIVE_MODE,
+            condition
         });
     }
 

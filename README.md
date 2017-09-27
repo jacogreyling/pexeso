@@ -16,13 +16,14 @@ A memory card game that will test your wits! How many rounds can you complete in
    - [Continuous Delivery Director](https://cddirector.io/#/home)
    - [BlazeMeter](https://www.blazemeter.com)
    - [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)
+   - [Service Virtualization](https://www.ca.com/us/products/ca-service-virtualization.html)
 
 
 ## Technology
 
 This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all mobile transactions.
-We're using [MongoDB](http://www.mongodb.org/) as a data store for user registration. Tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
-The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router).
+We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game statistics. Tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
+The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router). Time keeping and formatting is done by the excellent library [Moment.js](https://momentjs.com)
 Unit testing is done via [Lab](https://github.com/hapijs/lab) and API / Performance testing with [CA BlazeMeter](https://www.blazemeter.com) and JMeter.
 We're using [Gulp](http://gulpjs.com/) for the build system and [CA CD Director](https://cddirector.io/#/home) for continuous delivery orchestration deploying to Amazon AWS Elastic Beanstalk.
 
@@ -54,7 +55,7 @@ Simply copy `.env-sample` to `.env` and edit as needed. __Don't commit `.env` to
 
 ## First time setup
 
-__WARNING__: This will clear all data in the following MongoDB collections if they exist: `accounts`, `adminGroups`, `admins`, `authAttempts`, `sessions` and `users`.
+__WARNING__: This will clear all data in the following MongoDB collections if they exist: `accounts`, `adminGroups`, `admins`, `authAttempts`, `sessions`, `users`, `scores` and `statistics`.
 
 ```bash
 $ npm run first-time-setup
@@ -154,4 +155,4 @@ A special thanks goes out to Reza Akhavan from [Aqua](https://github.com/jedirez
 
 The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the pexeso development team.
 
-The Server side Startup script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for AWS environment.
+The Server side start-up script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for AWS environments.

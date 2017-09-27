@@ -66,7 +66,7 @@ class Tiles extends React.Component {
             Actions.changeSearchQuery(query, this.state.history);
         }
 
-        Actions.setLevel(level);
+        Actions.setLevel(level, this.state.live);
     }
 
     handleDateChange(date) {
@@ -83,7 +83,7 @@ class Tiles extends React.Component {
             // We need to turn off 'live' mode first
             if (this.state.live) {
 
-                Actions.toggleLiveMode();
+                Actions.setLiveMode(false);
 
                 query = {
                     dateFrom: this.props.dateFrom.utc().format(),
@@ -96,7 +96,11 @@ class Tiles extends React.Component {
                 query.dateFrom = this.props.dateFrom.utc().format();
             }
 
+            // Update the search query string
             Actions.changeSearchQuery(query, this.state.history);
+
+            // An update to the results will happen in the 'componentWillReceiveProps'
+            // method for index.jsx
         }
     }
 
@@ -137,7 +141,7 @@ class Tiles extends React.Component {
                         display={true}
                         active={this.props.level}
                     />
-                    <Tile onClick={this.activeCard.bind(this)}
+                    <Tile name="info"
                         id="c4"
                         display={false}
                         active={this.props.level}>

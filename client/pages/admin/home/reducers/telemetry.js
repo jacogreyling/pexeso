@@ -6,10 +6,10 @@ const ParseValidation = require('../../../../helpers/parse-validation');
 
 const initialState = {
     hydrated: false,
-    users: null,
-    sessions: null,
+    users: undefined,
+    sessions: undefined,
     games: {},
-    apiCalls: null
+    apiCalls: undefined
 };
 const reducer = function (state = initialState, action) {
 
