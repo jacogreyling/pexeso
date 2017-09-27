@@ -3,6 +3,7 @@
 const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const React = require('react');
+const moment = require('moment');
 
 
 const propTypes = {
@@ -68,6 +69,10 @@ class Statistics extends React.Component {
                         <span>{this.props.flips.wrong > 0 ? this.props.flips.wrong : '-'}</span>
                     </li>
                 </ul>
+                <span className="played">
+                    <b>Last Played:&nbsp;</b>
+                    <span>{moment(this.props.lastPlayed).locale('en-gb').format("LLL")}</span>
+                </span>
             </div>
         );
     }
