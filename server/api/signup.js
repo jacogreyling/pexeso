@@ -33,6 +33,7 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     name: Joi.string().required(),
                     email: Joi.string().email().lowercase().required(),
+                    mobile: Joi.string().regex(/((?:\+27|27)|0)[\s-]?(\d{2})[\s-]?(\d{3})[\s-]?(\d{4})[\s]*$/gm).required(),
                     username: Joi.string().token().lowercase().required(),
                     password: Joi.string().required()
                 }

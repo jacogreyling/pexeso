@@ -46,6 +46,7 @@ class Form extends React.Component {
         Actions.sendRequest({
             name: this.input.name.value(),
             username: this.input.username.value(),
+            mobile: this.input.mobile.value(),
             password: this.input.password.value(),
             email: this.input.email.value()
         });
@@ -86,6 +87,15 @@ class Form extends React.Component {
                     label="Email"
                     hasError={this.state.hasError.email}
                     help={this.state.help.email}
+                    disabled={this.state.loading}
+                />
+                <TextControl
+                    ref={(c) => (this.input.mobile = c)}
+                    name="mobile"
+                    label="Mobile Number"
+                    placeholder = "000 000 0000"
+                    hasError={this.state.hasError.mobile}
+                    help="Please Use a Valid SA phone number, eg 000 000 0000"
                     disabled={this.state.loading}
                 />
                 <TextControl
