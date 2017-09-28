@@ -2,69 +2,111 @@
 
 const internals = {};
 
+// Time intervals
+const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
 
-internals.telemetry = function (server, next) {
 
-    // Set-up the server-specific run-time application state
-    // TODO: Move this to the database, to keep central score
-    server.app.telemetry = {
-        apiCalls: 0,
-        games: {
-            won: 0,
-            lost: 0,
-            abandoned: 0
-        }
-    }
+exports.register = function (server, options, next) {
 
-    // Create 2x server extentions to report telemetry data over web sockets
+    // Create the global statistics cache object on startup
+    const cache = server.cache({
+        segment: 'telemetry',
+        shared: true,
+        expiresIn: 24 * HOUR,
+        cache: 'redisCache',
+        generateFunc: function (id, next) {
+            const telemetry = {
+                apiCalls: 0,
+                games: {
+                    won: 0,
+                    lost: 0,
+                    abandoned: 0
+                }
+            };
+
+            return next(null, telemetry);
+        },
+        generateTimeout: false
+    })
+
+    // Create server extention to report telemetry data over web sockets
     server.ext([{
+
         // Count every /api call
         type: 'onRequest',
         method: function (request, reply) {
 
             if (request.path.startsWith('/api')) {
 
-                // Get the socket.io object
-                const io = request.plugins['hapi-io'].io;
+                // Retrieve the global statistics from cache
+                cache.get('stats', (err, value, cached, log) => {
 
-                // Successfully created a new user, increment the user count
-                io.emit('api_calls', {
-                    count: request.server.app.telemetry.apiCalls += 1
+                    // Increment the API calls
+                    value.apiCalls++;
+
+                    // Update the global statistcs
+                    cache.set('stats', value, null, (err) => {
+
+                        if (!err) {
+
+                            // Get the socket.io object
+                            const io = request.plugins['hapi-io'].io;
+
+                            // Successfully created a new user, increment the user count
+                            io.emit('api_calls', {
+                                count: value.apiCalls
+                            });
+                        }
+                    });
+
                 });
             }
 
             return reply.continue();
         }
     }, {
-        // Only calculate the statistics after successful backend update
+
+        // Only calculate the statistics after a successful update
         type: 'onPostHandler',
         method: function (request, reply) {
 
             if ((request.path === '/api/statistics/my') && (request.method === 'put')) {
 
-                // Update the server-side telemetry
-                switch (request.payload.status) {
-                    case "won":
-                        request.server.app.telemetry.games.won += 1;
-                        break;
-                    case "lost":
-                        request.server.app.telemetry.games.lost += 1;
-                        break;
-                    case "abandoned":
-                        request.server.app.telemetry.games.abandoned += 1;
-                        break;
-                    default:
-                        // Do nothing
-                }
+                // Retrieve the global statistics from cache
+                cache.get('stats', (err, value, cached, log) => {
 
-                // Get the socket.io object
-                const io = request.plugins['hapi-io'].io;
+                    // Update the server-side telemetry
+                    switch (request.payload.status) {
+                        case "won":
+                            value.games.won++;
+                            break;
+                        case "lost":
+                            value.games.lost++;
+                            break;
+                        case "abandoned":
+                            value.games.abandoned++;
+                            break;
+                        default:
+                            // Do nothing
+                    }
 
-                // Successfully created a new user, increment the user count
-                io.emit('statistics', {
-                    games: request.server.app.telemetry.games
+                    // Update the global statistcs
+                    cache.set('stats', value, null, (err) => {
+
+                        if (!err) {
+
+                            // Get the socket.io object
+                            const io = request.plugins['hapi-io'].io;
+
+                            // Successfully created a new user, increment the user count
+                            io.emit('statistics', {
+                                games: value.games
+                            });
+                        }
+                    });
                 });
-
             }
 
             return reply.continue();
@@ -74,14 +116,9 @@ internals.telemetry = function (server, next) {
     next();
 };
 
-exports.register = function (server, options, next) {
-
-    server.dependency(['hapi-io'], internals.telemetry);
-
-    next();
-};
-
 
 exports.register.attributes = {
-    name: 'telemetry'
+    name: 'telemetry',
+    version: '1.0.0',
+    dependencies: ['hapi-io', 'hapi-io-redis']
 };

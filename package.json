@@ -24,13 +24,14 @@
     "node": ">=8.1.4"
   },
   "dependencies": {
-    "async": "2.x.x",
     "ajv": "^5.x.x",
+    "async": "2.x.x",
     "bcrypt": "^1.0.3",
     "bell": "^8.8.0",
     "blipp": "^2.x.x",
     "blueimp-md5": "^2.x.x",
     "boom": "5.x.x",
+    "catbox-redis": "^3.1.0",
     "classnames": "2.x.x",
     "confidence": "3.x.x",
     "crumb": "6.x.x",
@@ -61,6 +62,7 @@
     "redux": "3.x.x",
     "slug": "0.9.x",
     "socket-io": "^1.0.0",
+    "socket.io-redis": "^5.2.0",
     "uuid": "3.x.x",
     "vision": "4.x.x",
     "visionary": "6.x.x"

@@ -16,8 +16,8 @@ const config = {
     port: {
         web: {
             $filter: 'env',
-            test: 9000,
             production: process.env.PORT,
+            test: 9000,
             $default: 8000
         }
     },
@@ -47,11 +47,25 @@ const config = {
         },
         autoIndex: true
     },
+    hapiRedis: {
+        host: {
+            $filter: 'env',
+            production: process.env.REDIS_HOST,
+            test: 'localhost',
+            $default: 'localhost'
+        },
+        port: {
+            $filter: 'env',
+            production: process.env.REDIS_PORT,
+            test: 6379,
+            $default: 6379
+        }
+    },
     nodemailer: {
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
-        auth: { 
+        auth: {
             user: 'ca.pexeso@gmail.com',
             pass: process.env.SMTP_PASSWORD
         }

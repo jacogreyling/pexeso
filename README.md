@@ -24,6 +24,7 @@ A memory card game that will test your wits! How many rounds can you complete in
 
 This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all mobile transactions.
 We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game statistics. Tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
+Telemetry is provided through a custom build plugin. It uses [Redis](https://redis.io) as a global state store and Hapi's multi-strategy object caching service called [catbox](https://github.com/hapijs/catbox).
 The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router). Time keeping and formatting is done by the excellent library [Moment.js](https://momentjs.com)
 Unit testing is done via [Lab](https://github.com/hapijs/lab) and API / Performance testing with [CA BlazeMeter](https://www.blazemeter.com) and JMeter.
 We're using [Gulp](http://gulpjs.com/) for the build system and [CA CD Director](https://cddirector.io/#/home) for continuous delivery orchestration deploying to Amazon AWS Elastic Beanstalk.

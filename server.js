@@ -1,6 +1,7 @@
 'use strict';
 
 const Glue = require('glue');
+const Hoek = require('hoek');
 const BabelRegister = require('babel-core/register');
 const Manifest = require('./config/manifest');
 
@@ -21,7 +22,9 @@ Glue.compose(Manifest.get('/'), composeOptions, (err, server) => {
         console.log('server.register err:', err);
     }
 
-    server.start(() => {
+    server.start((err) => {
+
+        Hoek.assert(!err, err);
 
         console.log('Server is listening on ' + server.info.uri.toLowerCase());
         console.log('NODE_ENV is  ' + `"${process.env.NODE_ENV}"`);

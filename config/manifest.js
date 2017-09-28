@@ -14,6 +14,14 @@ const manifest = {
         debug: {
             request: ['error']
         },
+        cache: {
+            name: 'redisCache',
+            engine: require('catbox-redis'),
+            shared: true,
+            partition: 'cache',
+            host: Config.get('/hapiRedis/host'),
+            port: Config.get('/hapiRedis/port')
+        },
         connections: {
             routes: {
                 security: true
@@ -113,6 +121,17 @@ const manifest = {
         },
         {
             plugin: 'hapi-io'
+        },
+        {
+            plugin: {
+                register: './server/hapi-io-redis',
+                options: {
+                    connection: {
+                        host: Config.get('/hapiRedis/host'),
+                        port: Config.get('/hapiRedis/port')
+                    }
+                }
+            }
         },
         {
             plugin: './server/telemetry'
