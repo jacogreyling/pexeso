@@ -5,7 +5,7 @@ const AuthPlugin = require('../auth');
 const Boom = require('boom');
 const EscapeRegExp = require('escape-string-regexp');
 const Joi = require('joi');
-
+const Md5 = require('../../node_modules/blueimp-md5/js/md5')
 
 const internals = {};
 
@@ -144,7 +144,7 @@ internals.applyRoutes = function (server, next) {
                         lost: Joi.number().integer(),
                         abandoned: Joi.number().integer()
                     }),
-                    highscores: Joi.object().keys({
+                /*    highscores: Joi.object().keys({
                         casual: Joi.object().keys({
                             score: Joi.number().integer(),
                         }),
@@ -153,8 +153,8 @@ internals.applyRoutes = function (server, next) {
                         }),
                         hard: Joi.object().keys({
                             score: Joi.number().integer(),
-                        }),
-                    }),
+                        }), 
+                    }),*/
                     flips: Joi.object().keys({
                         total: Joi.number().integer(),
                         matched: Joi.number().integer(),
@@ -163,45 +163,53 @@ internals.applyRoutes = function (server, next) {
                     status: Joi.string().required(),
                     highscore: Joi.boolean().required(),
                     score: Joi.number().integer().required(),
-                    level: Joi.string().required()
+                    level: Joi.string().required(),
+                    seckey: Joi.string().required()
                 }
             },
             ext: {
                 onPostHandler: {
                     method: function (request, reply) {
+                        const seckey = Md5(request.payload.status + request.payload.score + request.payload.level);
+
+                        //Verify the Security Key is Matching
+                        if (request.payload.seckey == seckey) {
 
                         // On every successful round, update the games collections
-                        if ((request.payload.status === 'won') && (request.auth.isAuthenticated)) {
-
-                            const document = {
-                                userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
-                                score: request.payload.score,
-                                level: request.payload.level,
-                                timestamp: new Date(request.response.source.lastPlayed)
-                            }
-
-                            Score.insertOne(document, (err, stat) => {
-
-                                if (err) {
-                                    console.warn("Could not update the game collection with a new document: " + err);
-                                }
-
-                                // Get the socket.io object
-                                const io = request.plugins['hapi-io'].io;
-
-                                // Successfully created a new user, increment the user count
-                                io.emit('new_score', {
-                                    _id: stat[0]._id.toString(),
-                                    username: request.auth.credentials.user.username.toString(),
+                            if ((request.payload.status === 'won') && (request.auth.isAuthenticated)) {
+                                const document = {
+                                    userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
                                     score: request.payload.score,
                                     level: request.payload.level,
-                                    timestamp: request.response.source.lastPlayed
+                                    timestamp: new Date(request.response.source.lastPlayed)
+                                }
+
+                                Score.insertOne(document, (err, stat) => {
+
+                                    if (err) {
+                                        console.warn("Could not update the game collection with a new document: " + err);
+                                    }
+
+                                    // Get the socket.io object
+                                    const io = request.plugins['hapi-io'].io;
+
+                                    // Successfully created a new user, increment the user count
+                                    io.emit('new_score', {
+                                        _id: stat[0]._id.toString(),
+                                        username: request.auth.credentials.user.username.toString(),
+                                        score: request.payload.score,
+                                        level: request.payload.level,
+                                        timestamp: request.response.source.lastPlayed
+                                    });
+
+                                    return reply.continue();
                                 });
+                            } else {
 
                                 return reply.continue();
-                            });
+                            }
                         } else {
-
+                        
                             return reply.continue();
                         }
                     }
@@ -213,34 +221,40 @@ internals.applyRoutes = function (server, next) {
             const userId = request.auth.credentials.user._id.toString();
             const filter = { 'userId': userId.toLowerCase() };
             const date = new Date();
-
+            const seckey = Md5(request.payload.status + request.payload.score + request.payload.level);
+            
             let update = {};
-            if (request.payload.highscore) {
+            //Verify the Security Key is Matching
+            if (request.payload.seckey == seckey) {
 
-                const key = "highscores." + request.payload.level;
+                if (request.payload.highscore) {
 
-                update = {
-                    $set: {
-                        figures: request.payload.figures,
-                        [key]: {
-                            score: request.payload.highscores[request.payload.level].score,
-                            timestamp: date
-                        },
-                        flips: request.payload.flips,
-                        lastPlayed: date
-                    }
-                };
+                    const key = "highscores." + request.payload.level;
+
+                    update = {
+                        $set: {
+                            figures: request.payload.figures,
+                            [key]: {
+                                score: request.payload.score,
+                                timestamp: date
+                            },
+                            flips: request.payload.flips,
+                            lastPlayed: date
+                        }
+                    };
+                } else {
+
+                    update = {
+                        $set: {
+                            figures: request.payload.figures,
+                            flips: request.payload.flips,
+                            lastPlayed: date
+                        }
+                    };
+                }
             } else {
-
-                update = {
-                    $set: {
-                        figures: request.payload.figures,
-                        flips: request.payload.flips,
-                        lastPlayed: date
-                    }
-                };
+                return reply(Boom.forbidden());
             }
-
             Statistic.findOneAndUpdate(filter, update, (err, stat) => {
 
                 if (err) {

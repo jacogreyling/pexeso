@@ -4,6 +4,7 @@ const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
 const Store = require('./store');
 const CalculateScore = require('../../../helpers/calculate-score');
+const Md5 = require('../../../../node_modules/blueimp-md5/js/md5')
 
 
 class Actions {
@@ -76,6 +77,10 @@ class Actions {
             });
         };
 
+        let clientSecKey = Md5("" + data.status + score +  data.level + "");
+        
+        console.log(clientSecKey);
+
         // Calculate highscore
         let highscore = 0;
         switch(data.level) {
@@ -116,7 +121,7 @@ class Actions {
                     stats.figures.abandoned + 1 :
                     stats.figures.abandoned
             },
-            highscores: {
+            /* highscores: {
                 casual: {
                     score: data.level === "casual" ?
                         highscore :
@@ -132,7 +137,7 @@ class Actions {
                         highscore :
                         stats.highscores.hard.score
                     }
-            },
+            }, */
             flips: {
                 total: (isNaN(stats.flips.total) ?
                     0 :
@@ -156,7 +161,8 @@ class Actions {
             status: data.status,
             highscore: isHighscore,
             score: score,
-            level: data.level
+            level: data.level,
+            seckey : clientSecKey 
         };
 
         // Update the database
