@@ -23,7 +23,7 @@ class SignupPage extends React.Component {
                     <div className="col-sm-6 text-center">
                         <h1 className="page-header">Register</h1>
                         <p className="lead">
-                            You've got to be in it to win it!
+                            <b>NOTICE:</b> Only <u>FNB Codefest</u> participants can win prizes!
                         </p>
                         <i className="fa fa-thumbs-o-up bamf"></i>
                     </div>

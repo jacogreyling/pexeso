@@ -93,9 +93,8 @@ class Form extends React.Component {
                     ref={(c) => (this.input.mobile = c)}
                     name="mobile"
                     label="Mobile Number"
-                    placeholder = "000 000 0000"
+                    placeholder = "e.g. +27 82 123 4567"
                     hasError={this.state.hasError.mobile}
-                    help="Please Use a Valid SA phone number, eg 000 000 0000"
                     disabled={this.state.loading}
                 />
                 <TextControl

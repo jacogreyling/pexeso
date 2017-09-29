@@ -1,6 +1,6 @@
 module.exports = function(data) {
-    const elapsed = (new Date() - data.start) / 1000;
-    const TIMEOUT = 90, POINTS = 5;
+    const end = new Date();
+    const POINTS = 5;
 
     let matched = 0;
     if ((typeof data.flips.matched !== 'undefined') && (!isNaN(data.flips.matched))) {
@@ -9,22 +9,19 @@ module.exports = function(data) {
 
     let wrong = 0;
     if ((typeof data.flips.wrong !== 'undefined') && (!isNaN(data.flips.wrong))) {
-        matched = data.flips.wrong;
+        wrong = data.flips.wrong;
     }
 
     let score = 0;
-    switch(data.level) {
-        case "casual":
-            score = Math.round(((matched * POINTS) - wrong) * (TIMEOUT - elapsed));
-            break;
-        case "medium":
-            score = Math.round(((matched * POINTS) - wrong) * (TIMEOUT - elapsed));
-            break;
-        case "hard":
-            score = Math.round(((matched * POINTS) - wrong) * (TIMEOUT - elapsed));
-            break;
-        default:
-            // Do nothing
+    if ((typeof data.timeout !== 'undefined') && (!isNaN(data.timeout))) {
+
+        // If the end time is before the start time, something went wrong!
+        let elapsed = data.timeout;
+        if (end > data.start) {
+            elapsed = (end - data.start) / 1000;
+        }
+
+        score = Math.round(((matched * POINTS) - wrong) * (data.timeout - elapsed));
     }
 
     return score;

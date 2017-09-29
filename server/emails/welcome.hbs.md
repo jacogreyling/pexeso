@@ -2,7 +2,7 @@
 
 Thanks for signing up. As requested, your account has been created.
 
-Please click the Verification Link below to Verify Your Account.
+Please click the verification link below to verify your account.
 
 | Details   |              |
 | ---------:|:------------ |

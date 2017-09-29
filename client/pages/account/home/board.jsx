@@ -19,6 +19,7 @@ const propTypes = {
     guess2: PropTypes.number,
     hydrated: PropTypes.bool,
     level: PropTypes.string,
+    timeout: PropTypes.number,
     pairsToMatch: PropTypes.number,
     round: PropTypes.number,
     status: PropTypes.string,
@@ -52,7 +53,8 @@ class Board extends React.Component {
                 status: nextProps.status,
                 level: nextProps.level,
                 flips: nextProps.flips,
-                timestamp: nextProps.timestamp
+                timestamp: nextProps.timestamp,
+                timeout: nextProps.timeout
             });
 
             // We've finished with the game and updated the statistics
@@ -75,7 +77,8 @@ class Board extends React.Component {
             status: status,
             level: this.props.level,
             flips: this.props.flips,
-            timestamp: this.props.timestamp
+            timestamp: this.props.timestamp,
+            timeout: this.props.timeout
         });
 
         // We've finished with the game and updated the statistics
@@ -95,7 +98,8 @@ class Board extends React.Component {
                 status: status,
                 level: this.props.level,
                 flips: this.props.flips,
-                timestamp: this.props.timestamp
+                timestamp: this.props.timestamp,
+                timeout: this.props.timeout
             });
 
             // We've finished with the game and updated the statistics
@@ -139,7 +143,7 @@ class Board extends React.Component {
                 </Helmet>
                 <div className="timer" ref="timer">
                     <span className="bar-unfill">
-                        <span onAnimationEnd={() => this.onAnimationEnd()} className="bar-fill" style={{animation: '90000ms linear 0s normal none 1 running timer'}}></span>
+                        <span onAnimationEnd={() => this.onAnimationEnd()} className="bar-fill" style={{animation: this.props.timeout + 's linear 0s normal none 1 running timer'}}></span>
                     </span>
                 </div>
                 <Cards

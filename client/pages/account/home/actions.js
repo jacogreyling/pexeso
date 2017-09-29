@@ -73,7 +73,8 @@ class Actions {
             score = CalculateScore({
                 level: data.level,
                 flips: data.flips,
-                start: data.timestamp
+                start: data.timestamp,
+                timeout: data.timeout
             });
         };
 

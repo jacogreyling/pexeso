@@ -10,6 +10,7 @@ const initialState = {
     active: false,
     status: undefined,
     pairsToMatch: null,
+    timeout: null,
     level: undefined,
     guess1: null,
     guess2: null,
@@ -26,19 +27,22 @@ const reducer = function (state = initialState, action) {
         let cards = [];
 
         // Read the difficulty level and set the number of cards to create
-        let number, pairsToMatch;
+        let number, pairsToMatch, timeout;
         switch(action.level) {
             case "casual":
                 number = 16;
                 pairsToMatch = 8;
+                timeout = 60;
                 break;
             case "medium":
                 number = 36;
                 pairsToMatch = 18;
+                timeout = 120;
                 break;
             case "hard":
                 number = 64;
                 pairsToMatch = 32;
+                timeout = 300
                 break;
             default:
                 number = 0;
@@ -87,6 +91,7 @@ const reducer = function (state = initialState, action) {
             status: "in-progress",
             pairsToMatch: pairsToMatch,
             level: action.level,
+            timeout: timeout,
             cards: (window.location.hostname == "localhost") ? cards : Shuffle(cards),
             cardSize: 100/Math.sqrt(number),
             timestamp: action.timeNow
