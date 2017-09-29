@@ -40,6 +40,18 @@ html, body, #app-mount {
 
 
 /* FRONT SCREEN */
+.logo .instructions {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	font-size: 14px;
+	font-style: italic;
+	color: #57676d;
+	left: 50%;
+	height: 22px;
+	width: 100%;
+	transform: translate(-50%, -50%);
+}
 .logo {
 	height: 450px;
 	left: 50%;
@@ -167,6 +179,10 @@ html, body, #app-mount {
 	.logo .f {
 		font: normal 80px/140px Arial, Helvetica, sans-serif;
 	}
+	.logo .instructions {
+		font-size: 12px;
+		height: 18px;
+	}
 }
 @media all and (max-width: 470px) and (min-width: 0px) {
 	.flipper a {
@@ -179,5 +195,9 @@ html, body, #app-mount {
 	}
 	.logo .f {
 		font: normal 60px/92px Arial, Helvetica, sans-serif;
+	}
+	.logo .instructions {
+		font-size: 10px;
+		height: 16px;
 	}
 }

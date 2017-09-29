@@ -16,7 +16,11 @@ internals.applyRoutes = function (server, next) {
         },
         handler: function (request, reply) {
 
-            reply.view('account/index');
+            // Add a simple html header so the client can render the proper
+            // navbar with links to /admin pages
+            reply.view('account/index', {
+                roles: typeof request.auth.credentials.user.roles.admin === 'object' ? "admin, account" : "account"
+            });
         }
     });
 

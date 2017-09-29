@@ -72,10 +72,16 @@ class Actions {
                         window.location.href = query.returnUrl;
                     }
                     else if (response && response.user) {
-                        if (response.user.roles.admin) {
+
+                        if (response.user.roles.account &&
+                            response.user.roles.admin) {
+                            window.location.href = '/account';
+
+                        } else if (response.user.roles.admin) {
+
                             window.location.href = '/admin';
-                        }
-                        else {
+
+                        } else {
                             window.location.href = '/account';
                         }
                     }

@@ -50,7 +50,7 @@ class ResetPage extends React.Component {
         event.stopPropagation();
 
         Actions.verifyAccount({
-            token: this.props.match.params.token            
+            token: this.props.match.params.token
         });
     }
 
@@ -61,7 +61,7 @@ class ResetPage extends React.Component {
         if (this.state.success) {
             alerts.push(<div key="success">
                 <div className="alert alert-success">
-                    Your account has been verified, Please Login
+                    Your account has been verified. Please login.
                 </div>
                 <Link to="/login" className="btn btn-link">Back to login</Link>
             </div>);
@@ -100,14 +100,13 @@ class ResetPage extends React.Component {
                     <h1 className="page-header">Verify your Account</h1>
                     <div className="row">
                         <div className="col-sm-6">
-                            <p>
-                                Please Click the Buttom Below to Verify you Account
-                            </p>
-                            <p>
-                                You Will be redirected the the Login Page After the Verification.
+                            <h4 className="media-heading">
+                                Please click the buttom below to verify your account
+                            </h4>
+                            <p style={{marginTop: '10px'}}>
+                                You will be redirected to the login page after the verification step.
                             </p>
                         </div>
-                        <hr />
                     </div>
                     <div className="row">
                         <div className="col-sm-6">

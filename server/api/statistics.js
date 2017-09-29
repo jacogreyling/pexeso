@@ -144,17 +144,6 @@ internals.applyRoutes = function (server, next) {
                         lost: Joi.number().integer(),
                         abandoned: Joi.number().integer()
                     }),
-                /*    highscores: Joi.object().keys({
-                        casual: Joi.object().keys({
-                            score: Joi.number().integer(),
-                        }),
-                        medium: Joi.object().keys({
-                            score: Joi.number().integer(),
-                        }),
-                        hard: Joi.object().keys({
-                            score: Joi.number().integer(),
-                        }), 
-                    }),*/
                     flips: Joi.object().keys({
                         total: Joi.number().integer(),
                         matched: Joi.number().integer(),
@@ -209,7 +198,7 @@ internals.applyRoutes = function (server, next) {
                                 return reply.continue();
                             }
                         } else {
-                        
+
                             return reply.continue();
                         }
                     }
@@ -222,7 +211,7 @@ internals.applyRoutes = function (server, next) {
             const filter = { 'userId': userId.toLowerCase() };
             const date = new Date();
             const seckey = Md5(request.payload.status + request.payload.score + request.payload.level);
-            
+
             let update = {};
             //Verify the Security Key is Matching
             if (request.payload.seckey == seckey) {

@@ -6,6 +6,8 @@ const io = require('socket.io-client');
 const Actions = require('./actions');
 const Store = require('./store');
 const ReactHelmet = require('react-helmet');
+const ClassNames = require('classnames');
+
 
 const Helmet = ReactHelmet.Helmet;
 
@@ -72,106 +74,60 @@ class HomePage extends React.Component {
 
     render() {
 
-        if (!this.state.telemetry.hydrated) {
-            return (
-                <section className="section-home container">
-                    <Helmet>
-                        <title>Admin</title>
-                    </Helmet>
-                    <div className="home">
-                        <div className="stats">
-                            <div className="card">
-                                <div className="f c1 active">
-                                    <div className="description">Registered Users</div>
-                                    <div className="contentbox small">Loading...</div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="f c2 active">
-                                    <div className="description">Active Sessions</div>
-                                    <div className="contentbox small">Loading...</div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                    <div className="f c3">
-                                        <div className="description">API Calls</div>
-                                        <div className="contentbox small">Loading...</div>
-                                    </div>
-                            </div>
-                            <div className="card">
-                                <div className="f c4">
-                                    <div className="description">Won</div>
-                                    <div className="contentbox small">Loading...</div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="f c5">
-                                    <div className="description">Lost</div>
-                                    <div className="contentbox small">Loading...</div>
-                                </div>
-                            </div>
-                            <div className="card">
-                                <div className="f c6">
-                                    <div className="description">Abandoned</div>
-                                    <div className="contentbox small">Loading...</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            )
-        };
-
+        const contentClass = ClassNames({
+            'contentbox' : true,
+            'small' : !this.state.telemetry.hydrated
+        });
 
         // Format the numbers, for pretty printing
-        let formatUsers = this.state.telemetry.users;
-        let formatSessions = this.state.telemetry.sessions;
-        let formatApiCalls = this.state.telemetry.apiCalls;
-        let formatGamesWon = this.state.telemetry.games.won;
-        let formatGamesLost = this.state.telemetry.games.lost;
-        let formatGamesAbandoned = this.state.telemetry.games.abandoned;
+        const formatUsers = this.state.telemetry.hydrated ? this.state.telemetry.users.toLocaleString('en') : "Loading...";
+        const formatSessions = this.state.telemetry.hydrated ? this.state.telemetry.sessions : "Loading...";
+        const formatApiCalls = this.state.telemetry.hydrated ? this.state.telemetry.apiCalls : "Loading...";
+        const formatGamesWon = this.state.telemetry.hydrated ? this.state.telemetry.games.won : "Loading...";
+        const formatGamesLost = this.state.telemetry.hydrated ? this.state.telemetry.games.lost : "Loading...";
+        const formatGamesAbandoned = this.state.telemetry.hydrated ? this.state.telemetry.games.abandoned : "Loading...";
 
         return (
             <section className="section-home container">
                 <Helmet>
-                    <title>Admin</title>
+                    <title>Admin - Dashboard</title>
                 </Helmet>
                 <div className="home">
                     <div className="stats">
                         <div className="card">
                             <div className="f c1 active">
                                 <div className="description">Registered Users</div>
-                                <div className="contentbox">{formatUsers.toLocaleString('en')}</div>
+                                <div className={contentClass}>{formatUsers}</div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="f c2 active">
                                 <div className="description">Active Sessions</div>
-                                <div className="contentbox">{formatSessions}</div>
+                                <div className={contentClass}>{formatSessions}</div>
                             </div>
                         </div>
                         <div className="card">
                                 <div className="f c3">
                                     <div className="description">API Calls</div>
-                                    <div className="contentbox">{formatApiCalls}</div>
+                                    <div className={contentClass}>{formatApiCalls}</div>
                                 </div>
                         </div>
                         <div className="card">
                             <div className="f c4">
                                 <div className="description">Won</div>
-                                <div className="contentbox">{formatGamesWon}</div>
+                                <div className={contentClass}>{formatGamesWon}</div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="f c5">
                                 <div className="description">Lost</div>
-                                <div className="contentbox">{formatGamesLost}</div>
+                                <div className={contentClass}>{formatGamesLost}</div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="f c6">
                                 <div className="description">Abandoned</div>
-                                <div className="contentbox">{formatGamesAbandoned}</div>
+                                <div className={contentClass}>{formatGamesAbandoned}</div>
                             </div>
                         </div>
                     </div>

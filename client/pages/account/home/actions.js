@@ -78,8 +78,6 @@ class Actions {
         };
 
         let clientSecKey = Md5("" + data.status + score +  data.level + "");
-        
-        console.log(clientSecKey);
 
         // Calculate highscore
         let highscore = 0;
@@ -121,23 +119,6 @@ class Actions {
                     stats.figures.abandoned + 1 :
                     stats.figures.abandoned
             },
-            /* highscores: {
-                casual: {
-                    score: data.level === "casual" ?
-                        highscore :
-                        stats.highscores.casual.score
-                    },
-                medium: {
-                    score: data.level === "medium" ?
-                        highscore :
-                        stats.highscores.medium.score
-                    },
-                hard: {
-                    score: data.level === "hard" ?
-                        highscore :
-                        stats.highscores.hard.score
-                    }
-            }, */
             flips: {
                 total: (isNaN(stats.flips.total) ?
                     0 :
@@ -162,7 +143,7 @@ class Actions {
             highscore: isHighscore,
             score: score,
             level: data.level,
-            seckey : clientSecKey 
+            seckey : clientSecKey
         };
 
         // Update the database

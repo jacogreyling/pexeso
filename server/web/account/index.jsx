@@ -11,6 +11,7 @@ class AccountPage extends React.Component {
                 <head>
                     <title>Account</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <meta name="pexeso-roles" content={this.props.roles} />
                     <link rel="stylesheet" href="/public/core.min.css" />
                     <link rel="stylesheet" href="/public/pages/account.min.css" />
                     <link rel="shortcut icon" href="/public/media/favicon.ico" />

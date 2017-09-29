@@ -11,6 +11,7 @@ class AdminPage extends React.Component {
                 <head>
                     <title>Admin</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                    <meta name="pexeso-roles" content={this.props.roles} />
                     <link rel="stylesheet" href="/public/core.min.css" />
                     <link rel="stylesheet" href="/public/pages/admin.min.css" />
                     <link rel="shortcut icon" href="/public/media/favicon.ico" />

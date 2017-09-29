@@ -72,10 +72,7 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'session',
                 scope: 'admin'
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 

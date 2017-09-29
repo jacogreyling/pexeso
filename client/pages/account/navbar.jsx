@@ -17,8 +17,16 @@ class Navbar extends React.Component {
 
         super(props);
 
+        // We find this to see if we should render the 'admin' link
+        let adminRole = false;
+        if (document.head.querySelector("[name=pexeso-roles]") !== null) {
+            const roles = document.head.querySelector("[name=pexeso-roles]").content;
+            adminRole = roles.includes("admin");
+        }
+
         this.state = {
-            navBarOpen: false
+            navBarOpen: false,
+            adminRole: adminRole
         };
     }
 
@@ -46,6 +54,10 @@ class Navbar extends React.Component {
             collapse: !this.state.navBarOpen
         });
 
+        const renderAdminClass = ClassNames({
+            hide: !this.state.adminRole
+        });
+
         return (
             <div className="navbar navbar-default navbar-fixed-top">
                 <div className="container">
@@ -70,6 +82,9 @@ class Navbar extends React.Component {
                             </li>
                             <li className={this.classForPath('/account/settings')}>
                                 <Link to="/account/settings">Settings</Link>
+                            </li>
+                            <li className={renderAdminClass}>
+                                <a href="/admin">Admin</a>
                             </li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">

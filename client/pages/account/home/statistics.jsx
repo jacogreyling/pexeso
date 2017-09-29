@@ -71,7 +71,7 @@ class Statistics extends React.Component {
                 </ul>
                 <span className="played">
                     <b>Last Played:&nbsp;</b>
-                    <span>{moment(this.props.lastPlayed).locale('en-gb').format("LLL")}</span>
+                    <span>{moment(this.props.lastPlayed)._isValid ? moment(this.props.lastPlayed).locale('en-gb').format("LLL") : '-'}</span>
                 </span>
             </div>
         );

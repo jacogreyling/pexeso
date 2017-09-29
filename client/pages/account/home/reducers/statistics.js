@@ -89,7 +89,8 @@ const reducer = function (state = initialState, action) {
             _id: action.response._id,
             figures: action.response.figures,
             highscores: action.response.highscores,
-            flips: action.response.flips
+            flips: action.response.flips,
+            lastPlayed: null
         });
     }
 
@@ -116,7 +117,8 @@ const reducer = function (state = initialState, action) {
             _id: action.response._id,
             figures: action.response.figures,
             highscores: action.response.highscores,
-            flips: action.response.flips
+            flips: action.response.flips,
+            lastPlayed: action.response.lastPlayed
         });
     }
 
