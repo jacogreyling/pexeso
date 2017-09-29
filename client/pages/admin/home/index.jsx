@@ -96,13 +96,13 @@ class HomePage extends React.Component {
                     <div className="stats">
                         <div className="card">
                             <div className="f c1 active">
-                                <div className="description">Registered Users</div>
+                                <div className="description">Users</div>
                                 <div className={contentClass}>{formatUsers}</div>
                             </div>
                         </div>
                         <div className="card">
                             <div className="f c2 active">
-                                <div className="description">Active Sessions</div>
+                                <div className="description">Sessions</div>
                                 <div className={contentClass}>{formatSessions}</div>
                             </div>
                         </div>

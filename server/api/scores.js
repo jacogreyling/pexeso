@@ -61,6 +61,7 @@ internals.applyRoutes = function (server, next) {
                 {
                     $project: {
                         username: { $arrayElemAt: [ "$username.username", 0 ] },
+                        userId: 1,
                         score: 1,
                         level: 1,
                         timestamp: 1
@@ -97,10 +98,7 @@ internals.applyRoutes = function (server, next) {
                     limit: Joi.number().default(10),
                     page: Joi.number().default(1)
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -116,6 +114,7 @@ internals.applyRoutes = function (server, next) {
             }
             const fields = {
                 username: { $arrayElemAt: [ "$username.username", 0 ] },
+                userId: 1,
                 score: 1,
                 level: 1,
                 timestamp: 1

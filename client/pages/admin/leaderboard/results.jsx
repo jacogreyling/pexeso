@@ -65,10 +65,10 @@ class Results extends React.Component {
                 }
 
                 return (
-                    <tr className={activeClass} key={record._id}>
+                    <tr id={record.userId} className={activeClass} key={record._id}>
                         <td>{count}</td>
-                        <td>{record.username}</td>
-                        <td>{moment(timestamp).locale('en-gb').format("LLL")}</td>
+                        <td>{typeof record.username === "undefined" ? "?" : record.username}</td>
+                        <td className="timestamp">{moment(timestamp).locale('en-gb').format("LLL")}</td>
                         <td>{score}</td>
                     </tr>
                 );
@@ -82,7 +82,7 @@ class Results extends React.Component {
                         <tr>
                             <th style={{width: '10%'}}>{rowDescription}</th>
                             <th style={{width: 'auto'}}>Username</th>
-                            <th style={{width: '20%'}}>Timestamp</th>
+                            <th className="timestamp">Timestamp</th>
                             <th style={{width: '15%'}}>Score</th>
                         </tr>
                     </thead>

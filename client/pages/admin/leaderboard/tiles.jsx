@@ -157,6 +157,7 @@ class Tiles extends React.Component {
                                 onClickOutside={this.handleClickOutside.bind(this)}
                                 shouldCloseOnSelect={false}
                                 showTimeSelect
+                                popperPlacement="left"
                                 timeFormat="HH:mm"
                                 timeIntervals={30}
                                 dateFormat="LLL"

@@ -32,7 +32,7 @@ We're using [Gulp](http://gulpjs.com/) for the build system and [CA CD Director]
 
 ## Requirements
 
-You need [Node.js](http://nodejs.org/download/) v8.1.x or above installed and you'll need [MongoDB](http://www.mongodb.org/downloads) installed and running. You will also need to download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html).
+You need [Node.js](http://nodejs.org/download/) v8.1.x or above installed. You will also need [MongoDB](http://www.mongodb.org/downloads) installed and running as well as [Redis](https://redis.io) on localhost. You can optionally download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) to create / secure your public facing API's.
 
 We use [`bcrypt`](https://github.com/ncb000gt/node.bcrypt.js) for hashing secrets.
 
@@ -103,7 +103,6 @@ Unlike `$ npm start` this doesn't watch for file changes. Also be sure to set th
 
 
 
-
 ## Want to contribute?
 
 Contributions are welcome. If you're changing something non-trivial, you may want to submit an issue before creating a large pull request.
@@ -157,4 +156,4 @@ A special thanks goes out to Reza Akhavan from [Aqua](https://github.com/jedirez
 
 The game is based on the excellent work done by [ZeroSpree](https://codepen.io/zerospree/pen/bNWbvW) and ported to React by the pexeso development team.
 
-The Server side start-up script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for AWS environments.
+The server side start-up script for Linux-based systems running Node.js from [chovy](https://github.com/chovy/node-startup), Modified for Amazon environments.

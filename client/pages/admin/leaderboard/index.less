@@ -113,6 +113,9 @@ html {
 	margin-left: 3px;
 	margin-right: 3px;
 }
+.timestamp {
+	width: 20%;
+}
 
 
 /* DATE PICKER */
@@ -154,6 +157,16 @@ select, textarea, input, .form-control {
     width: 100%;
 	margin-bottom: 2px;
 }
+.react-datepicker-wrapper input {
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-o-user-select:none; // latest Opera versions support -webkit-
+	user-select:none;
+}
+.react-datepicker-wrapper input:focus {
+	outline: none;
+}
 .date-picker button {
 	bottom: 15%;
 	position: absolute;
@@ -163,6 +176,9 @@ select, textarea, input, .form-control {
 }
 .box .date-picker h2 {
 	margin-top: 15px;
+}
+.react-datepicker-popper {
+	width: 285px !important;
 }
 
 /* SWITCH */
@@ -200,10 +216,97 @@ select, textarea, input, .form-control {
 	border: thin solid #222;
 }
 
+
 /*Responsive Stuff*/
-@media all and (max-width: 768px) and (min-width: 470px) {
+@media all and (max-width: 976px) {
+	.level {
+		height: 150px;
+	}
+	.level .f .contentbox {
+		font-size: 32px;
+	}
+	.date-picker button {
+		bottom: 10%;
+		width: auto;
+		padding: 3px 6px;
+	}
+	.box .date-picker h2 {
+		font-size: 24px;
+	}
+	.switch {
+		border: none;
+	}
+	.pause {
+		top: 0px;
+	}
+	.react-datepicker-wrapper input {
+		font-size: 12px !important;
+	}
+	.timestamp {
+		width: 35%;
+	}
 
 }
+@media all and (max-width: 768px) and (min-width: 470px) {
+	.switch {
+		top: 12px;
+		right: 14px;
+	}
+	.react-datepicker-wrapper {
+		width: 100%;
+	}
+	.box .date-picker h2 {
+		font-size: 22px;
+	}
+}
 @media all and (max-width: 470px) and (min-width: 0px) {
-
+	.switch {
+		top: 12px;
+		right: 14px;
+	}
+	.react-datepicker-wrapper {
+		width: 100%;
+	}
+	.cards {
+	    display: block;
+	    height: 360px;
+	}
+	.level {
+		height: 160px;
+		margin: 20px 0 26px;
+	}
+	.level .card {
+		width: 50%;
+	}
+	.leaderboard-table {
+		margin: 0px;
+	}
+	.well {
+    	margin: 0px;
+	}
+	.leaderboard-form {
+		margin: 0px;
+	}
+	.row .col-sm-2.right {
+    	float: none;
+	}
+	.react-datepicker-popper {
+		transform: translate3d(-160px, -30px, 0px) !important;
+	}
+	input[type='text'],
+	input[type='number'],
+	textarea {
+  		font-size: 16px !important;
+	}
+	.react-datepicker-wrapper input {
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		-o-user-select:none; // latest Opera versions support -webkit-
+		user-select:none;
+		width: 90%;
+	}
+	.timestamp {
+		display: none;
+	}
 }
