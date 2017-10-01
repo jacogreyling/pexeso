@@ -1,9 +1,8 @@
 'use strict';
 
-const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const React = require('react');
-const moment = require('moment');
+const Moment = require('moment');
 
 
 const propTypes = {
@@ -13,7 +12,8 @@ const propTypes = {
     highscores: PropTypes.object,
     hydrated: PropTypes.bool,
     showFetchFailure: PropTypes.bool,
-    statsAvailable: PropTypes.bool
+    statsAvailable: PropTypes.bool,
+    lastPlayed: PropTypes.string
 };
 
 
@@ -71,7 +71,7 @@ class Statistics extends React.Component {
                 </ul>
                 <span className="played">
                     <b>Last Played:&nbsp;</b>
-                    <span>{moment(this.props.lastPlayed)._isValid ? moment(this.props.lastPlayed).locale('en-gb').format("LLL") : '-'}</span>
+                    <span>{Moment(this.props.lastPlayed)._isValid ? Moment(this.props.lastPlayed).locale('en-gb').format('LLL') : '-'}</span>
                 </span>
             </div>
         );

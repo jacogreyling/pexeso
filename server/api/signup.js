@@ -4,7 +4,7 @@ const Async = require('async');
 const Boom = require('boom');
 const Config = require('../../config/config');
 const Joi = require('joi');
-const hexGen = require('../helpers/hex-generator');
+const HexGen = require('../helpers/hex-generator');
 
 const internals = {};
 
@@ -12,7 +12,6 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const Account = server.plugins['hapi-mongo-models'].Account;
-    const Session = server.plugins['hapi-mongo-models'].Session;
     const User = server.plugins['hapi-mongo-models'].User;
 
 
@@ -83,7 +82,7 @@ internals.applyRoutes = function (server, next) {
             }]
         },
         handler: function (request, reply) {
-            
+
             const mailer = request.server.plugins.mailer;
 
             Async.auto({
@@ -132,8 +131,9 @@ internals.applyRoutes = function (server, next) {
                     User.findByIdAndUpdate(id, update, done);
                 }],
                 generateVerificationCode: ['account', function (results, done) {
+
                     const id = results.user._id.toString();
-                    const verificationToken = hexGen(24).toLowerCase();
+                    const verificationToken = HexGen(24).toLowerCase();
 
                     const update = {
                         $set: {
@@ -148,8 +148,8 @@ internals.applyRoutes = function (server, next) {
                     request.payload.verificationToken = verificationToken;
                 }],
                 welcome: ['linkUser', 'linkAccount', 'generateVerificationCode', function (results, done) {
-                    
-                    request.payload.publicURL = Config.get('/baseUrl') + "/verify";
+
+                    request.payload.publicURL = Config.get('/baseUrl') + '/verify';
 
                     const emailOptions = {
                         subject: 'Your ' + Config.get('/projectName') + ' account',
@@ -189,7 +189,7 @@ internals.applyRoutes = function (server, next) {
                         username: user.username,
                         email: user.email,
                         roles: user.roles
-                    },
+                    }
                 };
 
                 // Get the socket.io object

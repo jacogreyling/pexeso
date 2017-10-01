@@ -2,7 +2,6 @@
 
 const React = require('react');
 const Store = require('./store');
-const PropTypes = require('prop-types');
 const Actions = require('./actions');
 const Tiles = require('./tiles.jsx');
 const Board = require('./board.jsx');
@@ -42,7 +41,7 @@ class HomePage extends React.Component {
     render() {
 
         return (
-            <section className="section-home container" onClick={() => (void(0))}>
+            <section className="section-home container" onClick={() => (void (0))}>
                 <Helmet>
                     <title>Home</title>
                 </Helmet>

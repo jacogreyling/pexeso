@@ -19,7 +19,9 @@ internals.applyRoutes = function (server, next) {
             // Add a simple html header so the client can render the proper
             // navbar with links to /admin pages
             reply.view('account/index', {
-                roles: typeof request.auth.credentials.user.roles.admin === 'object' ? "admin, account" : "account"
+                roles: typeof request.auth.credentials.user.roles.admin === 'object' ?
+                    'admin, account' :
+                    'account'
             });
         }
     });

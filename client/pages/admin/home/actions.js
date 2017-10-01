@@ -9,7 +9,7 @@ class Actions {
     static getUserCount() {
 
         ApiActions.get(
-            `/api/users/count`,
+            '/api/users/count',
             undefined,
             Store,
             Constants.GET_USERS,
@@ -20,7 +20,7 @@ class Actions {
     static getSessionCount() {
 
         ApiActions.get(
-            `/api/sessions/count`,
+            '/api/sessions/count',
             undefined,
             Store,
             Constants.GET_SESSIONS,
@@ -67,7 +67,7 @@ class Actions {
     static getAllStatistics() {
 
         ApiActions.get(
-            `/api/monitor`,
+            '/api/monitor',
             undefined,
             Store,
             Constants.GET_STATISTICS,

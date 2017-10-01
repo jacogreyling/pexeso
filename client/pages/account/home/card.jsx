@@ -4,7 +4,6 @@ const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const React = require('react');
 const ClassNames = require('classnames');
-const ReactTimeout = require('react-timeout');
 
 
 const propTypes = {
@@ -12,7 +11,7 @@ const propTypes = {
     status: PropTypes.string,
     card: PropTypes.object,
     cardSize: PropTypes.number,
-    level: PropTypes.string,
+    level: PropTypes.string
 };
 
 class Card extends React.Component {
@@ -23,16 +22,17 @@ class Card extends React.Component {
         Actions.flipCard(id);
 
         // If it's the second card in a pair
-        if (this.props.round % 2 != 1) {
+        if (this.props.round % 2 !== 1) {
 
             setTimeout(() => {
 
                 // We've won, now render the tiles again
-                if (this.props.status === "won") {
+                if (this.props.status === 'won') {
 
                     Actions.endGame();
                 // Flip it back
-                } else {
+                }
+                else {
 
                     Actions.resetCards();
                 }
@@ -46,27 +46,27 @@ class Card extends React.Component {
         // Create an empty div when a card was matched in a previous round
         if (this.props.card.discovered && !this.props.card.flipped) {
             return (
-                    <div className="found"
-                        style={{width: this.props.cardSize + '%', height: this.props.cardSize + '%'}}>
-                    </div>
+                <div className="found"
+                    style={{ width: this.props.cardSize + '%', height: this.props.cardSize + '%' }}>
+                </div>
             );
         }
 
-        let cardClass = ClassNames({
+        const cardClass = ClassNames({
             'card' : true,
             'active' : this.props.card.flipped || this.props.card.discovered
         });
 
-        let bClass = ClassNames({
+        const bClass = ClassNames({
             'b' : true,
-            'casual' : this.props.level === "casual",
-            'medium' : this.props.level === "medium",
-            'hard' : this.props.level === "hard",
+            'casual' : this.props.level === 'casual',
+            'medium' : this.props.level === 'medium',
+            'hard' : this.props.level === 'hard'
         });
 
         return (
             <div className={cardClass}
-                style={{width: this.props.cardSize + '%', height: this.props.cardSize + '%'}}
+                style={{ width: this.props.cardSize + '%', height: this.props.cardSize + '%' }}
                 onClick={() => this.flipCard(this.props.card.id)}>
                 <div className="flipper">
                     <div className="f"></div>

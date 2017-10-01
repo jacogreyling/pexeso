@@ -114,44 +114,46 @@ class User extends MongoModels {
     }
 
     static verifyUser(verificationToken, callback) {
+
         const self = this;
-        
+
         Async.auto({
             user: function (done) {
-                const query = { "verification.token": verificationToken.toLowerCase() };
-                
+
+                const query = { 'verification.token': verificationToken.toLowerCase() };
+
                 self.findOne(query, done);
             },
             updateVerification: ['user', function (results, done) {
+
                 if (!results.user) {
                     return done(null, false);
-                } else {
-                    const id = results.user._id.toString();
-                    
-                    const update = {
-                        $set: {
-                            isActive: true, 
-                            verification: {
-                                token: verificationToken.toLowerCase(),
-                                validated: true,
-                                timeValidated: new Date()
-                            }
-                        }
-                    };
-                    User.findByIdAndUpdate(id, update, done);
                 }
+
+                const id = results.user._id.toString();
+                const update = {
+                    $set: {
+                        isActive: true,
+                        verification: {
+                            token: verificationToken.toLowerCase(),
+                            validated: true,
+                            timeValidated: new Date()
+                        }
+                    }
+                };
+                User.findByIdAndUpdate(id, update, done);
             }]
         }, (err, results) => {
 
             if (err) {
                 return callback(err);
             }
-            
+
             if (results.updateVerification) {
                 return callback(null, true);
-            } else {
-                return callback(null, false);
             }
+
+            return callback(null, false);
         });
     }
 
@@ -216,7 +218,7 @@ class User extends MongoModels {
 }
 
 
-User.collection = 'users'; 
+User.collection = 'users';
 
 
 User.schema = Joi.object().keys({

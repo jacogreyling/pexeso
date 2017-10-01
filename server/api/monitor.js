@@ -19,11 +19,15 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             // Get the global state from the cache and reply
-            server.cache({segment: 'telemetry', cache: 'redisCache'})
+            server.cache({ segment: 'telemetry', cache: 'redisCache' })
                 .get('stats', (err, value, cached, log) => {
 
-                reply(value);
-            });
+                    if (err) {
+                        return reply(err);
+                    }
+
+                    reply(value);
+                });
         }
     });
 

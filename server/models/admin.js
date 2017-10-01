@@ -14,7 +14,9 @@ class Admin extends MongoModels {
         const document = {
             name: {
                 first: nameParts.shift(),
-                middle: nameParts.length > 1 ? nameParts.shift() : '',
+                middle: nameParts.length > 1 ?
+                    nameParts.shift() :
+                    '',
                 last: nameParts.join(' ')
             },
             timeCreated: new Date()

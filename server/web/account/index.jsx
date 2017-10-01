@@ -1,6 +1,12 @@
 'use strict';
 
 const React = require('react');
+const PropTypes = require('prop-types');
+
+
+const propTypes = {
+    roles: PropTypes.string
+};
 
 
 class AccountPage extends React.Component {
@@ -25,6 +31,9 @@ class AccountPage extends React.Component {
         );
     }
 }
+
+
+AccountPage.propTypes = propTypes;
 
 
 module.exports = AccountPage;

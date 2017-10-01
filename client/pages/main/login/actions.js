@@ -77,11 +77,13 @@ class Actions {
                             response.user.roles.admin) {
                             window.location.href = '/account';
 
-                        } else if (response.user.roles.admin) {
+                        }
+                        else if (response.user.roles.admin) {
 
                             window.location.href = '/admin';
 
-                        } else {
+                        }
+                        else {
                             window.location.href = '/account';
                         }
                     }

@@ -30,7 +30,7 @@ class AboutPage extends React.Component {
                                     CTO Enterprise DevOps
                                 </p>
                                 <p>
-                                    <em>"The Developer"</em>
+                                    <em>The Developer</em>
                                 </p>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ class AboutPage extends React.Component {
                                     Senior Consultant - DevOps
                                 </p>
                                 <p>
-                                    <em>"The Ops Guy"</em>
+                                    <em>The Ops Guy</em>
                                 </p>
                             </div>
                         </div>
@@ -64,7 +64,7 @@ class AboutPage extends React.Component {
                                     Solution Strategist
                                 </p>
                                 <p>
-                                    <em>"The API Guy"</em>
+                                    <em>The API Guy</em>
                                 </p>
                             </div>
                         </div>
@@ -74,12 +74,12 @@ class AboutPage extends React.Component {
                         <p className="lead">
                             Fork&nbsp;
                             <a href="https://github.com/jacogreyling/pexeso"
-                                style={{outline: '0'}} target="_blank">
+                                style={{ outline: '0' }} target="_blank" rel="noopener noreferrer">
                                 this
                             </a>&nbsp;project on Github and help us build pexeso!
                         </p>
                         <img height="250" width="250" src="public/media/github.png"
-                             alt="Fork this project on Github and help us build pexeso" />
+                            alt="Fork this project on Github and help us build pexeso" />
                     </div>
                 </div>
             </section>

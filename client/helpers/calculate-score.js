@@ -1,4 +1,7 @@
-module.exports = function(data) {
+'use strict';
+
+module.exports = function (data) {
+
     const end = new Date();
     const POINTS = 5;
 
@@ -25,4 +28,4 @@ module.exports = function(data) {
     }
 
     return score;
-}
+};

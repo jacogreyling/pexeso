@@ -2,7 +2,6 @@
 
 const Constants = require('../constants');
 const ObjectAssign = require('object-assign');
-const ParseValidation = require('../../../../helpers/parse-validation');
 
 const initialState = {
     hydrated: false,
@@ -52,7 +51,7 @@ const reducer = function (state = initialState, action) {
                 hydrated: true,
                 showFetchedFailure: true,
                 statsAvailable: false
-            })
+            });
         }
 
         return ObjectAssign({}, state, {
@@ -80,7 +79,7 @@ const reducer = function (state = initialState, action) {
                 hydrated: true,
                 showFetchedFailure: true,
                 statsAvailable: false
-            })
+            });
         }
 
         return ObjectAssign({}, state, {
@@ -108,7 +107,7 @@ const reducer = function (state = initialState, action) {
                 hydrated: true,
                 showFetchFailure: true,
                 statsAvailable: false
-            })
+            });
         }
 
         return ObjectAssign({}, state, {

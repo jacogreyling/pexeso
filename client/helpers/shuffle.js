@@ -1,40 +1,43 @@
-module.exports = function(array) {
+'use strict';
+
+module.exports = function (array) {
+
     let arrayLength = array.length;
-    let shuffleArray =[];
-    let reshuffleArray =[];
-    let sourceArray = array;
+    const shuffleArray = [];
+    const reshuffleArray = [];
+    const sourceArray = array;
 
     while (arrayLength !== 0 ) {
 
-        //reduce the remaining elements by 1
-        let remainingElements = arrayLength--;
+        // Reduce the remaining elements by 1
+        const remainingElements = arrayLength--;
 
         // Pick a remaining element…
-        let randomElement = Math.floor(Math.random() * remainingElements);
+        const randomElement = Math.floor(Math.random() * remainingElements);
 
-        //move random element in to shuffle array
+        // Move random element in to shuffle array
         shuffleArray.push(sourceArray.splice(randomElement, 1)[0]);
 
         // Find tiles next to each other
         if (shuffleArray.length > 2){
-            let length = shuffleArray.length;
-            if (shuffleArray[(length - 2)].id == shuffleArray[(length - 1)].rel){
-                reshuffleArray.push(length-1);
+            const length = shuffleArray.length;
+            if (shuffleArray[(length - 2)].id === shuffleArray[(length - 1)].rel){
+                reshuffleArray.push(length - 1);
             }
         }
     }
-   
-    //move tiles that were next to each other
-    reshuffleArray.forEach(function(element) {
-        //Tile to Move
-        let elementToMove = shuffleArray.splice(element,1)[0];
 
-        //New Position 
-        let newPosition = Math.floor(Math.random() * (shuffleArray.length - reshuffleArray.length));
+    // Move tiles that were next to each other
+    reshuffleArray.forEach((element) => {
+        // Tile to move
+        const elementToMove = shuffleArray.splice(element,1)[0];
 
-        //Insert Element @ New Position
+        // New Position
+        const newPosition = Math.floor(Math.random() * (shuffleArray.length - reshuffleArray.length));
+
+        // Insert element @ new position
         shuffleArray.splice(newPosition, 0, elementToMove);
     });
 
     return shuffleArray;
-}
+};

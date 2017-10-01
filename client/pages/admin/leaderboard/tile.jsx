@@ -1,8 +1,6 @@
 'use strict';
 
 const React = require('react');
-const Store = require('./store');
-const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const ClassNames = require('classnames');
 
@@ -12,7 +10,9 @@ const propTypes = {
     name: PropTypes.string,
     id: PropTypes.string,
     active: PropTypes.string,
-    display: PropTypes.bool
+    display: PropTypes.bool,
+    history: PropTypes.object,
+    children: PropTypes.element
 };
 
 
@@ -23,7 +23,7 @@ class Tile extends React.Component {
 
         this.state = {
             active: props.active
-        }
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -51,10 +51,12 @@ class Tile extends React.Component {
         let content;
         if (this.props.children) {
             content = this.props.children;
-        } else if (typeof this.props.name !== 'undefined') {
+        }
+        else if (typeof this.props.name !== 'undefined') {
             content = this.props.name;
-        } else {
-            content = "_empty";
+        }
+        else {
+            content = '_empty';
         }
 
         if (typeof this.props.onClick === 'undefined') {
@@ -66,7 +68,7 @@ class Tile extends React.Component {
                         </div>
                     </div>
                 </div>
-            )
+            );
         }
 
         return (
@@ -77,7 +79,7 @@ class Tile extends React.Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

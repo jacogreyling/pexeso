@@ -25,7 +25,7 @@ class AboutPage extends React.Component {
                         </div>
                         <div className="media-body">
                             <h4 className="media-heading">Thank you for signing up!</h4>
-                            <p style={{marginTop: '10px'}}>
+                            <p style={{ marginTop: '10px' }}>
                                 Please check your <b>Inbox</b> for your unique verification link to activate your account.
                             </p>
                         </div>

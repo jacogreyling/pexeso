@@ -1,8 +1,8 @@
+/* global window */
 'use strict';
 
 const React = require('react');
-const Moment = require('moment');
-const io = require('socket.io-client');
+const Io = require('socket.io-client');
 const Actions = require('./actions');
 const Store = require('./store');
 const ReactHelmet = require('react-helmet');
@@ -36,7 +36,7 @@ class HomePage extends React.Component {
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
 
         // Connect to socket.io on the same hostname and port number from the server
-        socket = io.connect(window.location.hostname + ':' + window.location.port);
+        socket = Io.connect(window.location.hostname + ':' + window.location.port);
 
         // Let's create all our socket listeners!
         socket.on('logged_in', (res) => {
@@ -80,12 +80,12 @@ class HomePage extends React.Component {
         });
 
         // Format the numbers, for pretty printing
-        const formatUsers = this.state.telemetry.hydrated ? this.state.telemetry.users.toLocaleString('en') : "Loading...";
-        const formatSessions = this.state.telemetry.hydrated ? this.state.telemetry.sessions : "Loading...";
-        const formatApiCalls = this.state.telemetry.hydrated ? this.state.telemetry.apiCalls : "Loading...";
-        const formatGamesWon = this.state.telemetry.hydrated ? this.state.telemetry.games.won : "Loading...";
-        const formatGamesLost = this.state.telemetry.hydrated ? this.state.telemetry.games.lost : "Loading...";
-        const formatGamesAbandoned = this.state.telemetry.hydrated ? this.state.telemetry.games.abandoned : "Loading...";
+        const formatUsers = this.state.telemetry.hydrated ? this.state.telemetry.users.toLocaleString('en') : 'Loading...';
+        const formatSessions = this.state.telemetry.hydrated ? this.state.telemetry.sessions : 'Loading...';
+        const formatApiCalls = this.state.telemetry.hydrated ? this.state.telemetry.apiCalls : 'Loading...';
+        const formatGamesWon = this.state.telemetry.hydrated ? this.state.telemetry.games.won : 'Loading...';
+        const formatGamesLost = this.state.telemetry.hydrated ? this.state.telemetry.games.lost : 'Loading...';
+        const formatGamesAbandoned = this.state.telemetry.hydrated ? this.state.telemetry.games.abandoned : 'Loading...';
 
         return (
             <section className="section-home container">
@@ -107,10 +107,10 @@ class HomePage extends React.Component {
                             </div>
                         </div>
                         <div className="card">
-                                <div className="f c3">
-                                    <div className="description">API Calls</div>
-                                    <div className={contentClass}>{formatApiCalls}</div>
-                                </div>
+                            <div className="f c3">
+                                <div className="description">API Calls</div>
+                                <div className={contentClass}>{formatApiCalls}</div>
+                            </div>
                         </div>
                         <div className="card">
                             <div className="f c4">

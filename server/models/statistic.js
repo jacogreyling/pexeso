@@ -8,7 +8,7 @@ class Statistic extends MongoModels {
     static create(userId, stats, callback) {
 
         const document = {
-            userId: userId,
+            userId,
             figures: {
                 won: stats.figures.won,
                 lost: stats.figures.lost,
@@ -46,9 +46,9 @@ class Statistic extends MongoModels {
         });
     }
 
-    static findByUserId(userId, callback) {
+    static findByUserId(id, callback) {
 
-        const query = { 'userId': userId.toLowerCase() };
+        const query = { userId: id.toLowerCase() };
 
         this.findOne(query, callback);
     }
@@ -78,7 +78,7 @@ Statistic.schema = Joi.object().keys({
         hard: Joi.object().keys({
             score: Joi.number().integer(),
             timestamp: Joi.date()
-        }),
+        })
     }).required(),
     flips: Joi.object().keys({
         total: Joi.number().integer(),

@@ -1,16 +1,14 @@
 'use strict';
 
 const React = require('react');
-const Store = require('./store');
 const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const ClassNames = require('classnames');
 const Tile = require('./tile.jsx');
+const Moment = require('moment');
+const DatePicker = require('react-datepicker').default;
 
-// Used for the calendar
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
+require('react-datepicker/dist/react-datepicker.css');
 
 
 const propTypes = {
@@ -34,7 +32,7 @@ class Tiles extends React.Component {
             live: props.live,
             history: props.history,
             query: props.query
-        }
+        };
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,7 +56,8 @@ class Tiles extends React.Component {
         if (this.state.live) {
 
             Actions.resetSearchQuery(this.state.history);
-        } else {
+        }
+        else {
 
             const query = this.state.query;
             query.level = level;
@@ -89,7 +88,8 @@ class Tiles extends React.Component {
                     dateFrom: this.props.dateFrom.utc().format(),
                     level: this.state.level
                 };
-            } else {
+            }
+            else {
 
                 // Just update the time
                 query = this.state.query;
@@ -109,14 +109,15 @@ class Tiles extends React.Component {
 
         const liveClass = ClassNames({
             'live' : this.props.live,
-            'pause' : !this.props.live,
+            'pause' : !this.props.live
         });
 
         let buttonText;
         if (this.props.live) {
-            buttonText = "Pause";
-        } else {
-            buttonText = "Live";
+            buttonText = 'Pause';
+        }
+        else {
+            buttonText = 'Live';
         }
 
         return (
@@ -161,16 +162,15 @@ class Tiles extends React.Component {
                                 timeFormat="HH:mm"
                                 timeIntervals={30}
                                 dateFormat="LLL"
-                                maxDate={moment()}
+                                maxDate={Moment()}
                                 locale="en-gb"
                                 placeholderText="Select start time" />
                             <button onClick={() => this.props.onToggleLive()} type="button" className="btn btn-default">{buttonText}</button>
                         </div>
                     </Tile>
-
                 </div>
             </div>
-        )
+        );
     }
 }
 

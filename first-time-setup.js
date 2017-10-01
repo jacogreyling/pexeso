@@ -62,7 +62,7 @@ Async.auto({
                     Session.deleteMany.bind(Session, {}),
                     User.deleteMany.bind(User, {}),
                     Stat.deleteMany.bind(Stat, {}),
-                    Score.deleteMany.bind(Stat, {}),
+                    Score.deleteMany.bind(Stat, {})
                 ], done);
             }],
             adminGroup: ['clean', function (dbResults, done) {

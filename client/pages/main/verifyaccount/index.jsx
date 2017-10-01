@@ -9,7 +9,6 @@ const ReactHelmet = require('react-helmet');
 const ReactRouter = require('react-router-dom');
 const Spinner = require('../../../components/form/spinner.jsx');
 const Store = require('./store');
-const TextControl = require('../../../components/form/text-control.jsx');
 
 
 const Helmet = ReactHelmet.Helmet;
@@ -103,7 +102,7 @@ class ResetPage extends React.Component {
                             <h4 className="media-heading">
                                 Please click the buttom below to verify your account
                             </h4>
-                            <p style={{marginTop: '10px'}}>
+                            <p style={{ marginTop: '10px' }}>
                                 You will be redirected to the login page after the verification step.
                             </p>
                         </div>

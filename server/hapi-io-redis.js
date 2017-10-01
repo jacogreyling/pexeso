@@ -1,7 +1,7 @@
 'use strict';
 
 const Hoek = require('hoek');
-const redis = require('socket.io-redis');
+const Redis = require('socket.io-redis');
 
 
 const internals = {};
@@ -15,9 +15,9 @@ exports.register = function (server, options, next) {
     const port = options.connection.port || 6379;
 
     const io = server.plugins['hapi-io'].io;
-    io.adapter(redis({
-        host: host,
-        port: port
+    io.adapter(Redis({
+        host,
+        port
     }));
 
     next();

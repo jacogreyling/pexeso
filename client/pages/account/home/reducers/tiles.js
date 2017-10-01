@@ -2,10 +2,9 @@
 
 const Constants = require('../constants');
 const ObjectAssign = require('object-assign');
-const ParseValidation = require('../../../../helpers/parse-validation');
 
 const initialState = {
-    logo: "flip"
+    logo: 'flip'
 };
 const reducer = function (state = initialState, action) {
 
@@ -14,7 +13,7 @@ const reducer = function (state = initialState, action) {
 
         return ObjectAssign({}, state, {
             logo: action.logo
-        })
+        });
     }
 
 

@@ -1,10 +1,6 @@
 'use strict';
 
 const React = require('react');
-const ReactRouter = require('react-router-dom');
-
-
-const Link = ReactRouter.Link;
 
 
 class Footer extends React.Component {

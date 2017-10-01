@@ -6,6 +6,6 @@ const Redux = require('redux');
 
 module.exports = Redux.createStore(
     Redux.combineReducers({
-        telemetry: Telemetry,
+        telemetry: Telemetry
     })
 );

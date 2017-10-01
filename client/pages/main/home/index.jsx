@@ -19,7 +19,7 @@ class HomePage extends React.Component {
     render() {
 
         return (
-            <section className="section-home container" onClick={() => (void(0))}>
+            <section className="section-home container" onClick={() => (void (0))}>
                 <Helmet>
                     <title>Pexeso - A memory card game that will test your wits!</title>
                 </Helmet>

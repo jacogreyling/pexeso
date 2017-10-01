@@ -1,9 +1,7 @@
 'use strict';
 
-const Async = require('async');
 const AuthPlugin = require('../auth');
 const Boom = require('boom');
-const EscapeRegExp = require('escape-string-regexp');
 const Joi = require('joi');
 
 
@@ -12,7 +10,6 @@ const internals = {};
 
 internals.applyRoutes = function (server, next) {
 
-    const User = server.plugins['hapi-mongo-models'].User;
     const Score = server.plugins['hapi-mongo-models'].Score;
 
 
@@ -27,9 +24,7 @@ internals.applyRoutes = function (server, next) {
         },
         handler: function (request, reply) {
 
-            const page = 1;
             const sort = Score.sortAdapter('-score');
-            const fields = {};
 
             let limit = 10; // default
             if (request.query.limit) {
@@ -41,15 +36,15 @@ internals.applyRoutes = function (server, next) {
                 {
                     $match: {
                         score: { $gt: 0 },
-                        level: { $eq: request.params.level}
+                        level: { $eq: request.params.level }
                     }
                 },
                 {
                     $lookup: {
-                        from: "users",
-                        localField: "userId",
-                        foreignField: "_id",
-                        as: "username"
+                        from: 'users',
+                        localField: 'userId',
+                        foreignField: '_id',
+                        as: 'username'
                     }
                 },
                 {
@@ -60,7 +55,7 @@ internals.applyRoutes = function (server, next) {
                 },
                 {
                     $project: {
-                        username: { $arrayElemAt: [ "$username.username", 0 ] },
+                        username: { $arrayElemAt: ['$username.username', 0] },
                         userId: 1,
                         score: 1,
                         level: 1,
@@ -104,16 +99,16 @@ internals.applyRoutes = function (server, next) {
 
             const query = {
                 score: { $gt: 0 },
-                level: { $eq: request.query.level}
+                level: { $eq: request.query.level }
             };
             const lookup = {
-                from: "users",
-                localField: "userId",
-                foreignField: "_id",
-                as: "username"
-            }
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'username'
+            };
             const fields = {
-                username: { $arrayElemAt: [ "$username.username", 0 ] },
+                username: { $arrayElemAt: ['$username.username', 0] },
                 userId: 1,
                 score: 1,
                 level: 1,
@@ -133,6 +128,7 @@ internals.applyRoutes = function (server, next) {
             }
 
             Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {
+
                 if (err) {
                     return reply(err);
                 }

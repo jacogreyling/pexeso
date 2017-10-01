@@ -36,13 +36,14 @@ class Actions {
 
     static insertScore(entry, data) {
 
+        const newArray = [];
+        const limit = 10;
+
         // Add 'new entry' flag
         let newPosition;
-
-        let newArray = [];
         let inserted = false;
-        const limit = 10;
-        for (let i = 0; i < limit; i++) {
+
+        for (let i = 0; i < limit; ++i) {
 
             // If our new array is already at limit, stop!
             if (newArray.length === limit) {
@@ -67,7 +68,8 @@ class Actions {
             // Is the score bigger?
             if (data[i].score > entry.score) {
                 newArray.push(data[i]);
-            }  else {
+            }
+            else {
                 newArray.push(entry);
                 newArray.push(data[i]);
                 inserted = true;
@@ -113,7 +115,7 @@ class Actions {
 
         // Update the date 'from'
         Store.dispatch({
-            type: Constants.RESET_DATE_FROM,
+            type: Constants.RESET_DATE_FROM
         });
     }
 
@@ -129,7 +131,7 @@ class Actions {
     static getResults(data) {
 
         ApiActions.get(
-            `/api/scores`,
+            '/api/scores',
             data,
             Store,
             Constants.GET_RESULTS,

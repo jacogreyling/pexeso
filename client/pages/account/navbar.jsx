@@ -1,3 +1,4 @@
+/* global document */
 'use strict';
 
 const PropTypes = require('prop-types');
@@ -19,14 +20,14 @@ class Navbar extends React.Component {
 
         // We find this to see if we should render the 'admin' link
         let adminRole = false;
-        if (document.head.querySelector("[name=pexeso-roles]") !== null) {
-            const roles = document.head.querySelector("[name=pexeso-roles]").content;
-            adminRole = roles.includes("admin");
+        if (document.head.querySelector('[name=pexeso-roles]') !== null) {
+            const roles = document.head.querySelector('[name=pexeso-roles]').content;
+            adminRole = roles.includes('admin');
         }
 
         this.state = {
             navBarOpen: false,
-            adminRole: adminRole
+            adminRole
         };
     }
 

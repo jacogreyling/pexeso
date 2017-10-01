@@ -1,3 +1,4 @@
+/* global window */
 'use strict';
 
 const Actions = require('./actions');
@@ -5,16 +6,13 @@ const PropTypes = require('prop-types');
 const FilterForm = require('./filter-form.jsx');
 const Paging = require('../../../components/paging.jsx');
 const React = require('react');
-const ReactRouter = require('react-router-dom');
 const Store = require('./store');
 const Qs = require('qs');
 const Results = require('./results.jsx');
 const Tiles = require('./tiles.jsx');
-const ClassNames = require('classnames');
-const io = require('socket.io-client');
-const Link = ReactRouter.Link;
+const Io = require('socket.io-client');
 const ReactHelmet = require('react-helmet');
-const moment = require('moment');
+const Moment = require('moment');
 
 
 const Helmet = ReactHelmet.Helmet;
@@ -34,10 +32,11 @@ class Leaderboard extends React.Component {
         super(props);
 
         // If no query is passed return default view - top 10 results
-        if (this.props.location.search === "") {
+        if (this.props.location.search === '') {
 
-            Actions.retrieveTopTen("casual");
-        } else {
+            Actions.retrieveTopTen('casual');
+        }
+        else {
 
             const query = Qs.parse(this.props.location.search.substring(1));
 
@@ -47,7 +46,7 @@ class Leaderboard extends React.Component {
             }
             if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.setDateFrom(moment(query.dateFrom));
+                Actions.setDateFrom(Moment(query.dateFrom));
             }
 
             Actions.getResults(query);
@@ -63,10 +62,11 @@ class Leaderboard extends React.Component {
         // take the global state instead
         const level = Store.getState().leaderboard.level;
 
-        if (nextProps.location.search === "") {
+        if (nextProps.location.search === '') {
 
             Actions.retrieveTopTen(level);
-        } else {
+        }
+        else {
 
             const query = Qs.parse(nextProps.location.search.substring(1));
 
@@ -76,7 +76,7 @@ class Leaderboard extends React.Component {
             }
             if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.setDateFrom(moment(query.dateFrom));
+                Actions.setDateFrom(Moment(query.dateFrom));
             }
 
             Actions.getResults(query);
@@ -102,12 +102,11 @@ class Leaderboard extends React.Component {
     registerIoListners() {
 
         // Connect to socket.io on the same hostname and port number from the server
-        socket = io.connect(window.location.hostname + ':' + window.location.port);
+        socket = Io.connect(window.location.hostname + ':' + window.location.port);
 
         // Let's create our socket listener!
         socket.on('new_score', (res) => {
 
-            const level = res.level;
             const arrayLength = this.state.leaderboard.data.length;
 
             // If the score is not higher than the lowest then don't bother
@@ -154,11 +153,12 @@ class Leaderboard extends React.Component {
 
             // Now query all records for this level
             const query = {
-                level: level
+                level
             };
 
             Actions.changeSearchQuery(query, this.props.history);
-        } else {
+        }
+        else {
             this.registerIoListners();
 
             Actions.resetDateFrom();

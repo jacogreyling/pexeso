@@ -77,9 +77,10 @@ internals.applyRoutes = function (server, next) {
                 // Check to see if user has both 'admin' and 'account' roles
                 if (request.auth.credentials.user.roles.admin &&
                     request.auth.credentials.user.roles.account) {
-                        return reply.redirect('/account');
+                    return reply.redirect('/account');
 
-                } else if (request.auth.credentials.user.roles.admin) {
+                }
+                else if (request.auth.credentials.user.roles.admin) {
 
                     return reply.redirect('/admin');
                 }

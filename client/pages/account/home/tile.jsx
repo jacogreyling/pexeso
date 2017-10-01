@@ -1,15 +1,14 @@
 'use strict';
 
 const React = require('react');
-const Store = require('./store');
-const Actions = require('./actions');
 const PropTypes = require('prop-types');
 const ClassNames = require('classnames');
 
 
 const propTypes = {
     position: PropTypes.string,
-    twist: PropTypes.bool
+    twist: PropTypes.bool,
+    children: PropTypes.node
 };
 
 
@@ -19,7 +18,7 @@ class Tile extends React.Component {
 
         const tileClass = ClassNames({
             'card' : true,
-            'left' : this.props.position === "left",
+            'left' : this.props.position === 'left',
             'twist' : this.props.twist,
             'active' : this.props.twist
         });
@@ -30,7 +29,7 @@ class Tile extends React.Component {
                     {this.props.children}
                 </div>
             </div>
-        )
+        );
     }
 }
 

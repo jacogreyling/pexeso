@@ -3,7 +3,8 @@
 const Async = require('async');
 const MongoModels = require('mongo-models');
 const Mongodb = require('mongodb');
-const fs = require("fs");
+const Promptly = require('promptly');
+
 
 Async.auto({
     mongodbUri: (done) => {

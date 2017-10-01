@@ -1,11 +1,9 @@
 'use strict';
 
-const Async = require('async');
 const AuthPlugin = require('../auth');
 const Boom = require('boom');
-const EscapeRegExp = require('escape-string-regexp');
 const Joi = require('joi');
-const Md5 = require('../../node_modules/blueimp-md5/js/md5')
+const Md5 = require('../../node_modules/blueimp-md5/js/md5');
 
 const internals = {};
 
@@ -89,14 +87,14 @@ internals.applyRoutes = function (server, next) {
                     }),
                     highscores: Joi.object().keys({
                         casual: Joi.object().keys({
-                            score: Joi.number().integer(),
+                            score: Joi.number().integer()
                         }),
                         medium: Joi.object().keys({
-                            score: Joi.number().integer(),
+                            score: Joi.number().integer()
                         }),
                         hard: Joi.object().keys({
-                            score: Joi.number().integer(),
-                        }),
+                            score: Joi.number().integer()
+                        })
                     }),
                     flips: Joi.object().keys({
                         total: Joi.number().integer(),
@@ -159,10 +157,11 @@ internals.applyRoutes = function (server, next) {
             ext: {
                 onPostHandler: {
                     method: function (request, reply) {
+
                         const seckey = Md5(request.payload.status + request.payload.score + request.payload.level);
 
                         //Verify the Security Key is Matching
-                        if (request.payload.seckey == seckey) {
+                        if (request.payload.seckey === seckey) {
 
                         // On every successful round, update the games collections
                             if ((request.payload.status === 'won') && (request.auth.isAuthenticated)) {
@@ -171,12 +170,12 @@ internals.applyRoutes = function (server, next) {
                                     score: request.payload.score,
                                     level: request.payload.level,
                                     timestamp: new Date(request.response.source.lastPlayed)
-                                }
+                                };
 
                                 Score.insertOne(document, (err, stat) => {
 
                                     if (err) {
-                                        console.warn("Could not update the game collection with a new document: " + err);
+                                        console.warn('Could not update the game collection with a new document: ' + err);
                                     }
 
                                     // Get the socket.io object
@@ -193,11 +192,13 @@ internals.applyRoutes = function (server, next) {
 
                                     return reply.continue();
                                 });
-                            } else {
+                            }
+                            else {
 
                                 return reply.continue();
                             }
-                        } else {
+                        }
+                        else {
 
                             return reply.continue();
                         }
@@ -214,11 +215,11 @@ internals.applyRoutes = function (server, next) {
 
             let update = {};
             //Verify the Security Key is Matching
-            if (request.payload.seckey == seckey) {
+            if (request.payload.seckey === seckey) {
 
                 if (request.payload.highscore) {
 
-                    const key = "highscores." + request.payload.level;
+                    const key = 'highscores.' + request.payload.level;
 
                     update = {
                         $set: {
@@ -231,7 +232,8 @@ internals.applyRoutes = function (server, next) {
                             lastPlayed: date
                         }
                     };
-                } else {
+                }
+                else {
 
                     update = {
                         $set: {
@@ -241,7 +243,8 @@ internals.applyRoutes = function (server, next) {
                         }
                     };
                 }
-            } else {
+            }
+            else {
                 return reply(Boom.forbidden());
             }
             Statistic.findOneAndUpdate(filter, update, (err, stat) => {

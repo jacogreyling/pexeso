@@ -16,7 +16,8 @@ exports.register = function (server, options, next) {
         shared: true,
         expiresIn: 24 * HOUR,
         cache: 'redisCache',
-        generateFunc: function (id, next) {
+        generateFunc: function (id, nxt) {
+
             const telemetry = {
                 apiCalls: 0,
                 games: {
@@ -26,10 +27,10 @@ exports.register = function (server, options, next) {
                 }
             };
 
-            return next(null, telemetry);
+            return nxt(null, telemetry);
         },
         generateTimeout: false
-    })
+    });
 
     // Create server extention to report telemetry data over web sockets
     server.ext([{
@@ -43,24 +44,28 @@ exports.register = function (server, options, next) {
                 // Retrieve the global statistics from cache
                 cache.get('stats', (err, value, cached, log) => {
 
+                    if (err) {
+                        console.warn(err);
+                    }
+
                     // Increment the API calls
                     value.apiCalls++;
 
                     // Update the global statistcs
                     cache.set('stats', value, null, (err) => {
 
-                        if (!err) {
-
-                            // Get the socket.io object
-                            const io = request.plugins['hapi-io'].io;
-
-                            // Successfully created a new user, increment the user count
-                            io.emit('api_calls', {
-                                count: value.apiCalls
-                            });
+                        if (err) {
+                            console.warn(err);
                         }
-                    });
 
+                        // Get the socket.io object
+                        const io = request.plugins['hapi-io'].io;
+
+                        // Successfully created a new user, increment the user count
+                        io.emit('api_calls', {
+                            count: value.apiCalls
+                        });
+                    });
                 });
             }
 
@@ -77,15 +82,19 @@ exports.register = function (server, options, next) {
                 // Retrieve the global statistics from cache
                 cache.get('stats', (err, value, cached, log) => {
 
+                    if (err) {
+                        console.warn(err);
+                    }
+
                     // Update the server-side telemetry
                     switch (request.payload.status) {
-                        case "won":
+                        case 'won':
                             value.games.won++;
                             break;
-                        case "lost":
+                        case 'lost':
                             value.games.lost++;
                             break;
-                        case "abandoned":
+                        case 'abandoned':
                             value.games.abandoned++;
                             break;
                         default:
@@ -95,16 +104,17 @@ exports.register = function (server, options, next) {
                     // Update the global statistcs
                     cache.set('stats', value, null, (err) => {
 
-                        if (!err) {
-
-                            // Get the socket.io object
-                            const io = request.plugins['hapi-io'].io;
-
-                            // Successfully created a new user, increment the user count
-                            io.emit('statistics', {
-                                games: value.games
-                            });
+                        if (err) {
+                            console.warn(err);
                         }
+
+                        // Get the socket.io object
+                        const io = request.plugins['hapi-io'].io;
+
+                        // Successfully created a new user, increment the user count
+                        io.emit('statistics', {
+                            games: value.games
+                        });
                     });
                 });
             }
