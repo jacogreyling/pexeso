@@ -12,7 +12,7 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const User = server.plugins['hapi-mongo-models'].User;
-    const Stat = server.plugins['hapi-mongo-models'].Stat;
+    const Stat = server.plugins['hapi-mongo-models'].Statistic;
 
     server.route({
         method: 'GET',

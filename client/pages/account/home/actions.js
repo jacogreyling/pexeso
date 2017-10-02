@@ -2,6 +2,7 @@
 
 const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
+const ObjectAssign = require('object-assign');
 const Store = require('./store');
 const CalculateScore = require('../../../helpers/calculate-score');
 const Md5 = require('../../../../node_modules/blueimp-md5/js/md5');
@@ -17,10 +18,17 @@ class Actions {
             Constants.GET_STATS,
             Constants.GET_STATS_RESPONSE, (err, response) => {
 
-                if (err && err.message === 'Not Found') {
+                if (err) {
 
-                    // No document found, let's initialize it
-                    this.createStats();
+                    if (response.statusCode === 404) {
+
+                        // No document found, let's initialize it first time
+                        this.createStats();
+                    }
+                    else {
+
+                        console.warn(err);
+                    }
                 }
             }
         );
@@ -54,6 +62,8 @@ class Actions {
             status: 'initialize'
         };
 
+        console.info("INFO: Creating empty Statistics object in collection.");
+
         ApiActions.post(
             '/api/statistics/my',
             data,
@@ -79,6 +89,7 @@ class Actions {
             });
         };
 
+        // Create the client secret key
         const clientSecKey = Md5('' + data.status + score +  data.level + '');
 
         // Calculate highscore
@@ -108,9 +119,28 @@ class Actions {
             true :
             false;
 
-        // Build new statistics object (state)
-        const newStats = {
-            figures: {
+        // Validate the figures object
+        let figures;
+        if (typeof stats.figures === 'undefined') {
+
+            // This means something went wrong, it should at least be '0'
+            console.error("ERROR: The stats.figures object is empty!");
+
+            figures = {
+                won: data.status === 'won' ?
+                    1 :
+                    0,
+                lost: data.status === 'lost' ?
+                    1 :
+                    0,
+                abandoned: data.status === 'abandoned' ?
+                    1 :
+                    0
+            }
+        } else {
+
+            // Update our figures object
+            figures = {
                 won: data.status === 'won' ?
                     stats.figures.won + 1 :
                     stats.figures.won,
@@ -120,7 +150,12 @@ class Actions {
                 abandoned: data.status === 'abandoned' ?
                     stats.figures.abandoned + 1 :
                     stats.figures.abandoned
-            },
+            }
+        }
+
+        // Build new statistics object (state)
+        const newStats = {
+            figures,
             flips: {
                 total: (isNaN(stats.flips.total) ?
                     0 :

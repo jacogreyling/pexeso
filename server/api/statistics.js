@@ -53,6 +53,7 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             const userId = request.auth.credentials.user._id.toString();
+            const username = request.auth.credentials.user.username.toString();
 
             Statistic.findByUserId(userId, (err, stat) => {
 
@@ -61,7 +62,7 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 if (!stat) {
-                    return reply(Boom.notFound('Document not found.'));
+                    return reply(Boom.notFound(`Document for ${username} not found.`));
                 }
 
                 reply(stat);

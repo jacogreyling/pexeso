@@ -74,18 +74,49 @@ class HomePage extends React.Component {
 
     render() {
 
+        // Initialize variables
+        let formatUsers;
+        let formatSessions;
+        let formatApiCalls;
+        let formatGamesWon;
+        let formatGamesLost;
+        let formatGamesAbandoned;
+
+        // If we're still loading stats, show 'loading' to the user
+        if (!this.state.telemetry.hydrated) {
+            formatUsers = 'Loading...';
+            formatSessions = 'Loading...';
+            formatApiCalls = 'Loading...';
+            formatGamesWon = 'Loading...';
+            formatGamesLost = 'Loading...';
+            formatGamesAbandoned = 'Loading...';
+        }
+        // Format the numbers, for pretty printing
+        else {
+            formatUsers = typeof this.state.telemetry.users === 'undefined' ?
+                0 :
+                this.state.telemetry.users.toLocaleString('en');
+            formatSessions = typeof this.state.telemetry.sessions === 'undefined' ?
+                0 :
+                this.state.telemetry.sessions.toLocaleString('en');
+            formatApiCalls = typeof this.state.telemetry.apiCalls === 'undefined' ?
+                0 :
+                this.state.telemetry.apiCalls.toLocaleString('en');
+            formatGamesWon = typeof this.state.telemetry.games.won === 'undefined' ?
+                0 :
+                this.state.telemetry.games.won.toLocaleString('en');
+            formatGamesLost = typeof this.state.telemetry.games.lost === 'undefined' ?
+                0 :
+                this.state.telemetry.games.lost.toLocaleString('en');
+            formatGamesAbandoned = typeof this.state.telemetry.games.abandoned === 'undefined' ?
+                0 :
+                this.state.telemetry.games.abandoned.toLocaleString('en');
+        }
+
         const contentClass = ClassNames({
             'contentbox' : true,
             'small' : !this.state.telemetry.hydrated
         });
-
-        // Format the numbers, for pretty printing
-        const formatUsers = this.state.telemetry.hydrated ? this.state.telemetry.users.toLocaleString('en') : 'Loading...';
-        const formatSessions = this.state.telemetry.hydrated ? this.state.telemetry.sessions : 'Loading...';
-        const formatApiCalls = this.state.telemetry.hydrated ? this.state.telemetry.apiCalls : 'Loading...';
-        const formatGamesWon = this.state.telemetry.hydrated ? this.state.telemetry.games.won : 'Loading...';
-        const formatGamesLost = this.state.telemetry.hydrated ? this.state.telemetry.games.lost : 'Loading...';
-        const formatGamesAbandoned = this.state.telemetry.hydrated ? this.state.telemetry.games.abandoned : 'Loading...';
 
         return (
             <section className="section-home container">
