@@ -22,7 +22,7 @@ const propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.bool,
         PropTypes.string,
-        PropTypes.integer
+        PropTypes.number
     ])
 };
 const defaultProps = {

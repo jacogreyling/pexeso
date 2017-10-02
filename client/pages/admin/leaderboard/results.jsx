@@ -1,3 +1,4 @@
+/* global window, document */
 'use strict';
 
 const PropTypes = require('prop-types');
@@ -14,8 +15,38 @@ const propTypes = {
 
 
 class Results extends React.Component {
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            windowHeight: window.innerHeight,
+            windowWidth: window.innerWidth
+        };
+    }
+
+    componentDidMount() {
+
+        window.addEventListener('resize', this.handleResize.bind(this))
+    }
+
+    componentWillUnmount() {
+
+        window.removeEventListener('resize', this.handleResize.bind(this))
+    }
+
+    handleResize() {
+
+        this.setState({
+            windowHeight: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
+            windowWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        });
+    }
+
     render() {
 
+        // 'Row' if we sort by anything else than score, otherwise 'Rank'
         let rowDescription;
 
         // Find out if we're sorting in reverse order
@@ -47,6 +78,12 @@ class Results extends React.Component {
             }
         }
 
+        // For responsive design, change the time object to shorthand date if viewed on mobile devices
+        let timeFormat = 'LLL';
+        if (this.state.windowWidth < 470) {
+            timeFormat = 'lll';
+        }
+
         let rows = [];
         if (Array.isArray(this.props.data)) {
             rows = this.props.data.map((record) => {
@@ -70,7 +107,7 @@ class Results extends React.Component {
                     <tr id={record.userId} className={activeClass} key={record._id}>
                         <td>{count}</td>
                         <td>{typeof record.username === 'undefined' ? '?' : record.username}</td>
-                        <td className="timestamp">{Moment(timestamp).locale('en-gb').format('LLL')}</td>
+                        <td className="timestamp">{Moment(timestamp).locale('en-gb').format(timeFormat)}</td>
                         <td>{score}</td>
                     </tr>
                 );

@@ -35,7 +35,7 @@ const manifest = {
             isHttpOnly: false,
             isSecure: {
                 $filter: 'env',
-                production: true,
+                production: false, // This should be 'true', once a SSL certificate has been issued
                 $default: false
             }
         }

@@ -35,7 +35,7 @@ const App = (
                 <Route path="/admin/admin-groups/:id" component={AdminGroupDetails} />
                 <Route path="/admin/users" exact component={UserSearch} />
                 <Route path="/admin/users/:id" component={UserDetails} />
-                <Route path="/admin/leaderboard" component={Leaderboard} />
+                <Route path="/admin/leaderboard" exact component={Leaderboard} />
 
                 <Route component={NotFound} />
             </Switch>
