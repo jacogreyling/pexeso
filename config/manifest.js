@@ -142,14 +142,14 @@ const manifest = {
         {
             plugin: './server/mailer'
         },
-        {
+        /*{
             plugin: {
                 register: './server/https-redirect',
                 options: {
                     redirect: Config.get('/ssl')
                 }
             }
-        },
+        },*/
         {
             plugin: './server/api/accounts',
             options: {
