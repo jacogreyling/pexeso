@@ -4,9 +4,6 @@ const Hoek = require('hoek');
 const Redis = require('socket.io-redis');
 
 
-const internals = {};
-
-
 exports.register = function (server, options, next) {
 
     Hoek.assert(options.connection, 'options.connection is required');

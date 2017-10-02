@@ -1,7 +1,5 @@
 'use strict';
 
-const internals = {};
-
 // Time intervals
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;

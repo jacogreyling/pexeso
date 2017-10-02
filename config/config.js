@@ -21,6 +21,11 @@ const config = {
             $default: 8000
         }
     },
+    ssl: {
+        $filter: 'env',
+        production: process.env.USE_SSL,
+        $default: false
+    },
     baseUrl: {
         $filter: 'env',
         $meta: 'values should not end in "/"',

@@ -35,7 +35,7 @@ const manifest = {
             isHttpOnly: false,
             isSecure: {
                 $filter: 'env',
-                production: false, // This should be 'true', once a SSL certificate has been issued
+                production: true,
                 $default: false
             }
         }
@@ -141,6 +141,14 @@ const manifest = {
         },
         {
             plugin: './server/mailer'
+        },
+        {
+            plugin: {
+                register: './server/https-redirect',
+                options: {
+                    redirect: Config.get('/ssl')
+                }
+            }
         },
         {
             plugin: './server/api/accounts',
