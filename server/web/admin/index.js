@@ -21,7 +21,10 @@ internals.applyRoutes = function (server, next) {
             reply.view('admin/index', {
                 roles: typeof request.auth.credentials.user.roles.account === 'object' ?
                     'admin, account' :
-                    'admin'
+                    'admin',
+                user: typeof request.auth.credentials.user.username !== 'undefined' ?
+                    request.auth.credentials.user.username :
+                    ''
             });
         }
     });

@@ -5,7 +5,8 @@ const PropTypes = require('prop-types');
 
 
 const propTypes = {
-    roles: PropTypes.string
+    roles: PropTypes.string,
+    user: PropTypes.string
 };
 
 
@@ -18,6 +19,7 @@ class AccountPage extends React.Component {
                     <title>Account</title>
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <meta name="pexeso-roles" content={this.props.roles} />
+                    <meta name="pexeso-user" content={this.props.user} />
                     <link rel="stylesheet" href="/public/core.min.css" />
                     <link rel="stylesheet" href="/public/pages/account.min.css" />
                     <link rel="shortcut icon" href="/public/media/favicon.ico" />

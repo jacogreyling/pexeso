@@ -40,9 +40,15 @@ class Leaderboard extends React.Component {
 
             const query = Qs.parse(this.props.location.search.substring(1));
 
-            if (typeof query.level !== 'undefined') {
+            if ((typeof query.level !== 'undefined') && (query.level !== '')) {
 
                 Actions.setLevel(query.level);
+            }
+            else {
+
+                // If there is a search string but level is NOT set, 'reset' it
+                query.level = 'casual';
+                Actions.setLevel('casual');
             }
             if (typeof query.dateFrom !== 'undefined') {
 
