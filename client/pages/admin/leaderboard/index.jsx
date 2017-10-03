@@ -86,6 +86,7 @@ class Leaderboard extends React.Component {
     componentDidMount() {
 
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+        window.addEventListener('beforeunload', (e) => this.handleWindowClose(e));
 
         if (this.state.leaderboard.live) {
             this.registerIoListners();
@@ -99,6 +100,11 @@ class Leaderboard extends React.Component {
         this.deregisterIoListners();
     }
 
+    handleWindowClose() {
+
+        this.deregisterIoListners();
+    }
+
     registerIoListners() {
 
         // Connect to socket.io on the same hostname and port number from the server
@@ -107,12 +113,16 @@ class Leaderboard extends React.Component {
         // Let's create our socket listener!
         socket.on('new_score', (res) => {
 
-            const arrayLength = this.state.leaderboard.data.length;
+            // Only update for the current level!
+            if (this.state.leaderboard.level === res.level) {
 
-            // If the score is not higher than the lowest then don't bother
-            if ((arrayLength < 10) || (res.score > this.state.leaderboard.data[arrayLength - 1].score)) {
+                const arrayLength = this.state.leaderboard.data.length;
 
-                Actions.insertScore(res, this.state.leaderboard.data);
+                // If the score is not higher than the lowest then don't bother
+                if ((arrayLength < 10) || (res.score > this.state.leaderboard.data[arrayLength - 1].score)) {
+
+                    Actions.insertScore(res, this.state.leaderboard.data);
+                }
             }
         });
     }

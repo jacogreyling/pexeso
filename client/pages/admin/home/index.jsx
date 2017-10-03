@@ -27,13 +27,30 @@ class HomePage extends React.Component {
         // Retrieve the telemetry statistics
         Actions.getAllStatistics();
 
-
         this.state = Store.getState();
     }
 
     componentDidMount() {
 
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+        this.registerIoListners();
+
+        window.addEventListener('beforeunload', (e) => this.handleWindowClose(e));
+    }
+
+    componentWillUnmount() {
+
+        this.unsubscribeStore();
+
+        this.deregisterIoListners();
+    }
+
+    handleWindowClose() {
+
+        this.deregisterIoListners();
+    }
+
+    registerIoListners() {
 
         // Connect to socket.io on the same hostname and port number from the server
         socket = Io.connect(window.location.hostname + ':' + window.location.port);
@@ -60,11 +77,11 @@ class HomePage extends React.Component {
         });
     }
 
-    componentWillUnmount() {
+    deregisterIoListners() {
 
-        this.unsubscribeStore();
-
-        socket.disconnect();
+        if (socket) {
+            socket.disconnect();
+        }
     }
 
     onStoreChange() {

@@ -11,6 +11,7 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const Score = server.plugins['hapi-mongo-models'].Score;
+    const User = server.plugins['hapi-mongo-models'].User;
 
 
     server.route({
@@ -127,14 +128,44 @@ internals.applyRoutes = function (server, next) {
                 };
             }
 
-            Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {
+            // Check to see if we want to filter by userId
+            if ((typeof request.query.username !== 'undefined') && (request.query.username !== '')) {
 
-                if (err) {
-                    return reply(err);
-                }
+                User.findByUsername(request.query.username, (error, user) => {
 
-                return reply(results);
-            });
+                    if (error) {
+                        return reply(err);
+                    }
+
+                    let searchUser = "";
+                    if ((user !== null) && (typeof user._id !== 'undefined')) {
+                        searchUser = user._id;
+                    }
+                    query.userId = {
+                        $eq: searchUser
+                    };
+
+                    Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {
+
+                        if (err) {
+                            return reply(err);
+                        }
+
+                        return reply(results);
+                    });
+                });
+            }
+            else {
+
+                Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {
+
+                    if (err) {
+                        return reply(err);
+                    }
+
+                    return reply(results);
+                });
+            }
         }
     });
 
