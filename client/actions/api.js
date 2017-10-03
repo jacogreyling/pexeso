@@ -16,6 +16,12 @@ class Actions {
         this.makeRequest(request, store, typeReq, typeRes, callback);
     }
 
+    static patch(url, data, store, typeReq, typeRes, callback) {
+
+        const request = { method: 'PATCH', url, data };
+        this.makeRequest(request, store, typeReq, typeRes, callback);
+    }
+
     static post(url, data, store, typeReq, typeRes, callback) {
 
         const request = { method: 'POST', url, data };

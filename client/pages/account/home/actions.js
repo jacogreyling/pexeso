@@ -52,9 +52,6 @@ class Actions {
 
     static updateStats(data) {
 
-        // Retrieve the global state
-        const stats = Store.getState().statistics;
-
         // Calculate the score for this game
         let score = 0;
         if (data.status === 'won') {
@@ -69,101 +66,23 @@ class Actions {
         // Create the client secret key
         const clientSecKey = Md5('' + data.status + score +  data.level + '');
 
-        // Calculate highscore
-        let highscore = 0;
-        switch (data.level) {
-            case 'casual':
-                highscore = (score > stats.highscores.casual.score) ?
-                    score :
-                    stats.highscores.casual.score;
-                break;
-            case 'medium':
-                highscore = (score > stats.highscores.medium.score) ?
-                    score :
-                    stats.highscores.medium.score;
-                break;
-            case 'hard':
-                highscore = (score > stats.highscores.hard.score) ?
-                    score :
-                    stats.highscores.hard.score;
-                break;
-            default:
-                // Do nothing
-        };
-
-        // If the two scores are the same, it means we have a new highscore
-        const isHighscore = ((highscore === score) && (highscore > 0)) ?
-            true :
-            false;
-
-        // Validate the figures object
-        let figures;
-        if (typeof stats.figures === 'undefined') {
-
-            // This means something went wrong, it should at least be '0'
-            console.error("ERROR: The stats.figures object is empty!");
-
-            figures = {
-                won: data.status === 'won' ?
-                    1 :
-                    0,
-                lost: data.status === 'lost' ?
-                    1 :
-                    0,
-                abandoned: data.status === 'abandoned' ?
-                    1 :
-                    0
-            }
-        } else {
-
-            // Update our figures object
-            figures = {
-                won: data.status === 'won' ?
-                    stats.figures.won + 1 :
-                    stats.figures.won,
-                lost: data.status === 'lost' ?
-                    stats.figures.lost + 1 :
-                    stats.figures.lost,
-                abandoned: data.status === 'abandoned' ?
-                    stats.figures.abandoned + 1 :
-                    stats.figures.abandoned
-            }
-        }
-
         // Build new statistics object (state)
-        const newStats = {
-            figures,
+        const stats = {
             flips: {
-                total: (isNaN(stats.flips.total) ?
-                    0 :
-                    stats.flips.total) + ((isNaN(data.flips.total) ||
-                    (typeof data.flips.total === 'undefined')) ?
-                    0 :
-                    data.flips.total),
-                matched: (isNaN(stats.flips.matched) ?
-                    0 :
-                    stats.flips.matched) + ((isNaN(data.flips.matched) ||
-                    (typeof data.flips.matched === 'undefined')) ?
-                    0 :
-                    data.flips.matched),
-                wrong: (isNaN(stats.flips.wrong) ?
-                    0 :
-                    stats.flips.wrong) + ((isNaN(data.flips.wrong) ||
-                    (typeof data.flips.wrong === 'undefined')) ?
-                    0 :
-                    data.flips.wrong)
+                total: typeof data.flips.total === 'undefined' ? 0 : data.flips.total,
+                matched: typeof data.flips.matched === 'undefined' ? 0 : data.flips.matched,
+                wrong: typeof data.flips.wrong === 'undefined' ? 0 : data.flips.wrong
             },
             status: data.status,
-            highscore: isHighscore,
             score,
             level: data.level,
             seckey : clientSecKey
         };
 
         // Update the database
-        ApiActions.put(
+        ApiActions.patch(
             '/api/statistics/my',
-            newStats,
+            stats,
             Store,
             Constants.SAVE_STATS,
             Constants.SAVE_STATS_RESPONSE

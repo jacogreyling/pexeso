@@ -103,6 +103,7 @@ const reducer = function (state = initialState, action) {
                 cards :
                 Shuffle(cards),
             cardSize: 100 / Math.sqrt(number),
+            flips: {},
             timestamp: action.timeNow
         });
     }
