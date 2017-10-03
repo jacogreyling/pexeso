@@ -75,7 +75,7 @@ exports.register = function (server, options, next) {
         type: 'onPostHandler',
         method: function (request, reply) {
 
-            if ((request.path === '/api/statistics/my') && (request.method === 'put')) {
+            if ((request.path === '/api/statistics/my') && (request.method === 'patch')) {
 
                 // Retrieve the global statistics from cache
                 cache.get('stats', (err, value, cached, log) => {
