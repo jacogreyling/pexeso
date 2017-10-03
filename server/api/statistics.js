@@ -2,6 +2,7 @@
 
 const AuthPlugin = require('../auth');
 const Boom = require('boom');
+const Hoek = require('hoek');
 const Joi = require('joi');
 const Md5 = require('../../node_modules/blueimp-md5/js/md5');
 
@@ -101,19 +102,43 @@ internals.applyRoutes = function (server, next) {
                         total: Joi.number().integer(),
                         matched: Joi.number().integer(),
                         wrong: Joi.number().integer()
-                    }),
-                    status: Joi.string().required()
+                    })
                 }
             }
         },
         handler: function (request, reply) {
 
             const userId = request.auth.credentials.user._id.toString();
-            const stats = request.payload;
 
-            // Make sure we're in 'initialize' state
-            if (request.payload.status !== 'initialize') {
-                reply(Boom.badRequest('Invalid status, must \'initialize\' on POST'));
+            let stats = request.payload;
+            if ((typeof stats === 'undefined') || (Hoek.deepEqual(stats, {}))) {
+
+                stats = {
+                    figures: {
+                        won: 0,
+                        lost: 0,
+                        abandoned: 0
+                    },
+                    highscores: {
+                        casual: {
+                            score: 0,
+                            timestamp: undefined
+                        },
+                        medium: {
+                            score: 0,
+                            timestamp: undefined
+                        },
+                        hard: {
+                            score: 0,
+                            timestamp: undefined
+                        }
+                    },
+                    flips: {
+                        total: 0,
+                        matched: 0,
+                        wrong: 0
+                    }
+                };
             }
 
             Statistic.create(userId, stats, (err, stat) => {

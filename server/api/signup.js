@@ -13,6 +13,7 @@ internals.applyRoutes = function (server, next) {
 
     const Account = server.plugins['hapi-mongo-models'].Account;
     const User = server.plugins['hapi-mongo-models'].User;
+    const Statistic = server.plugins['hapi-mongo-models'].Statistic;
 
 
     server.route({
@@ -130,6 +131,40 @@ internals.applyRoutes = function (server, next) {
 
                     User.findByIdAndUpdate(id, update, done);
                 }],
+                statistics: ['account', function (results, done) {
+
+                    const userId = results.user._id.toString();
+
+                    // Empty stats object
+                    const stats = {
+                        figures: {
+                            won: 0,
+                            lost: 0,
+                            abandoned: 0
+                        },
+                        highscores: {
+                            casual: {
+                                score: 0,
+                                timestamp: undefined
+                            },
+                            medium: {
+                                score: 0,
+                                timestamp: undefined
+                            },
+                            hard: {
+                                score: 0,
+                                timestamp: undefined
+                            }
+                        },
+                        flips: {
+                            total: 0,
+                            matched: 0,
+                            wrong: 0
+                        }
+                    };
+
+                    Statistic.create(userId, stats, done);
+                }],
                 generateVerificationCode: ['account', function (results, done) {
 
                     const id = results.user._id.toString();
@@ -169,11 +204,6 @@ internals.applyRoutes = function (server, next) {
 
                     done();
                 }]
-                /*,
-                session: ['linkUser', 'linkAccount', 'generateVerificationCode', function (results, done) {
-
-                    Session.create(results.user._id.toString(), done);
-                }] */
             }, (err, results) => {
 
                 if (err) {
@@ -181,8 +211,7 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 const user = results.linkAccount;
-                /*const credentials = user.username + ':' + results.session.key;
-                const authHeader = 'Basic ' + new Buffer(credentials).toString('base64');*/
+
                 const result = {
                     user: {
                         _id: user._id,
@@ -199,11 +228,6 @@ internals.applyRoutes = function (server, next) {
                 io.emit('new_user', {
                     count: 1
                 });
-
-                // Session also created, let's increment that too
-                //io.emit('logged_in', {
-                //    count: 1
-                //});
 
                 //request.cookieAuth.set(result);
                 reply(result);

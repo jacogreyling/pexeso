@@ -17,15 +17,15 @@ class Statistic extends MongoModels {
             highscores: {
                 casual: {
                     score: stats.highscores.casual.score,
-                    timestamp: undefined
+                    timestamp: stats.highscores.casual.timestamp
                 },
                 medium: {
                     score: stats.highscores.medium.score,
-                    timestamp: undefined
+                    timestamp: stats.highscores.medium.timestamp
                 },
                 hard: {
                     score: stats.highscores.hard.score,
-                    timestamp: undefined
+                    timestamp: stats.highscores.hard.timestamp
                 }
             },
             flips: {

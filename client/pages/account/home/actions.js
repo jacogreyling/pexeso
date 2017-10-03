@@ -37,30 +37,7 @@ class Actions {
     static createStats() {
 
         // We need to create this 'empty' object and update the database
-        const data = {
-            figures: {
-                won: 0,
-                lost: 0,
-                abandoned: 0
-            },
-            highscores: {
-                casual: {
-                    score: 0
-                },
-                medium: {
-                    score: 0
-                },
-                hard: {
-                    score: 0
-                }
-            },
-            flips: {
-                total: 0,
-                matched: 0,
-                wrong: 0
-            },
-            status: 'initialize'
-        };
+        const data = {};
 
         console.info("INFO: Creating empty Statistics object in collection.");
 

@@ -12,7 +12,7 @@ const internals = {};
 internals.applyRoutes = function (server, next) {
 
     const User = server.plugins['hapi-mongo-models'].User;
-    const Stat = server.plugins['hapi-mongo-models'].Statistic;
+    const Statistic = server.plugins['hapi-mongo-models'].Statistic;
 
     server.route({
         method: 'GET',
@@ -226,7 +226,45 @@ internals.applyRoutes = function (server, next) {
                     return reply(err);
                 }
 
-                reply(user);
+                // Add empty statistics document
+                const userId = user._id.toString();
+
+                // Empty stats object
+                const stats = {
+                    figures: {
+                        won: 0,
+                        lost: 0,
+                        abandoned: 0
+                    },
+                    highscores: {
+                        casual: {
+                            score: 0,
+                            timestamp: undefined
+                        },
+                        medium: {
+                            score: 0,
+                            timestamp: undefined
+                        },
+                        hard: {
+                            score: 0,
+                            timestamp: undefined
+                        }
+                    },
+                    flips: {
+                        total: 0,
+                        matched: 0,
+                        wrong: 0
+                    }
+                };
+
+                Statistic.create(userId, stats, (err, stat) => {
+
+                    if (err) {
+                        console.error(err);
+                    }
+
+                    reply(user);
+                });
             });
         }
     });
@@ -555,7 +593,7 @@ internals.applyRoutes = function (server, next) {
 
                 // Let's delete the game statistics as well
                 const filter = { 'userId': request.params.id.toLowerCase() };
-                Stat.findOneAndDelete(filter, (err, stat) => {
+                Statistic.findOneAndDelete(filter, (err, stat) => {
 
                     if (err) {
                         // Don't through it back to the UI, log to output

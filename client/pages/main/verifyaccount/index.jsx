@@ -100,7 +100,7 @@ class ResetPage extends React.Component {
                     <div className="row">
                         <div className="col-sm-6">
                             <h4 className="media-heading">
-                                Please click the buttom below to verify your account
+                                Please click the button below to verify your account
                             </h4>
                             <p style={{ marginTop: '10px' }}>
                                 You will be redirected to the login page after the verification step.
