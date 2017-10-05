@@ -13,52 +13,6 @@ const initialState = {
 const reducer = function (state = initialState, action) {
 
 
-    if (action.type === Constants.GET_USERS) {
-
-        return ObjectAssign({}, state, {
-            hydrated: false
-        });
-    }
-
-    if (action.type === Constants.GET_USERS_RESPONSE) {
-
-        // If we can't retrieve the metrics then assign -1 so we know
-        if (action.err) {
-            return ObjectAssign({}, state, {
-                hydrated: true,
-                users: -1
-            });
-        }
-
-        return ObjectAssign({}, state, {
-            hydrated: true,
-            users: action.response
-        });
-    }
-
-    if (action.type === Constants.GET_SESSIONS) {
-
-        return ObjectAssign({}, state, {
-            hydrated: false
-        });
-    }
-
-    if (action.type === Constants.GET_SESSIONS_RESPONSE) {
-
-        // If we can't retrieve the metrics then assign -1 so we know
-        if (action.err) {
-            return ObjectAssign({}, state, {
-                hydrated: true,
-                sessions: -1
-            });
-        }
-
-        return ObjectAssign({}, state, {
-            hydrated: true,
-            sessions: action.response
-        });
-    }
-
     if (action.type === Constants.UPDATE_SESSIONS) {
 
         return ObjectAssign({}, state, {
@@ -100,6 +54,8 @@ const reducer = function (state = initialState, action) {
         if (action.err) {
             return ObjectAssign({}, state, {
                 hydrated: true,
+                users: -1,
+                sessions: -1,
                 games: {
                     won: -1,
                     lost: -1,
@@ -111,6 +67,8 @@ const reducer = function (state = initialState, action) {
 
         return ObjectAssign({}, state, {
             hydrated: true,
+            users: action.response.users,
+            sessions: action.response.sessions,
             games: {
                 won: action.response.games.won,
                 lost: action.response.games.lost,

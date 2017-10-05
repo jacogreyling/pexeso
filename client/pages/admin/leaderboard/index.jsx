@@ -92,6 +92,8 @@ class Leaderboard extends React.Component {
     componentDidMount() {
 
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
+
+        // Register this, so that we can make sure we 'unload' the io socket listners
         window.addEventListener('beforeunload', (e) => this.handleWindowClose(e));
 
         if (this.state.leaderboard.live) {

@@ -93,6 +93,36 @@ class Score extends MongoModels {
             callback(null, output);
         });
     }
+
+    static groupAggregate(filter, group, fields, sort, callback) {
+
+        const self = this;
+
+        // Build the aggregate pipeline
+        const pipeline = [
+            {
+                $match: filter
+            },
+            {
+                $group: group
+            },
+            {
+                $project: fields
+            },
+            {
+                $sort: sort
+            }
+        ];
+
+        self.aggregate(pipeline, (err, results) => {
+
+            if (err) {
+                return callback(err);
+            }
+
+            callback(null, results);
+        });
+    }
 }
 
 

@@ -1,10 +1,14 @@
 'use strict';
 
+const Async = require('async');
 
 const internals = {};
 
 
 internals.applyRoutes = function (server, next) {
+
+    const User = server.plugins['hapi-mongo-models'].User;
+    const Session = server.plugins['hapi-mongo-models'].Session;
 
 
     server.route({
@@ -18,16 +22,40 @@ internals.applyRoutes = function (server, next) {
         },
         handler: function (request, reply) {
 
-            // Get the global state from the cache and reply
-            server.cache({ segment: 'telemetry', cache: 'redisCache' })
-                .get('stats', (err, value, cached, log) => {
+            Async.auto({
+                users: function (done) {
 
-                    if (err) {
-                        return reply(err);
-                    }
+                    const query = {};
 
-                    reply(value);
-                });
+                    // Only count 'active' users
+                    query.isActive = true;
+
+                    User.count(query, done);
+                },
+                sessions: ['users', function (results, done) {
+
+                    Session.count({}, done);
+                }],
+                cache: ['sessions', function (results, done) {
+
+                    // Get the global state from the cache and reply
+                    server.cache({ segment: 'telemetry', cache: 'redisCache' })
+                        .get('stats', (err, value, cached, log) => {
+
+                            done(err, value);
+                        });
+                }]
+            }, (err, results) => {
+
+                const data = {
+                    users: results.users,
+                    sessions: results.sessions,
+                    games: results.cache.games,
+                    apiCalls: results.cache.apiCalls
+                }
+
+                reply(data);
+            });
         }
     });
 

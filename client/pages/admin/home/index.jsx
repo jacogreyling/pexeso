@@ -7,9 +7,11 @@ const Actions = require('./actions');
 const Store = require('./store');
 const ReactHelmet = require('react-helmet');
 const ClassNames = require('classnames');
+const Line = require('react-chartjs-2').Line;
 
 
 const Helmet = ReactHelmet.Helmet;
+
 
 let socket;
 
@@ -18,14 +20,11 @@ class HomePage extends React.Component {
 
         super(props);
 
-        // Retrieve the registered users
-        Actions.getUserCount();
-
-        // Retrieve logged in users
-        Actions.getSessionCount();
-
         // Retrieve the telemetry statistics
         Actions.getAllStatistics();
+
+        // Get the game scores for the last 60 minutes so we can graph it
+        Actions.retrieveGameScores(60);
 
         this.state = Store.getState();
     }
@@ -35,14 +34,31 @@ class HomePage extends React.Component {
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
         this.registerIoListners();
 
+        // Register this, so that we can make sure we 'unload' the io socket listners
         window.addEventListener('beforeunload', (e) => this.handleWindowClose(e));
+
+        let self = this;
+
+        // Register timer for dynamic graph updates
+        this.intervalId = setInterval (function() {
+
+            Actions.updateGraphDatasets(self.state.graph.realtimeData);
+
+        }, 60000);
     }
 
     componentWillUnmount() {
 
         this.unsubscribeStore();
 
+        // Un-register the Io listner to prevent leak
         this.deregisterIoListners();
+
+        // Remove the event handler
+        window.removeEventListener('onbeforeunload', (e) => this.handleWindowClose(e));
+
+        // Clear the interval, used for updating the graph
+        clearInterval(this.intervalId);
     }
 
     handleWindowClose() {
@@ -75,6 +91,11 @@ class HomePage extends React.Component {
 
             Actions.updateApiStatistics(res);
         });
+
+        socket.on('game_won', (res) => {
+
+            Actions.updateGamesWon(res);
+        })
     }
 
     deregisterIoListners() {
@@ -176,6 +197,51 @@ class HomePage extends React.Component {
                             <div className="f c6">
                                 <div className="description">Abandoned</div>
                                 <div className={contentClass}>{formatGamesAbandoned}</div>
+                            </div>
+                        </div>
+                        <div className="card wide">
+                            <div className="f c7 clear">
+                                    <Line data={this.state.graph.data}
+                                        width={900}
+                                        height={300}
+                                        options={{
+                                            maintainAspectRatio: false,
+                                            hover: {
+                                                mode: 'nearest',
+                                                intersect: true
+                                            },
+                                            tooltips: {
+                                                callbacks: {
+                                                    title: function (tooltipItem, data) {
+                                                        return tooltipItem[0].xLabel.locale('en-gb').format('LLL');
+                                                    }
+                                                }
+                                            },
+                                            scales: {
+                                                xAxes: [{
+                                                    id: 'timeline',
+                                                    type: 'time',
+                                                    distribution: 'series',
+                                                    time: {
+                                                        unit: 'minute',
+                                                        displayFormats: {
+                                                            minute: 'H:mm'
+                                                        }
+                                                    }
+                                                }],
+                                                yAxes: [{
+                                                    id: 'rounds',
+                                                    type: 'linear',
+                                                    ticks: {
+                                                        beginAtZero:true,
+                                                        suggestedMin: 0,
+                                                        suggestedMin: 5,
+                                                        stepSize: 1
+                                                    }
+                                                }]
+                                            }
+                                        }}
+                                    />
                             </div>
                         </div>
                     </div>

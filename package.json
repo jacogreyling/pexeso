@@ -16,8 +16,8 @@
   "main": "server.js",
   "eslintConfig": {
     "env": {
-        "browser": true,
-        "node": true
+      "browser": true,
+      "node": true
     }
   },
   "scripts": {
@@ -50,6 +50,7 @@
     "blueimp-md5": "^2.10.0",
     "boom": "^5.2.0",
     "catbox-redis": "^3.1.0",
+    "chart.js": "^2.7.0",
     "classnames": "^2.2.5",
     "confidence": "^3.0.2",
     "crumb": "^6.0.3",
@@ -74,6 +75,7 @@
     "nodemailer-markdown": "^1.0.1",
     "object-assign": "^4.1.1",
     "react": "^15.6.2",
+    "react-chartjs-2": "^2.6.2",
     "react-datepicker": "^0.55.0",
     "react-helmet": "^5.2.0",
     "react-timeout": "^1.0.1",

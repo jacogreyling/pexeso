@@ -171,6 +171,68 @@ internals.applyRoutes = function (server, next) {
 
 
     server.route({
+        method: 'GET',
+        path: '/scores/interval/{minutes}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            }
+        },
+        handler: function (request, reply) {
+
+            const interval = request.params.minutes;
+            const now = new Date();
+
+            const query = {
+                timestamp: {
+                    $gte: new Date(now.getTime() - 1000 * 60 * 60)
+                }
+            };
+
+            const group = {
+                _id: {
+                    interval: { $add: [
+                        { $subtract: [
+                            { $subtract: [ '$timestamp', new Date(0) ] },
+                            { $mod: [
+                                { $subtract: [ '$timestamp', new Date(0) ] },
+                                1000 * 60 * 1
+                            ]}
+                        ] },
+                        new Date(0)
+                    ]},
+                    level: '$level'
+                },
+                count: {
+                    $sum: 1
+                }
+            };
+
+            const fields = {
+                _id: 0,
+                interval: '$_id.interval',
+                level: '$_id.level',
+                count: '$count'
+            };
+
+            const sort = {
+                interval: -1
+            }
+
+            Score.groupAggregate(query, group, fields, sort, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                return reply(results);
+            });
+        }
+    });
+
+
+    server.route({
         method: 'DELETE',
         path: '/scores/{userId}',
         config: {

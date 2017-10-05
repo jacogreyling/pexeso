@@ -77,6 +77,9 @@ exports.register = function (server, options, next) {
 
             if ((request.path === '/api/statistics/my') && (request.method === 'patch')) {
 
+                // Get the socket.io object
+                const io = request.plugins['hapi-io'].io;
+
                 // Retrieve the global statistics from cache
                 cache.get('stats', (err, value, cached, log) => {
 
@@ -88,6 +91,14 @@ exports.register = function (server, options, next) {
                     switch (request.payload.status) {
                         case 'won':
                             value.games.won++;
+
+                            // Send 'won' game statistic for graphs
+                            io.emit('game_won', {
+                                won: 1,
+                                level: request.payload.level,
+                                timestamp: request.response.source.lastPlayed
+                            });
+
                             break;
                         case 'lost':
                             value.games.lost++;
@@ -105,9 +116,6 @@ exports.register = function (server, options, next) {
                         if (err) {
                             console.warn(err);
                         }
-
-                        // Get the socket.io object
-                        const io = request.plugins['hapi-io'].io;
 
                         // Successfully created a new user, increment the user count
                         io.emit('statistics', {
