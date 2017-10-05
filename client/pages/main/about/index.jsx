@@ -76,7 +76,7 @@ class AboutPage extends React.Component {
                             <a href="https://github.com/jacogreyling/pexeso"
                                 style={{ outline: '0' }} target="_blank" rel="noopener noreferrer">
                                 this
-                            </a>&nbsp;project on Github and help us build pexeso!
+                            </a>&nbsp;project on Github and help us build pexeso.
                         </p>
                         <img height="250" width="250" src="public/media/github.png"
                             alt="Fork this project on Github and help us build pexeso" />

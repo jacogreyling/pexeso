@@ -30,10 +30,19 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 if (result) {
+
+                    // Get the socket.io object
+                    const io = request.plugins['hapi-io'].io;
+
+                    // Successfully created a new user, increment the user count
+                    io.emit('new_user', {
+                        count: 1
+                    });
+                    
                     reply({ success: true });
                 }
                 else {
-                    reply(Boom.notFound('User Not Found, Please Contact and Administrator.'));
+                    reply(Boom.notFound('User not found, please contact your administrator.'));
                 }
             });
         }

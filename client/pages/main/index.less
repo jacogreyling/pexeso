@@ -16,6 +16,10 @@ select, textarea, input, .form-control {
     font-size: 20em;
 }
 
+.media-heading {
+    margin-bottom: 10px;
+}
+
 .navbar {
     .navbar-brand {
         font-weight: bold;
@@ -200,3 +204,11 @@ a:hover, a:focus {
 }
 
 /* End of styling */
+
+
+/*Responsive Stuff*/
+@media all and (max-width: 768px) and (min-width: 0px) {
+    section .col-sm-6.text-center {
+        display: none;
+    }
+}

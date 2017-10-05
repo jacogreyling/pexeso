@@ -12,7 +12,7 @@ class SignupPage extends React.Component {
     render() {
 
         return (
-            <section className="section-home container">
+            <section className="container">
                 <Helmet>
                     <title>Sign up</title>
                 </Helmet>

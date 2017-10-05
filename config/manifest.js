@@ -251,6 +251,9 @@ const manifest = {
         },
         {
             plugin: './server/web/public'
+        },
+        {
+            plugin: './server/web/status'
         }
     ]
 };

@@ -11,24 +11,25 @@ class AboutPage extends React.Component {
     render() {
 
         return (
-            <section className="section-about container">
+            <section className="section container">
                 <Helmet>
                     <title>Thank You</title>
                 </Helmet>
                 <div className="row">
-                    <h1 className="page-header">Thank You</h1>
-                    <div className="media">
-                        <div className="pull-left">
-                            <div className="media-object">
-                                <i className="fa fa-thumbs-o-up fa-4x"></i>
+                    <div className="col-sm-6">
+                        <h1 className="page-header">Thank You!</h1>
+                        <div className="media">
+                            <div className="media-body">
+                                <h4 className="media-heading">Please check your Inbox for your unique <b>verification</b> link to activate your account</h4>
                             </div>
                         </div>
-                        <div className="media-body">
-                            <h4 className="media-heading">Thank you for signing up!</h4>
-                            <p style={{ marginTop: '10px' }}>
-                                Please check your <b>Inbox</b> for your unique verification link to activate your account.
-                            </p>
-                        </div>
+                    </div>
+                    <div className="col-sm-6 text-center">
+                        <h1 className="page-header">Email</h1>
+                        <p className="lead">
+                            There is a surprise waiting for you, in your inbox.
+                        </p>
+                        <i className="fa fa-envelope-open-o bamf"></i>
                     </div>
                 </div>
             </section>

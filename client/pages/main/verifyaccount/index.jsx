@@ -95,25 +95,23 @@ class ResetPage extends React.Component {
                 <Helmet>
                     <title>Verify Account</title>
                 </Helmet>
-                <div className="container">
-                    <h1 className="page-header">Verify your Account</h1>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <h4 className="media-heading">
-                                Please click the button below to verify your account
-                            </h4>
-                            <p style={{ marginTop: '10px' }}>
-                                You will be redirected to the login page after the verification step.
-                            </p>
-                        </div>
+                <div className="row">
+                    <div className="col-sm-6">
+                        <h1 className="page-header">Verify your Account</h1>
+                        <h4 className="media-heading">
+                            You will be redirected to the login page after the verification step.
+                        </h4>
+                        <form onSubmit={this.handleSubmit.bind(this)}>
+                            {formElements}
+                            {alerts}
+                        </form>
                     </div>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <form onSubmit={this.handleSubmit.bind(this)}>
-                                {formElements}
-                                {alerts}
-                            </form>
-                        </div>
+                    <div className="col-sm-6 text-center">
+                        <h1 className="page-header">Identity</h1>
+                        <p className="lead">
+                            Everything seems to check out, you are the real deal.
+                        </p>
+                        <i className="fa fa-id-card-o bamf"></i>
                     </div>
                 </div>
             </section>
