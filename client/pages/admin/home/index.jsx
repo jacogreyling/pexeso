@@ -79,7 +79,7 @@ class HomePage extends React.Component {
 
         socket.on('new_user', (res) => {
 
-            Actions.updateActiveUserCount(res);
+            Actions.updateUserCount(res);
         });
 
         socket.on('statistics', (res) => {

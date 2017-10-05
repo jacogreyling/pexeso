@@ -19,9 +19,14 @@ const reducer = function (state = initialState, action) {
 
     if (action.type === Constants.GET_LIVE_SCORES) {
 
+        // Find the right level
+        const url = action.request.url.split('/');
+        const level = url.pop();
+
         return ObjectAssign({}, state, {
             hydrated: false,
-            loading: true
+            loading: true,
+            level
         });
     }
 

@@ -38,10 +38,13 @@ class Results extends React.Component {
 
     handleResize() {
 
-        this.setState({
-            windowHeight: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
-            windowWidth: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-        });
+        if (window.innerWidth < 768) {
+
+            this.setState({
+                windowHeight: window.innerHeight,
+                windowWidth: window.innerWidth
+            });
+        }
     }
 
     render() {
