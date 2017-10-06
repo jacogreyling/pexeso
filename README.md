@@ -24,12 +24,17 @@ A memory card game that will test your wits! Three rounds, each one becoming pro
 
 ## Technology
 
-This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all (millions) mobile transactions.
-We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game scores. Game tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
+This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all (millions) mobile transactions. We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game scores.
+
+
+Game cards are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
 Statistics are provided through a custom build telemetry plug-in. It uses [Redis](https://redis.io) as a global state store and Hapi's multi-strategy object caching service called [catbox](https://github.com/hapijs/catbox). This allows for scaleability in a multi server environment.
+
 
 The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router). Time keeping and formatting is done by the excellent library [Moment.js](https://momentjs.com). Graphs are built using [Chart.js](http://www.chartjs.org), a phenomenal open source HTML5 charting project.
 Unit testing is done via [Lab](https://github.com/hapijs/lab) and API / Performance testing with [CA BlazeMeter](https://www.blazemeter.com) and JMeter.
+
+
 Lastly, we're using [Gulp](http://gulpjs.com/) and [webpack](https://webpack.js.org) for our build and packaging system and [CA CD Director](https://cddirector.io/#/home) for continuous delivery orchestration, deploying to Amazon AWS on-demand.
 
 
