@@ -132,7 +132,7 @@ const reducer = function (state = initialState, action) {
             for (let level of ['casual', 'medium', 'hard']) {
 
                 data[level].push({
-                    t: Moment(time),
+                    t: Moment(time).startOf('minute'),
                     y: typeof tmpData[level][interval] !== 'undefined' ? tmpData[level][interval] : 0
                 });
             }
@@ -163,6 +163,7 @@ const reducer = function (state = initialState, action) {
 
     if (action.type === Constants.UPDATE_DATASETS) {
 
+        // Create new array with existing dataset data points
         const data = {
             casual: [...state.data.datasets[0].data],
             medium: [...state.data.datasets[1].data],
@@ -171,6 +172,7 @@ const reducer = function (state = initialState, action) {
 
         for (let level of ['casual', 'medium', 'hard']) {
 
+            // If there is new data points via socket.io add it to the array
             for (let item in action.tmpData[level]) {
 
                 // If it's the same timeslice, just add the count
@@ -178,15 +180,16 @@ const reducer = function (state = initialState, action) {
 
                     data[level][0].y += action.tmpData[level][item].count;
                 }
+                // Check the last two timeslices, in a 1 minute interval
                 else if (data[level][1].t.format('H:mm') === action.tmpData[level][item].timestamp.format('H:mm')) {
 
                     data[level][1].y += action.tmpData[level][item].count;
                 }
-                // It's a new timeslice, add it to the array
+                // It's a new timeslice, add it to the start of the array
                 else {
 
                     data[level].unshift({
-                        t: Moment(action.tmpData[level][item].timestamp),
+                        t: Moment(action.tmpData[level][item].timestamp).startOf('minute'),
                         y: typeof action.tmpData[level][item].count !== 'undefined' ? action.tmpData[level][item].count : 0
                     });
                 }
@@ -198,6 +201,7 @@ const reducer = function (state = initialState, action) {
             }
         }
 
+        // Reset the tmp data array for socket.io updates
         let b = ObjectAssign({}, state, {
             realtimeData: []
         });
