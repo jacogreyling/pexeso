@@ -1,4 +1,4 @@
-/* global window, document */
+/* global window */
 'use strict';
 
 const PropTypes = require('prop-types');
@@ -28,12 +28,12 @@ class Results extends React.Component {
 
     componentDidMount() {
 
-        window.addEventListener('resize', this.handleResize.bind(this))
+        window.addEventListener('resize', this.handleResize.bind(this));
     }
 
     componentWillUnmount() {
 
-        window.removeEventListener('resize', this.handleResize.bind(this))
+        window.removeEventListener('resize', this.handleResize.bind(this));
     }
 
     handleResize() {

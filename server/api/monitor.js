@@ -47,12 +47,16 @@ internals.applyRoutes = function (server, next) {
                 }]
             }, (err, results) => {
 
+                if (err) {
+                    return reply(err);
+                }
+
                 const data = {
                     users: results.users,
                     sessions: results.sessions,
                     games: results.cache.games,
                     apiCalls: results.cache.apiCalls
-                }
+                };
 
                 reply(data);
             });

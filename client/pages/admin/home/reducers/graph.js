@@ -98,7 +98,7 @@ const reducer = function (state = initialState, action) {
 
             return ObjectAssign({}, state, {
                 hydrated: true
-            })
+            });
         }
 
         const time = Moment();
@@ -116,7 +116,7 @@ const reducer = function (state = initialState, action) {
         };
 
         // Iterate the response array
-        for (let item of action.response) {
+        for (const item of action.response) {
 
             const interval = Moment(item.interval).format('H:mm');
 
@@ -129,7 +129,7 @@ const reducer = function (state = initialState, action) {
 
             const interval = time.format('H:mm');
 
-            for (let level of ['casual', 'medium', 'hard']) {
+            for (const level of ['casual', 'medium', 'hard']) {
 
                 data[level].push({
                     t: Moment(time).startOf('minute'),
@@ -142,8 +142,8 @@ const reducer = function (state = initialState, action) {
         }
 
         // Create new return object
-        let b = ObjectAssign({}, state, {
-            hydrated: true,
+        const b = ObjectAssign({}, state, {
+            hydrated: true
         });
 
         // Assign the new data points to the dataset array
@@ -168,12 +168,12 @@ const reducer = function (state = initialState, action) {
             casual: [...state.data.datasets[0].data],
             medium: [...state.data.datasets[1].data],
             hard: [...state.data.datasets[2].data]
-        }
+        };
 
-        for (let level of ['casual', 'medium', 'hard']) {
+        for (const level of ['casual', 'medium', 'hard']) {
 
             // If there is new data points via socket.io add it to the array
-            for (let item in action.tmpData[level]) {
+            for (const item in action.tmpData[level]) {
 
                 // If it's the same timeslice, just add the count
                 if (data[level][0].t.format('H:mm') === action.tmpData[level][item].timestamp.format('H:mm')) {
@@ -202,7 +202,7 @@ const reducer = function (state = initialState, action) {
         }
 
         // Reset the tmp data array for socket.io updates
-        let b = ObjectAssign({}, state, {
+        const b = ObjectAssign({}, state, {
             realtimeData: []
         });
 

@@ -24,7 +24,11 @@ exports.register = function (server, options, next) {
                 (request.headers['x-forwarded-proto'] !== 'https')) {
 
                 return reply()
-                    .redirect(Url.format({protocol: protocol, hostname: host, pathname: request.url.pathname, search: request.url.search}))
+                    .redirect(Url.format({
+                        protocol,
+                        hostname: host,
+                        pathname: request.url.pathname,
+                        search: request.url.search }))
                     .code(301);
             }
 

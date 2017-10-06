@@ -38,7 +38,7 @@ internals.applyRoutes = function (server, next) {
                     io.emit('new_user', {
                         count: 1
                     });
-                    
+
                     reply({ success: true });
                 }
                 else {

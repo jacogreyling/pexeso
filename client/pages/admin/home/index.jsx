@@ -37,10 +37,10 @@ class HomePage extends React.Component {
         // Register this, so that we can make sure we 'unload' the io socket listners
         window.addEventListener('beforeunload', (e) => this.handleWindowClose(e));
 
-        let self = this;
+        const self = this;
 
         // Register timer for dynamic graph updates
-        this.intervalId = setInterval (function() {
+        this.intervalId = setInterval(() => {
 
             Actions.updateGraphDatasets(self.state.graph.realtimeData);
 
@@ -95,7 +95,7 @@ class HomePage extends React.Component {
         socket.on('game_won', (res) => {
 
             Actions.updateGamesWon(res);
-        })
+        });
     }
 
     deregisterIoListners() {
@@ -201,50 +201,51 @@ class HomePage extends React.Component {
                         </div>
                         <div className="card wide">
                             <div className="f c7 clear">
-                                    <Line data={this.state.graph.data}
-                                        width={900}
-                                        height={300}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            animation: {
-                                                duration: 0, // general animation time
-                                            },
-                                            hover: {
-                                                mode: 'nearest',
-                                                intersect: true
-                                            },
-                                            tooltips: {
-                                                callbacks: {
-                                                    title: function (tooltipItem, data) {
-                                                        return tooltipItem[0].xLabel.locale('en-gb').format('LLL');
+                                <Line data={this.state.graph.data}
+                                    width={900}
+                                    height={300}
+                                    options={{
+                                        maintainAspectRatio: false,
+                                        animation: {
+                                            duration: 0
+                                        },
+                                        hover: {
+                                            mode: 'nearest',
+                                            intersect: true
+                                        },
+                                        tooltips: {
+                                            callbacks: {
+                                                title: function (tooltipItem, data) {
+
+                                                    return tooltipItem[0].xLabel.locale('en-gb').format('LLL');
+                                                }
+                                            }
+                                        },
+                                        scales: {
+                                            xAxes: [{
+                                                id: 'timeline',
+                                                type: 'time',
+                                                distribution: 'series',
+                                                time: {
+                                                    unit: 'minute',
+                                                    displayFormats: {
+                                                        minute: 'H:mm'
                                                     }
                                                 }
-                                            },
-                                            scales: {
-                                                xAxes: [{
-                                                    id: 'timeline',
-                                                    type: 'time',
-                                                    distribution: 'series',
-                                                    time: {
-                                                        unit: 'minute',
-                                                        displayFormats: {
-                                                            minute: 'H:mm'
-                                                        }
-                                                    }
-                                                }],
-                                                yAxes: [{
-                                                    id: 'rounds',
-                                                    type: 'linear',
-                                                    ticks: {
-                                                        beginAtZero:true,
-                                                        suggestedMin: 0,
-                                                        suggestedMin: 5,
-                                                        stepSize: 1
-                                                    }
-                                                }]
-                                            }
-                                        }}
-                                    />
+                                            }],
+                                            yAxes: [{
+                                                id: 'rounds',
+                                                type: 'linear',
+                                                ticks: {
+                                                    beginAtZero:true,
+                                                    suggestedMin: 0,
+                                                    suggestedMin: 5,
+                                                    stepSize: 1
+                                                }
+                                            }]
+                                        }
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>

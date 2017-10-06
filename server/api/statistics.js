@@ -266,7 +266,7 @@ internals.applyRoutes = function (server, next) {
                         highscore = {
                             score: request.payload.score,
                             timestamp: date
-                        }
+                        };
                     }
 
                     // Update the flips
@@ -288,7 +288,8 @@ internals.applyRoutes = function (server, next) {
                                 lastPlayed: date
                             }
                         };
-                    } else {
+                    }
+                    else {
                         update = {
                             $set: {
                                 figures: stat.figures,

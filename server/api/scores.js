@@ -134,10 +134,10 @@ internals.applyRoutes = function (server, next) {
                 User.findByUsername(request.query.username, (error, user) => {
 
                     if (error) {
-                        return reply(err);
+                        return reply(error);
                     }
 
-                    let searchUser = "";
+                    let searchUser = '';
                     if ((user !== null) && (typeof user._id !== 'undefined')) {
                         searchUser = user._id;
                     }
@@ -181,7 +181,6 @@ internals.applyRoutes = function (server, next) {
         },
         handler: function (request, reply) {
 
-            const interval = request.params.minutes;
             const now = new Date();
 
             const query = {
@@ -194,14 +193,14 @@ internals.applyRoutes = function (server, next) {
                 _id: {
                     interval: { $add: [
                         { $subtract: [
-                            { $subtract: [ '$timestamp', new Date(0) ] },
+                            { $subtract: ['$timestamp', new Date(0)] },
                             { $mod: [
-                                { $subtract: [ '$timestamp', new Date(0) ] },
+                                { $subtract: ['$timestamp', new Date(0)] },
                                 1000 * 60 * 1
-                            ]}
+                            ] }
                         ] },
                         new Date(0)
-                    ]},
+                    ] },
                     level: '$level'
                 },
                 count: {
@@ -218,7 +217,7 @@ internals.applyRoutes = function (server, next) {
 
             const sort = {
                 interval: -1
-            }
+            };
 
             Score.groupAggregate(query, group, fields, sort, (err, results) => {
 

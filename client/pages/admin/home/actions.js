@@ -92,12 +92,12 @@ class Actions {
                     count: 0,
                     timestamp: t
                 }
-            },
+            }
         };
 
         if (Array.isArray(data)) {
             // Lets loop over the array and group them
-            for (let item of data) {
+            for (const item of data) {
 
                 const interval = Moment(item.timestamp).format('H:mm');
 
@@ -111,7 +111,7 @@ class Actions {
         Store.dispatch({
             type: Constants.UPDATE_DATASETS,
             tmpData
-        })
+        });
     }
 
     static updateApiStatistics(data) {

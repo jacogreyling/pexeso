@@ -2,7 +2,6 @@
 
 const ApiActions = require('../../../actions/api');
 const Constants = require('./constants');
-const ObjectAssign = require('object-assign');
 const Store = require('./store');
 const CalculateScore = require('../../../helpers/calculate-score');
 const Md5 = require('../../../../node_modules/blueimp-md5/js/md5');
@@ -39,7 +38,7 @@ class Actions {
         // We need to create this 'empty' object and update the database
         const data = {};
 
-        console.info("INFO: Creating empty Statistics object in collection.");
+        console.info('INFO: Creating empty Statistics object in collection.');
 
         ApiActions.post(
             '/api/statistics/my',
