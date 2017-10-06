@@ -104,11 +104,14 @@ internals.applyRoutes = function (server, next) {
                 linkUser: ['account', function (results, done) {
 
                     const id = results.account._id.toString();
+                    const mobilenum = request.payload.mobile;
+
                     const update = {
                         $set: {
                             user: {
                                 id: results.user._id.toString(),
-                                name: results.user.username
+                                name: results.user.username,
+                                mobile: mobilenum
                             }
                         }
                     };
