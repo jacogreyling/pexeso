@@ -1,38 +1,41 @@
-[![Stories in Ready](https://badge.waffle.io/jacogreyling/pexeso.png?label=ready&title=Ready)](https://waffle.io/jacogreyling/pexeso?utm_source=badge)
+[![Waffle.io](https://badge.waffle.io/jacogreyling/pexeso.svg?columns=all)](http://waffle.io/jacogreyling/pexeso)
 
 # pexeso
 
-A memory card game that will test your wits! How many rounds can you complete in 90 seconds?! Remember each round is harder than the previous. It also includes user registration and a leaderboard for those who dare to compete!
+A memory card game that will test your wits! Three rounds, each one becoming progressively more difficult than the previous round. It also includes user registration, game statistics and a leaderboard (admin users) for those who dare to compete!
 
 
 ## Features
 
  - Interactive memory card game with multiple levels
- - Real-time leaderboard
  - Account sign-up page
  - Login system with forgot password and reset password
+ - Real-time leaderboard, with the ability to search for player scores
+ - Game statistics / telemetry to keep track of participation
  - Showcasing various **Continuous Delivery** solutions from CA Technologies:
-   - [Waffle](https://waffle.io)
+   - [Waffle](https://waffle.io) (CA Accelerator)
    - [Continuous Delivery Director](https://cddirector.io/#/home)
    - [BlazeMeter](https://www.blazemeter.com)
    - [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)
    - [Flow Dock](https://www.ca.com/us/products/ca-flowdock.html)
-   - [Service Virtualization](https://www.ca.com/us/products/ca-service-virtualization.html)
+   - [Service Virtualization](https://www.ca.com/us/products/ca-service-virtualization.html) Coming Soon!
+   - [Application Performance Management](https://www.ca.com/us/products/ca-application-performance-management.html) Coming Soon!
 
 
 ## Technology
 
-This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all mobile transactions.
-We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game statistics. Tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
-Telemetry is provided through a custom build plugin. It uses [Redis](https://redis.io) as a global state store and Hapi's multi-strategy object caching service called [catbox](https://github.com/hapijs/catbox).
-The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router). Time keeping and formatting is done by the excellent library [Moment.js](https://momentjs.com)
+This project is forked from [Aqua](https://github.com/jedireza/aqua) which is built with the [hapi](https://hapijs.com/) framework. Hapi is a [Node.js](https://nodejs.org/en/) project used by Walmart to handle all (millions) mobile transactions.
+We're also using [MongoDB](http://www.mongodb.org/) as a data store for user registration and game scores. Game tiles are retrieved from various data sources via the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) using RESTful API's.
+Statistics are provided through a custom build telemetry plug-in. It uses [Redis](https://redis.io) as a global state store and Hapi's multi-strategy object caching service called [catbox](https://github.com/hapijs/catbox). This allows for scaleability in a multi server environment.
+
+The front-end is built with [React](https://github.com/facebook/react) developed by Facebook. We use [Redux](https://github.com/reactjs/redux) as our state container. Client side routing is done with [React Router](https://github.com/reactjs/react-router). Time keeping and formatting is done by the excellent library [Moment.js](https://momentjs.com). Graphs are built using [Chart.js](http://www.chartjs.org), a phenomenal open source HTML5 charting project.
 Unit testing is done via [Lab](https://github.com/hapijs/lab) and API / Performance testing with [CA BlazeMeter](https://www.blazemeter.com) and JMeter.
-We're using [Gulp](http://gulpjs.com/) for the build system and [CA CD Director](https://cddirector.io/#/home) for continuous delivery orchestration deploying to Amazon AWS Elastic Beanstalk.
+Lastly, we're using [Gulp](http://gulpjs.com/) and [webpack](https://webpack.js.org) for our build and packaging system and [CA CD Director](https://cddirector.io/#/home) for continuous delivery orchestration, deploying to Amazon AWS on-demand.
 
 
 ## Requirements
 
-You need [Node.js](http://nodejs.org/download/) v8.1.x or above installed. You will also need [MongoDB](http://www.mongodb.org/downloads) installed and running as well as [Redis](https://redis.io) on localhost. You can optionally download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) to create / secure your public facing API's.
+You need [Node.js](http://nodejs.org/download/) v8.1.x or above installed. You will also need [MongoDB](http://www.mongodb.org/downloads) and [Redis](https://redis.io) installed and running on localhost. You can optionally download and install the [CA Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html) to create / secure your public facing API's.
 
 We use [`bcrypt`](https://github.com/ncb000gt/node.bcrypt.js) for hashing secrets.
 
@@ -107,42 +110,6 @@ Unlike `$ npm start` this doesn't watch for file changes. Also be sure to set th
 
 Contributions are welcome. If you're changing something non-trivial, you may want to submit an issue before creating a large pull request.
 
-
-## Running tests
-
-[Lab](https://github.com/hapijs/lab) is part of the hapi ecosystem and what we use to write all of our tests.
-
-```bash
-$ npm test
-
-# > pexeso@0.0.0 test /home/jgreyling/projects/pexeso
-# > lab -t 100 -S -T ./test/lab/transform -L --lint-options '{"extensions":[".js",".jsx"]}' ./test/lab/client-before.js ./test/client/ ./test/lab/client-after.js ./test/server/ ./test/lab/server-after.js ./test/misc/
-
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ..................................................
-#  ...............
-
-# 865 tests complete
-# Test duration: 6382 ms
-# No global variable leaks detected
-# Coverage: 100.00%
-# Linting results: No issues
-```
 
 
 ## License

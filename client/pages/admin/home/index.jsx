@@ -206,6 +206,9 @@ class HomePage extends React.Component {
                                         height={300}
                                         options={{
                                             maintainAspectRatio: false,
+                                            animation: {
+                                                duration: 0, // general animation time
+                                            },
                                             hover: {
                                                 mode: 'nearest',
                                                 intersect: true

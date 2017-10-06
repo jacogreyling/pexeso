@@ -1,12 +1,15 @@
 {
   "name": "pexeso",
-  "version": "1.0.0",
-  "description": "A memory card game that will test your wits! How many rounds can you complete in 90 seconds?! Remember each round is harder than the previous.",
+  "version": "1.1.0",
+  "description": "A memory card game that will test your wits! Three rounds, each one becoming progressively more difficult than the previous round.",
   "keywords": [
     "pexeso",
     "game",
     "memory",
-    "react"
+    "continuous delivery",
+    "devops",
+    "ca technologies",
+    "api"
   ],
   "homepage": "http://pexeso.io",
   "bugs": {
