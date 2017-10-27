@@ -20,7 +20,8 @@ const manifest = {
             shared: true,
             partition: 'cache',
             host: Config.get('/hapiRedis/host'),
-            port: Config.get('/hapiRedis/port')
+            port: Config.get('/hapiRedis/port'),
+            password: Config.get('/hapiRedis/password')
         },
         connections: {
             routes: {
@@ -128,7 +129,8 @@ const manifest = {
                 options: {
                     connection: {
                         host: Config.get('/hapiRedis/host'),
-                        port: Config.get('/hapiRedis/port')
+                        port: Config.get('/hapiRedis/port'),
+                        password: Config.get('/hapiRedis/password')
                     }
                 }
             }

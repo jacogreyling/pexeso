@@ -64,6 +64,12 @@ const config = {
             production: process.env.REDIS_PORT,
             test: 6379,
             $default: 6379
+        },
+        password: {
+            $filter: 'env',
+            production: process.env.REDIS_PASSWORD,
+            test: 6379,
+            $default: 6379
         }
     },
     nodemailer: {

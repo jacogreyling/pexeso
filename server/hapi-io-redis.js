@@ -11,13 +11,28 @@ exports.register = function (server, options, next) {
     const host = options.connection.host || 'localhost';
     const port = options.connection.port || 6379;
 
-    const io = server.plugins['hapi-io'].io;
-    io.adapter(Redis({
-        host,
-        port
-    }));
+    if (options.connection.password != undefined) {
+        const io = server.plugins['hapi-io'].io;
+        io.adapter(Redis({
+            host,
+            port
+        }));
 
-    next();
+        next();
+    } else {
+        const password = options.connection.password || 'null';
+        
+        const pub = redis(port, host, { auth_pass: password });
+        const sub = redis(port, host, { auth_pass: password });
+
+        const io = server.plugins['hapi-io'].io;
+        io.adapter(Redis({
+            pubClient: pub, 
+            subClient: sub
+        }));
+
+        next();
+    }
 };
 
 exports.register.attributes = {
