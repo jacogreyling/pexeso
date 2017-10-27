@@ -11,7 +11,7 @@ exports.register = function (server, options, next) {
     const host = options.connection.host || 'localhost';
     const port = options.connection.port || 6379;
 
-    if (options.connection.password != undefined) {
+    if (options.connection.password !== undefined) {
         const io = server.plugins['hapi-io'].io;
         io.adapter(Redis({
             host,
@@ -22,8 +22,8 @@ exports.register = function (server, options, next) {
     } else {
         const password = options.connection.password || 'null';
         
-        const pub = redis(port, host, { auth_pass: password });
-        const sub = redis(port, host, { auth_pass: password });
+        const pub = Redis(host, port, { auth_pass: password });
+        const sub = Redis(host, port, { auth_pass: password });
 
         const io = server.plugins['hapi-io'].io;
         io.adapter(Redis({
