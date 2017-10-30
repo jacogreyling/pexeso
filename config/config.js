@@ -70,6 +70,12 @@ const config = {
             production: process.env.REDIS_PASSWORD,
             test: 'null',
             $default: 'null'
+        },
+        URL: {
+            $filter: 'env',
+            production: process.env.REDIS_URL,
+            test: 'null',
+            $default: 'redis://localhost:6379'
         }
     },
     nodemailer: {

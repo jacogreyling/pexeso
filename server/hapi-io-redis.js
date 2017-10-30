@@ -10,8 +10,13 @@ exports.register = function (server, options, next) {
 
     const host = options.connection.host || 'localhost';
     const port = options.connection.port || 6379;
+    const URL = options.connection.URL || 'redis://localhost:6379';
 
-    if (options.connection.password !== undefined) {
+    const io = server.plugins['hapi-io'].io;
+    io.adapter(Redis(URL));
+    next();
+
+   /* if (options.connection.password !== 'null') {
         const io = server.plugins['hapi-io'].io;
         io.adapter(Redis({
             host,
@@ -32,7 +37,7 @@ exports.register = function (server, options, next) {
         }));
 
         next();
-    }
+    } */
 };
 
 exports.register.attributes = {
