@@ -127,8 +127,6 @@ const manifest = {
                 options: {
                     connection: {
                         url: Config.get('/hapiRedis/url')
-                       /* port: Config.get('/hapiRedis/port'),
-                        password: Config.get('/hapiRedis/password') */
                     }
                 }
             }

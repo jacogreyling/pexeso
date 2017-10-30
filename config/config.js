@@ -53,24 +53,6 @@ const config = {
         autoIndex: true
     },
     hapiRedis: {
-        host: {
-            $filter: 'env',
-            production: process.env.REDIS_HOST,
-            test: 'localhost',
-            $default: 'localhost'
-        },
-        port: {
-            $filter: 'env',
-            production: process.env.REDIS_PORT,
-            test: 6379,
-            $default: 6379
-        },
-        password: {
-            $filter: 'env',
-            production: process.env.REDIS_PASSWORD,
-            test: 'null',
-            $default: 'null'
-        },
         url: {
             $filter: 'env',
             production: process.env.REDIS_URL,

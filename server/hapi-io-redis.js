@@ -8,36 +8,11 @@ exports.register = function (server, options, next) {
 
     Hoek.assert(options.connection, 'options.connection is required');
 
-    //const host = options.connection.host || 'localhost';
-    //const port = options.connection.port || 6379;
     const URL = options.connection.url || 'redis://localhost:6379';
 
     const io = server.plugins['hapi-io'].io;
     io.adapter(Redis(URL));
     next();
-
-   /* if (options.connection.password !== 'null') {
-        const io = server.plugins['hapi-io'].io;
-        io.adapter(Redis({
-            host,
-            port
-        }));
-
-        next();
-    } else {
-        const password = options.connection.password || 'null';
-        
-        const pub = Redis(host, port, { auth_pass: password });
-        const sub = Redis(host, port, { auth_pass: password });
-
-        const io = server.plugins['hapi-io'].io;
-        io.adapter(Redis({
-            pubClient: pub, 
-            subClient: sub
-        }));
-
-        next();
-    } */
 };
 
 exports.register.attributes = {
