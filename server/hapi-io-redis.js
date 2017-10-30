@@ -8,8 +8,8 @@ exports.register = function (server, options, next) {
 
     Hoek.assert(options.connection, 'options.connection is required');
 
-    const host = options.connection.host || 'localhost';
-    const port = options.connection.port || 6379;
+    //const host = options.connection.host || 'localhost';
+    //const port = options.connection.port || 6379;
     const URL = options.connection.URL || 'redis://localhost:6379';
 
     const io = server.plugins['hapi-io'].io;

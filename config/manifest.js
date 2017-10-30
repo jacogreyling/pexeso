@@ -19,9 +19,7 @@ const manifest = {
             engine: require('catbox-redis'),
             shared: true,
             partition: 'cache',
-            host: Config.get('/hapiRedis/host'),
-            port: Config.get('/hapiRedis/port'),
-            password: Config.get('/hapiRedis/password')
+            url: Config.get('/hapiRedis/url')
         },
         connections: {
             routes: {
@@ -128,9 +126,9 @@ const manifest = {
                 register: './server/hapi-io-redis',
                 options: {
                     connection: {
-                        host: Config.get('/hapiRedis/host'),
-                        port: Config.get('/hapiRedis/port'),
-                        password: Config.get('/hapiRedis/password')
+                        url: Config.get('/hapiRedis/url')
+                       /* port: Config.get('/hapiRedis/port'),
+                        password: Config.get('/hapiRedis/password') */
                     }
                 }
             }

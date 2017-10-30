@@ -71,7 +71,7 @@ const config = {
             test: 'null',
             $default: 'null'
         },
-        URL: {
+        url: {
             $filter: 'env',
             production: process.env.REDIS_URL,
             test: 'null',
