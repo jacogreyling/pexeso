@@ -10,7 +10,7 @@ exports.register = function (server, options, next) {
 
     //const host = options.connection.host || 'localhost';
     //const port = options.connection.port || 6379;
-    const URL = options.connection.URL || 'redis://localhost:6379';
+    const URL = options.connection.url || 'redis://localhost:6379';
 
     const io = server.plugins['hapi-io'].io;
     io.adapter(Redis(URL));
