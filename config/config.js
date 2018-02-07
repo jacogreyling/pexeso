@@ -10,7 +10,6 @@ const criteria = {
     env: process.env.NODE_ENV
 };
 
-
 const config = {
     projectName: 'pexeso',
     port: {

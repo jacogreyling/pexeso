@@ -1,7 +1,6 @@
 'use strict';
 
 const Async = require('async');
-const AuthPlugin = require('../auth');
 const Boom = require('boom');
 const EscapeRegExp = require('escape-string-regexp');
 const Joi = require('joi');
@@ -32,10 +31,7 @@ internals.applyRoutes = function (server, next) {
                     limit: Joi.number().default(20),
                     page: Joi.number().default(1)
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -67,10 +63,7 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'session',
                 scope: 'admin'
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -102,10 +95,7 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     name: Joi.string().required()
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -142,10 +132,7 @@ internals.applyRoutes = function (server, next) {
                         last: Joi.string().required()
                     }).required()
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -191,10 +178,7 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     permissions: Joi.object().required()
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -232,10 +216,7 @@ internals.applyRoutes = function (server, next) {
                 payload: {
                     groups: Joi.object().required()
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -275,7 +256,6 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [
-                AuthPlugin.preware.ensureAdminGroup('root'),
                 {
                     assign: 'admin',
                     method: function (request, reply) {
@@ -389,7 +369,6 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [
-                AuthPlugin.preware.ensureAdminGroup('root'),
                 {
                     assign: 'admin',
                     method: function (request, reply) {
@@ -480,10 +459,7 @@ internals.applyRoutes = function (server, next) {
                 params: {
                     id: Joi.string().invalid('111111111111111111111111')
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 

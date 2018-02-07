@@ -16,7 +16,7 @@ const Switch = ReactRouter.Switch;
 
 const App = (
     <Router>
-        <div>
+        <div className="app">
             <Route component={Navbar} />
             <Switch>
                 <Route path="/account" exact component={Home} />

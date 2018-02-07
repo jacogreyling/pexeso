@@ -32,10 +32,7 @@ internals.applyRoutes = function (server, next) {
                     limit: Joi.number().default(20),
                     page: Joi.number().default(1)
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -99,10 +96,7 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'session',
                 scope: 'admin'
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
@@ -168,7 +162,6 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [
-                AuthPlugin.preware.ensureAdminGroup('root'),
                 {
                     assign: 'usernameCheck',
                     method: function (request, reply) {
@@ -289,7 +282,6 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [
-                AuthPlugin.preware.ensureAdminGroup('root'),
                 {
                     assign: 'usernameCheck',
                     method: function (request, reply) {
@@ -469,7 +461,6 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [
-                AuthPlugin.preware.ensureAdminGroup('root'),
                 {
                     assign: 'password',
                     method: function (request, reply) {
@@ -574,10 +565,7 @@ internals.applyRoutes = function (server, next) {
                 params: {
                     id: Joi.string().invalid('000000000000000000000000')
                 }
-            },
-            pre: [
-                AuthPlugin.preware.ensureAdminGroup('root')
-            ]
+            }
         },
         handler: function (request, reply) {
 
