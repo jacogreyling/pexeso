@@ -119,7 +119,7 @@
     "merge-stream": "1.0.1",
     "moment": "^2.20.1",
     "nodemon": "^1.14.12",
-    "promptly": "3.0.3",
+    "promptly": "^2.2.0",
     "prop-types": "^15.6.0",
     "proxyquire": "1.8.0",
     "qs": "^6.5.1",
