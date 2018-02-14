@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 
-class ResetPage extends React.Component {
+class VerifyAccount extends React.Component {
     constructor(props) {
 
         super(props);
@@ -96,22 +96,16 @@ class ResetPage extends React.Component {
                     <title>Verify Account</title>
                 </Helmet>
                 <div className="row">
+                    <h1 className="page-header" style={{marginLeft: '15px', marginRight: '15px'}}>Verify your account</h1>
                     <div className="col-sm-6">
-                        <h1 className="page-header">Verify your Account</h1>
                         <h4 className="media-heading">
                             You will be redirected to the login page after the verification step.
                         </h4>
+                        <br/>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             {formElements}
                             {alerts}
                         </form>
-                    </div>
-                    <div className="col-sm-6 text-center">
-                        <h1 className="page-header">Identity</h1>
-                        <p className="lead">
-                            Everything seems to check out, you are the real deal.
-                        </p>
-                        <i className="fa fa-id-card-o bamf"></i>
                     </div>
                 </div>
             </section>
@@ -119,7 +113,7 @@ class ResetPage extends React.Component {
     }
 }
 
-ResetPage.propTypes = propTypes;
+VerifyAccount.propTypes = propTypes;
 
 
-module.exports = ResetPage;
+module.exports = VerifyAccount;

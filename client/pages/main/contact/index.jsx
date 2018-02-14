@@ -14,18 +14,12 @@ class ContactPage extends React.Component {
         return (
             <section className="section-contact container">
                 <Helmet>
-                    <title>Contact us</title>
+                    <title>Contact Us</title>
                 </Helmet>
                 <div className="row">
+                    <h1 className="page-header" style={{marginLeft: '15px', marginRight: '15px'}}>Send a message</h1>
                     <div className="col-sm-6">
                         <Form />
-                    </div>
-                    <div className="col-sm-6 text-center">
-                        <h1 className="page-header">Contact us</h1>
-                        <p className="lead">
-                            We can’t wait to hear from you.
-                        </p>
-                        <i className="fa fa-reply-all bamf"></i>
                     </div>
                 </div>
             </section>

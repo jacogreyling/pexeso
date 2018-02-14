@@ -55,10 +55,10 @@ class LogoutPage extends React.Component {
         return (
             <section className="container">
                 <Helmet>
-                    <title>Sign out</title>
+                    <title>Sign Out</title>
                 </Helmet>
                 <div className="container">
-                    <h1 className="page-header">Sign out</h1>
+                    <h1 className="page-header">Sign Out</h1>
                     <div className="row">
                         <div className="col-sm-6">
                             {alerts}

@@ -15,6 +15,8 @@ internals.applyRoutes = function (server, next) {
     const AuthAttempt = server.plugins['hapi-mongo-models'].AuthAttempt;
     const Session = server.plugins['hapi-mongo-models'].Session;
     const User = server.plugins['hapi-mongo-models'].User;
+    const Event = server.plugins['hapi-mongo-models'].Event;
+    const Account = server.plugins['hapi-mongo-models'].Account;
 
 
     server.route({
@@ -84,6 +86,72 @@ internals.applyRoutes = function (server, next) {
                     });
                 }
             }, {
+                assign: 'event',
+                method: function (request, reply) {
+
+                    Async.auto({
+                        account: function (done) {
+        
+                            const username = request.pre.user.username !== undefined ? request.pre.user.username : '';
+
+                            Account.findByUsername(username, done);                            
+                        },
+                        accountEvent: ['account', function (results, done) {
+
+                            const event = results.account.event !== undefined ? results.account.event : '';
+                            
+                            Event.findByEvent(event, done);
+                        }],
+                        cookieEvent: ['accountEvent', function (results, done) {
+
+                            const event = request.state['sid-pexeso'] !== undefined ? request.state['sid-pexeso'].event : '';
+
+                            Event.findByEvent(event, done);
+                        }],
+                        updateAccount: ['cookieEvent', function (results, done) {
+
+                            // First see if the latest event is 'active'
+                            if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
+
+                                const id = results.account._id;
+                                const update = {
+                                    $set: {
+                                        event: results.cookieEvent.name
+                                    }
+                                };
+
+                                Account.findByIdAndUpdate(id, update, done);
+                            }
+                            // Else check to see if the account holds an event
+                            else {
+
+                                // Delete any inactive events from the account
+                                if ((results.accountEvent) && (results.accountEvent.isActive === false)) {
+
+                                    const id = results.account._id;
+                                    const rem = {
+                                        $unset: {
+                                            event: ''
+                                        }
+                                    };
+    
+                                    Account.findByIdAndUpdate(id, rem, done);
+                                }
+                                else {
+                                    done(); // Do nothing
+                                }
+                            }
+                        }]
+                    }, (err, results) => {
+
+                        if (err) {
+                            return reply(err);
+                        }
+        
+                        return reply(results);
+                    });
+                }
+            }, {
                 assign: 'session',
                 method: function (request, reply) {
 
@@ -113,6 +181,8 @@ internals.applyRoutes = function (server, next) {
                 session: request.pre.session,
                 authHeader
             };
+
+            // Update account..
 
             // Get the socket.io object
             const io = request.plugins['hapi-io'].io;

@@ -102,9 +102,11 @@ exports.register = function (server, options, next) {
                             break;
                         case 'lost':
                             value.games.lost++;
+
                             break;
                         case 'abandoned':
                             value.games.abandoned++;
+                            
                             break;
                         default:
                             // Do nothing

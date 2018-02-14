@@ -2,6 +2,8 @@
 
 const About = require('./about/index.jsx');
 const Contact = require('./contact/index.jsx');
+const Event = require('./event/index.jsx');
+const EventToken = require('./event/token/index.jsx');
 const Footer = require('./footer.jsx');
 const Home = require('./home/index.jsx');
 const SignUpThanks = require('./thanks/index.jsx');
@@ -31,6 +33,8 @@ const AppUniversal = function () {
                 <Route path="/" exact component={Home} />
                 <Route path="/about" exact component={About} />
                 <Route path="/contact" exact component={Contact} />
+                <Route path="/event" exact component={Event} />
+                <Route path="/event/:token" exact component={EventToken} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/login/forgot" exact component={LoginForgot} />
                 <Route path="/login/reset/:email/:key" component={LoginReset} />

@@ -54,6 +54,7 @@ Account.schema = Joi.object().keys({
         middle: Joi.string().allow(''),
         last: Joi.string().required()
     }),
+    event: Joi.string(),
     notes: Joi.array().items(NoteEntry.schema),
     timeCreated: Joi.date()
 });

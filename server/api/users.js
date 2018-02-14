@@ -1,5 +1,6 @@
 'use strict';
 
+const Async = require('async');
 const AuthPlugin = require('../auth');
 const Boom = require('boom');
 const EscapeRegExp = require('escape-string-regexp');
@@ -13,6 +14,9 @@ internals.applyRoutes = function (server, next) {
 
     const User = server.plugins['hapi-mongo-models'].User;
     const Statistic = server.plugins['hapi-mongo-models'].Statistic;
+    const Account = server.plugins['hapi-mongo-models'].Account;
+    const Event = server.plugins['hapi-mongo-models'].Event;
+
 
     server.route({
         method: 'GET',
@@ -128,19 +132,77 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             const id = request.auth.credentials.user._id.toString();
-            const fields = User.fieldsAdapter('username email roles');
 
-            User.findById(id, fields, (err, user) => {
+            Async.auto({
+                user: function (done) {
+                    
+                    const fields = User.fieldsAdapter('username email roles');
 
+                    User.findById(id, fields, done);
+                },
+                account: ['user', function (results, done) {
+
+                    if (!results.user) {
+                        return reply(Boom.badRequest('Document not found. That is strange.'));
+                    }
+
+                    const username = results.user.username !== undefined ? results.user.username : '';
+
+                    Account.findByUsername(username, done);                            
+                }],
+                accountEvent: ['account', function (results, done) {
+
+                    const event = results.account.event !== undefined ? results.account.event : '';
+                    
+                    Event.findByEvent(event, done);
+                }],
+                cookieEvent: ['accountEvent', function (results, done) {
+
+                    const event = request.state['sid-pexeso'] !== undefined ? request.state['sid-pexeso'].event : '';
+
+                    Event.findByEvent(event, done);
+                }],
+                updateAccount: ['cookieEvent', function (results, done) {
+
+                    // First see if the latest event is 'active'
+                    if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
+
+                        const id = results.account._id;
+                        const update = {
+                            $set: {
+                                event: results.cookieEvent.name
+                            }
+                        };
+
+                        Account.findByIdAndUpdate(id, update, done);
+                    }
+                    // Else check to see if the account holds an event
+                    else {
+
+                        // Delete any inactive events from the account
+                        if ((results.accountEvent) && (results.accountEvent.isActive === false)) {
+
+                            const id = results.account._id;
+                            const rem = {
+                                $unset: {
+                                    event: ''
+                                }
+                            };
+
+                            Account.findByIdAndUpdate(id, rem, done);
+                        }
+                        else {
+                            done(); // Do nothing
+                        }
+                    }
+                }]
+            }, (err, results) => {
+console.log(results);
                 if (err) {
                     return reply(err);
                 }
 
-                if (!user) {
-                    return reply(Boom.notFound('Document not found. That is strange.'));
-                }
-
-                reply(user);
+                return reply(results.user);
             });
         }
     });

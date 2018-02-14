@@ -14,6 +14,7 @@ internals.applyRoutes = function (server, next) {
     const Account = server.plugins['hapi-mongo-models'].Account;
     const User = server.plugins['hapi-mongo-models'].User;
     const Statistic = server.plugins['hapi-mongo-models'].Statistic;
+    const Event = server.plugins['hapi-mongo-models'].Event;
 
 
     server.route({
@@ -100,6 +101,27 @@ internals.applyRoutes = function (server, next) {
                     const name = request.payload.name;
 
                     Account.create(name, done);
+                }],
+                cookieEvent: ['account', function (results, done) {
+
+                    const event = request.state['sid-pexeso'] !== undefined ? request.state['sid-pexeso'].event : '';
+
+                    Event.findByEvent(event, done);
+                }],
+                updateAccount: ['cookieEvent', function (results, done) {
+
+                    // First see if the latest event is 'active'
+                    if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
+
+                        const id = results.account._id;
+                        const update = {
+                            $set: {
+                                event: results.cookieEvent.name
+                            }
+                        };
+
+                        Account.findByIdAndUpdate(id, update, done);
+                    }
                 }],
                 linkUser: ['account', function (results, done) {
 

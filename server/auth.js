@@ -24,6 +24,11 @@ internals.applyStrategy = function (server, next) {
             Async.auto({
                 session: function (done) {
 
+                    // If the session is not set, it means we haven't authenticated yet
+                    if (data.session === undefined) {
+                        return done();
+                    }
+
                     const id = data.session._id;
                     const key = data.session.key;
 

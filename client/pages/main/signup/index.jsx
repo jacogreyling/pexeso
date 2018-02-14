@@ -14,18 +14,12 @@ class SignupPage extends React.Component {
         return (
             <section className="container">
                 <Helmet>
-                    <title>Sign up</title>
+                    <title>Sign Up</title>
                 </Helmet>
                 <div className="row">
+                    <h1 className="page-header" style={{marginLeft: '15px', marginRight: '15px'}}>Sign Up</h1>
                     <div className="col-sm-6">
                         <Form />
-                    </div>
-                    <div className="col-sm-6 text-center">
-                        <h1 className="page-header">Register</h1>
-                        <p className="lead">
-                            <b>NOTICE:</b> Only <u>FNB Codefest</u> participants can win prizes!
-                        </p>
-                        <i className="fa fa-thumbs-o-up bamf"></i>
                     </div>
                 </div>
             </section>

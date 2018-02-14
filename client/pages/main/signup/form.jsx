@@ -129,7 +129,6 @@ class Form extends React.Component {
 
         return (
             <section>
-                <h1 className="page-header">Sign up</h1>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     {alert}
                     {formElements}

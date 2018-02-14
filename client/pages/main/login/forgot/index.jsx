@@ -101,7 +101,7 @@ class ForgotPage extends React.Component {
         return (
             <section className="container">
                 <Helmet>
-                    <title>Forgot password</title>
+                    <title>Forgot Password</title>
                 </Helmet>
                 <div className="container">
                     <h1 className="page-header">Forgot your password?</h1>

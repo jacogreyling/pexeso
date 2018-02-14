@@ -4,11 +4,12 @@
 const App = require('./app.jsx');
 const ReactDOM = require('react-dom');
 
+import { hydrate } from 'react-dom';
 
 class Page {
     static blastoff() {
 
-        this.mainElement = ReactDOM.render(
+        this.mainElement = ReactDOM.hydrate(
             App,
             window.document.getElementById('app-mount')
         );

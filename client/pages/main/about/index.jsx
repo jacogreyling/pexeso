@@ -13,73 +13,28 @@ class AboutPage extends React.Component {
         return (
             <section className="section-about container">
                 <Helmet>
-                    <title>About us</title>
+                    <title>About Us</title>
                 </Helmet>
                 <div className="row">
-                    <div className="col-sm-6">
-                        <h1 className="page-header">About us</h1>
-                        <div className="media">
-                            <div className="pull-left">
-                                <div className="media-object">
-                                    <i className="fa fa-camera-retro fa-4x"></i>
-                                </div>
-                            </div>
-                            <div className="media-body">
-                                <h4 className="media-heading">Jaco Greyling</h4>
-                                <p>
-                                    CTO Enterprise DevOps
-                                </p>
-                                <p>
-                                    <em>The Developer</em>
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div className="media">
-                            <div className="pull-left">
-                                <div className="media-object">
-                                    <i className="fa fa-camera-retro fa-4x"></i>
-                                </div>
-                            </div>
-                            <div className="media-body">
-                                <h4 className="media-heading">Charl-Andrian Klein</h4>
-                                <p>
-                                    Senior Consultant - DevOps
-                                </p>
-                                <p>
-                                    <em>The Ops Guy</em>
-                                </p>
-                            </div>
-                        </div>
-                        <hr />
-                        <div className="media">
-                            <div className="pull-left">
-                                <div className="media-object">
-                                    <i className="fa fa-camera-retro fa-4x"></i>
-                                </div>
-                            </div>
-                            <div className="media-body">
-                                <h4 className="media-heading">Michael Brink</h4>
-                                <p>
-                                    Solution Strategist
-                                </p>
-                                <p>
-                                    <em>The API Guy</em>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-sm-6 text-center">
-                        <h1 className="page-header">GitHub</h1>
-                        <p className="lead">
-                            Fork&nbsp;
-                            <a href="https://github.com/jacogreyling/pexeso"
-                                style={{ outline: '0' }} target="_blank" rel="noopener noreferrer">
-                                this
-                            </a>&nbsp;project on Github and help us build pexeso.
-                        </p>
-                        <img height="250" width="250" src="public/media/github.png"
-                            alt="Fork this project on Github and help us build pexeso" />
+                    <h1 className="page-header" style={{marginLeft: '15px', marginRight: '15px'}}>About Us</h1>
+                    <div className="col-sm-12">
+                        <h4 className="media-heading">
+                            <p>
+                                <b><i>Pexeso</i></b>, also known as <b>Match Match</b>, <b>Match Up</b>, <b>Memory</b>, <b>Pelmanism</b>, <b>Shinkei-suijaku</b>,&nbsp;
+                                <b>Concentration</b> or simply <b>Pairs</b>, is a card game in which all of the cards are laid face down on a surface and 
+                                two cards are flipped face up over each turn. The object of the game is to turn over pairs of matching cards.
+                            </p>
+                            <p>
+                                Pexeso is the brainchild of two developers, <a href="https://www.linkedin.com/in/jaco-greyling/">Jaco Greyling</a> and&nbsp;
+                                <a href="https://www.linkedin.com/in/charlklein/">Charl-Adrian Klein</a>. They created the 'game' as a way to showcase how technology
+                                can accelerate the <i>Continuous Delivery</i> pipeline from idea to outcome. The objective of this project is not the game itself but rather
+                                how to create a fully automated code deployment pipeline, in the real world.
+                            </p>
+                            <p>
+                                The game is completely FREE and available on <a hreg="https://github.com/jacogreyling/pexeso">GitHub</a>.
+                                Please support us by starring Pexeso <a href="https://github.com/jacogreyling/pexeso/star">here</a>.
+                            </p>
+                        </h4>
                     </div>
                 </div>
             </section>

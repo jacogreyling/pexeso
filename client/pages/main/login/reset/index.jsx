@@ -124,7 +124,7 @@ class ResetPage extends React.Component {
         return (
             <section className="container">
                 <Helmet>
-                    <title>Reset password</title>
+                    <title>Reset Password</title>
                 </Helmet>
                 <div className="container">
                     <h1 className="page-header">Reset your password</h1>
