@@ -28,6 +28,28 @@ class Actions {
         );
     }
 
+    static getEvent() {
+
+        ApiActions.get(
+            '/api/accounts/my/event',
+            undefined,
+            Store,
+            Constants.GET_EVENT,
+            Constants.GET_EVENT_RESPONSE
+        );
+    }
+
+    static saveEvent(data) {
+
+        ApiActions.put(
+            '/api/accounts/my/event',
+            data,
+            Store,
+            Constants.SAVE_EVENT,
+            Constants.SAVE_EVENT_RESPONSE
+        );
+    }
+
     static hideDetailsSaveSuccess() {
 
         Store.dispatch({

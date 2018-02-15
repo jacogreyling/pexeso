@@ -158,7 +158,10 @@ internals.applyRoutes = function (server, next) {
                 }],
                 cookieEvent: ['accountEvent', function (results, done) {
 
-                    const event = request.state['sid-pexeso'] !== undefined ? request.state['sid-pexeso'].event : '';
+                    let event = '';
+                    if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
+                        event = request.state['sid-pexeso'].event;
+                    }
 
                     Event.findByEvent(event, done);
                 }],
@@ -197,7 +200,7 @@ internals.applyRoutes = function (server, next) {
                     }
                 }]
             }, (err, results) => {
-console.log(results);
+
                 if (err) {
                     return reply(err);
                 }

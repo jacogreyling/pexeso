@@ -6,6 +6,7 @@ const PasswordForm = require('./password-form.jsx');
 const React = require('react');
 const Store = require('./store');
 const UserForm = require('./user-form.jsx');
+const EventForm = require('./event-form.jsx');
 const ReactHelmet = require('react-helmet');
 
 
@@ -19,6 +20,7 @@ class SettingsPage extends React.Component {
 
         Actions.getDetails();
         Actions.getUser();
+        Actions.getEvent();
 
         this.state = Store.getState();
     }
@@ -50,6 +52,7 @@ class SettingsPage extends React.Component {
                     <div className="col-sm-6">
                         <DetailsForm {...this.state.details} />
                         <UserForm {...this.state.user} />
+                        <EventForm {...this.state.event} />
                         <PasswordForm {...this.state.password} />
                     </div>
                 </div>

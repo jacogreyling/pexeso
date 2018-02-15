@@ -104,7 +104,10 @@ internals.applyRoutes = function (server, next) {
                 }],
                 cookieEvent: ['account', function (results, done) {
 
-                    const event = request.state['sid-pexeso'] !== undefined ? request.state['sid-pexeso'].event : '';
+                    let event = '';
+                    if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
+                        event = request.state['sid-pexeso'].event;
+                    }
 
                     Event.findByEvent(event, done);
                 }],

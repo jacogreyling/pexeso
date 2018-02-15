@@ -12,23 +12,19 @@ const initialState = {
     error: undefined,
     hasError: {},
     help: {},
-    name: {
-        first: '',
-        middle: '',
-        last: ''
-    },
+    event: '',
     event: undefined
 };
 const reducer = function (state = initialState, action) {
 
-    if (action.type === Constants.GET_DETAILS) {
+    if (action.type === Constants.GET_EVENT) {
         return ObjectAssign({}, state, {
             loading: true,
             hydrated: false
         });
     }
 
-    if (action.type === Constants.GET_DETAILS_RESPONSE) {
+    if (action.type === Constants.GET_EVENT_RESPONSE) {
         const validation = ParseValidation(action.response);
 
         return ObjectAssign({}, state, {
@@ -37,18 +33,18 @@ const reducer = function (state = initialState, action) {
             error: validation.error,
             hasError: validation.hasError,
             help: validation.help,
-            name: action.response.name
+            event: action.response.event
         });
     }
 
-    if (action.type === Constants.SAVE_DETAILS) {
+    if (action.type === Constants.SAVE_EVENT) {
         return ObjectAssign({}, state, {
             loading: true,
-            name: action.request.data.name
+            event: action.request.data.event
         });
     }
 
-    if (action.type === Constants.SAVE_DETAILS_RESPONSE) {
+    if (action.type === Constants.SAVE_EVENT_RESPONSE) {
         const validation = ParseValidation(action.response);
         const stateUpdates = {
             loading: false,
@@ -58,8 +54,8 @@ const reducer = function (state = initialState, action) {
             help: validation.help
         };
 
-        if (action.response.hasOwnProperty('name')) {
-            stateUpdates.name = action.response.name;
+        if (action.response.hasOwnProperty('event')) {
+            stateUpdates.event = action.response.event;
         }
 
         return ObjectAssign({}, state, stateUpdates);
