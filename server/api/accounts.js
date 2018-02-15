@@ -13,6 +13,7 @@ internals.applyRoutes = function (server, next) {
 
     const Account = server.plugins['hapi-mongo-models'].Account;
     const User = server.plugins['hapi-mongo-models'].User;
+    const Event = server.plugins['hapi-mongo-models'].Event;
 
 
     server.route({
@@ -108,6 +109,36 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 reply(account);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'GET',
+        path: '/accounts/my/event',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'account'
+            }
+        },
+        handler: function (request, reply) {
+
+            const id = request.auth.credentials.roles.account._id.toString();
+            const fields = Account.fieldsAdapter('event');
+
+            Account.findById(id, fields, (err, event) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                if (!event) {
+                    return reply(Boom.notFound('No event registered.'));
+                }
+
+                reply(event);
             });
         }
     });
@@ -224,6 +255,85 @@ internals.applyRoutes = function (server, next) {
 
                 reply(account);
             });
+        }
+    });
+
+
+    server.route({
+        method: 'PUT',
+        path: '/accounts/my/event',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'account'
+            },
+            validate: {
+                payload: {
+                    event: Joi.string().allow('')
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            const id = request.auth.credentials.roles.account._id.toString();
+            const eventName = request.payload.event;
+            const findOptions = {
+                fields: Account.fieldsAdapter('event')
+            };
+
+            let update, remove = false;
+            if ((eventName === undefined) || (eventName === '')) {
+                remove = true;
+                update = {
+                    $unset: {
+                        event: ''
+                    }
+                }
+            }
+            else {
+                update = {
+                    $set: {
+                        event: eventName
+                    }
+                }
+            }
+
+            if (remove) {
+
+                Account.findByIdAndUpdate(id, update, findOptions, (err, event) => {
+
+                    if (err) {
+                        return reply(err);
+                    }
+    
+                    reply(event);
+                });                
+            }
+            else {
+
+                // Let's first make sure it's an active event
+                Event.findByEvent(eventName, (err, event) => {
+                    
+                    if (err) {
+                        return reply(err);
+                    }
+
+                    if (event && event.isActive) {
+
+                        Account.findByIdAndUpdate(id, update, findOptions, (err, account) => {
+
+                            if (err) {
+                                return reply(err);
+                            }
+            
+                            reply(account);
+                        });
+                    }
+                    else {
+                        return reply(Boom.notFound('Not a valid or active event.'));
+                    }
+                });
+            }
         }
     });
 
