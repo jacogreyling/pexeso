@@ -1,5 +1,6 @@
 'use strict';
 
+const Async = require('async');
 const Boom = require('boom');
 const Hoek = require('hoek');
 const Joi = require('joi');
@@ -12,6 +13,8 @@ internals.applyRoutes = function (server, next) {
 
     const Statistic = server.plugins['hapi-mongo-models'].Statistic;
     const Score = server.plugins['hapi-mongo-models'].Score;
+    const Account = server.plugins['hapi-mongo-models'].Account;
+    const Event = server.plugins['hapi-mongo-models'].Event;
 
 
     server.route({
@@ -174,6 +177,7 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             ext: {
+                // Use the 'post-handler' to update the Scores table
                 onPostHandler: {
                     method: function (request, reply) {
 
@@ -182,19 +186,41 @@ internals.applyRoutes = function (server, next) {
                         // Verify the security key is matching
                         if (request.payload.seckey === seckey) {
 
-                        // On every successful round, update the games collections
+                            // On every successful round, update the games collections
                             if ((request.payload.status === 'won') && (request.auth.isAuthenticated)) {
-                                const document = {
-                                    userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
-                                    score: request.payload.score,
-                                    level: request.payload.level,
-                                    timestamp: request.response.source.lastPlayed
-                                };
 
-                                Score.insertOne(document, (err, stat) => {
+                                Async.auto({
+                                    account: function (done) {
+        
+                                        const username = request.auth.credentials.user.username !== undefined ? request.auth.credentials.user.username : '';
+            
+                                        Account.findByUsername(username, done);                            
+                                    },
+                                    event: ['account', function (results, done) {
+                                        
+                                        const event = results.account.event !== undefined ? results.account.event : '';
+                            
+                                        Event.findByEvent(event, done);
+                                    }],
+                                    updateScore: ['event', function (results, done) {
+
+                                        const document = {
+                                            userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
+                                            score: request.payload.score,
+                                            level: request.payload.level,
+                                            event: {
+                                                id: results.event._id.toString(),
+                                                name: results.event.name
+                                            },
+                                            timestamp: request.response.source.lastPlayed
+                                        };
+
+                                        Score.insertOne(document, done);
+                                    }]
+                                }, (err, results) => {
 
                                     if (err) {
-                                        console.warn('Could not update the game collection with a new document: ' + err);
+                                        console.warn('Could not update the Score collection with a new document: ' + err);
                                     }
 
                                     // Get the socket.io object
@@ -202,25 +228,21 @@ internals.applyRoutes = function (server, next) {
 
                                     // Successfully created a new user, increment the user count
                                     io.emit('new_score', {
-                                        _id: stat[0]._id.toString(),
-                                        username: request.auth.credentials.user.username.toString(),
+                                        _id: results.updateScore[0]._id,
+                                        username: request.auth.credentials.user.username,
                                         score: request.payload.score,
                                         level: request.payload.level,
+                                        event: {
+                                            id: results.event._id.toString(),
+                                            name: results.event.name
+                                        },
                                         timestamp: request.response.source.lastPlayed
                                     });
-
-                                    return reply.continue();
                                 });
                             }
-                            else {
-
-                                return reply.continue();
-                            }
                         }
-                        else {
 
-                            return reply.continue();
-                        }
+                        return reply.continue();
                     }
                 }
             }

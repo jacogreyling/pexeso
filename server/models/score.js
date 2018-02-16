@@ -134,6 +134,7 @@ Score.schema = Joi.object().keys({
     userId: Joi.object().required(),
     score: Joi.number().integer().required(),
     level: Joi.string().required(),
+    event: Joi.string(),
     timestamp: Joi.date().required()
 });
 

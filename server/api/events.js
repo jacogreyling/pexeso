@@ -185,7 +185,6 @@ internals.applyRoutes = function (server, next) {
             const id = request.params.id;
             const update = {
                 $set: {
-                    name: request.payload.name,
                     description: request.payload.description,
                     isActive: request.payload.isActive,
                     timestamp: new Date()

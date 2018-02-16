@@ -101,7 +101,7 @@ class DetailsForm extends React.Component {
                 onChange={LinkState.bind(this)}
                 hasError={this.props.hasError.name}
                 help={this.props.help.name}
-                disabled={this.props.loading}
+                disabled={true}
             />
             <TextControl
                 name="description"
