@@ -113,7 +113,7 @@ internals.applyRoutes = function (server, next) {
                         }],
                         updateAccount: ['cookieEvent', function (results, done) {
 
-                            // First see if the latest event is 'active'
+                            // First see if we have a *new* event in our cookie
                             if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
 
                                 const id = results.account._id;
@@ -125,7 +125,7 @@ internals.applyRoutes = function (server, next) {
 
                                 Account.findByIdAndUpdate(id, update, done);
                             }
-                            // Else check to see if the account holds an event
+                            // Else check to see if the account holds an existing event
                             else {
 
                                 // Delete any inactive events from the account

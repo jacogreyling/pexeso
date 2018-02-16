@@ -17,7 +17,7 @@ class Actions {
         const lowerCaseName = name.toLowerCase();
 
         ApiActions.get(
-            `/api/events/${lowerCaseName}`,
+            `/api/events/event/${lowerCaseName}`,
             undefined,
             Store,
             Constants.GET_EVENT_BY_NAME,

@@ -14,7 +14,48 @@ internals.applyRoutes = function (server, next) {
 
     server.route({
         method: 'GET',
-        path: '/events/{name}',
+        path: '/events',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                query: {
+                    name: Joi.string().allow(''),
+                    fields: Joi.string(),
+                    sort: Joi.string().default('_id'),
+                    limit: Joi.number().default(20),
+                    page: Joi.number().default(1)
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            const query = {};
+            if (request.query.name) {
+                query.name = new RegExp('^.*?' + EscapeRegExp(request.query.name) + '.*$', 'i');
+            }
+            const fields = request.query.fields;
+            const sort = request.query.sort;
+            const limit = request.query.limit;
+            const page = request.query.page;
+
+            Event.pagedFind(query, fields, sort, limit, page, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                reply(results);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'GET',
+        path: '/events/event/{name}',
         config: {
             state: {
                 parse: true,
@@ -58,6 +99,142 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 reply(event);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'GET',
+        path: '/events/{id}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            }
+        },
+        handler: function (request, reply) {
+
+            Event.findById(request.params.id, (err, event) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                if (!event) {
+                    return reply(Boom.notFound('Document not found.'));
+                }
+
+                reply(event);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'POST',
+        path: '/events',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                payload: {
+                    name: Joi.string().token().lowercase().required(),
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            const name = request.payload.name;
+
+            Event.create(name, (err, event) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                reply(event);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'PUT',
+        path: '/events/{id}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                params: {
+                    id: Joi.string()
+                },
+                payload: {
+                    name: Joi.string().token().lowercase().required(),
+                    description: Joi.string(),
+                    isActive: Joi.boolean().required()
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            const id = request.params.id;
+            const update = {
+                $set: {
+                    name: request.payload.name,
+                    description: request.payload.description,
+                    isActive: request.payload.isActive,
+                    timestamp: new Date()
+                }
+            };
+
+            Event.findByIdAndUpdate(id, update, (err, event) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                if (!event) {
+                    return reply(Boom.notFound('Document not found.'));
+                }
+
+                reply(event);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'DELETE',
+        path: '/events/{id}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                params: {
+                    id: Joi.string()
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            Event.findByIdAndDelete(request.params.id, (err, event) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                if (!event) {
+                    return reply(Boom.notFound('Document not found.'));
+                }
+
+                reply({ success: true });
             });
         }
     });

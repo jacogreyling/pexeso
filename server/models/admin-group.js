@@ -6,6 +6,7 @@ const Slug = require('slug');
 
 
 class AdminGroup extends MongoModels {
+    
     static create(name, callback) {
 
         const document = {

@@ -21,13 +21,13 @@ class Results extends React.Component {
                     <td>
                         <Link
                             className="btn btn-default btn-sm"
-                            to={`/admin/users/${record._id}`}>
+                            to={`/admin/events/${record._id}`}>
 
                             Edit
                         </Link>
                     </td>
-                    <td>{record.username}</td>
-                    <td>{record.email}</td>
+                    <td>{record.name}</td>
+                    <td>{record.description}</td>
                     <td>{record.isActive ? 'True' : 'False'}</td>
                     <td className="nowrap">{record._id}</td>
                 </tr>
@@ -40,8 +40,8 @@ class Results extends React.Component {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>username</th>
-                            <th className="stretch">email</th>
+                            <th>name</th>
+                            <th className="stretch">description</th>
                             <th>active</th>
                             <th>id</th>
                         </tr>

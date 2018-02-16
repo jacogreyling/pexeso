@@ -16,10 +16,12 @@ const composeOptions = {
     }
 };
 
+console.log('Starting HTTP Node server...');
+console.log('NODE_ENV is ' + `"${process.env.NODE_ENV}"`);
 Glue.compose(Manifest.get('/'), composeOptions, (err, server) => {
 
     if (err) {
-        console.log('server.register err:', err);
+        console.log('Server registration error: ', err);
     }
 
     server.start((err) => {
@@ -27,6 +29,5 @@ Glue.compose(Manifest.get('/'), composeOptions, (err, server) => {
         Hoek.assert(!err, err);
 
         console.log('Server is listening on ' + server.info.uri.toLowerCase());
-        console.log('NODE_ENV is  ' + `"${process.env.NODE_ENV}"`);
     });
 });

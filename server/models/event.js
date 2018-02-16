@@ -7,6 +7,25 @@ const MongoModels = require('mongo-models');
 
 class Event extends MongoModels {
 
+    static create(name, callback) {
+
+        const document = {
+            name,
+            description: '',
+            isActive: false,
+            timestamp: new Date()
+        };
+
+        this.insertOne(document, (err, docs) => {
+
+            if (err) {
+                return callback(err);
+            }
+
+            callback(null, docs[0]);
+        });
+    }
+
     static findByEvent(event, callback) {
 
         const query = { 'name': event.toLowerCase() };
@@ -24,8 +43,6 @@ Event.schema = Joi.object().keys({
     _id: Joi.object(),
     name: Joi.string().token().lowercase().required(),
     description: Joi.string(),
-    startDate: Joi.date().required(),
-    endDate: Joi.date().required(),
     isActive: Joi.boolean().default(false).required(),
     timestamp: Joi.date().required()
 });
