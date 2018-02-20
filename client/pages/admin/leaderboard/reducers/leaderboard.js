@@ -9,6 +9,8 @@ const initialState = {
     error: undefined,
     dateFrom: undefined,
     level: 'casual',
+    events: [],
+    selectedEvent: '',
     live: true,
     position: undefined,
     data: [],
@@ -23,11 +25,25 @@ const reducer = function (state = initialState, action) {
         const url = action.request.url.split('/');
         const level = url.pop();
 
-        return ObjectAssign({}, state, {
-            hydrated: false,
-            loading: true,
-            level
-        });
+        const event = action.request.query.event;
+
+        if ((typeof event !== 'undefined') && (event !== '')) {
+
+            return ObjectAssign({}, state, {
+                hydrated: false,
+                loading: true,
+                level,
+                selectedEvent: event
+            });            
+        }
+        else {
+         
+            return ObjectAssign({}, state, {
+                hydrated: false,
+                loading: true,
+                level
+            });
+        }
     }
 
     if (action.type === Constants.GET_LIVE_SCORES_RESPONSE) {
@@ -43,12 +59,12 @@ const reducer = function (state = initialState, action) {
     if (action.type === Constants.SET_LEVEL) {
 
         if (typeof action.live === 'undefined') {
-            return ObjectAssign({}, initialState, {
+            return ObjectAssign({}, state, {
                 level: action.level
             });
         }
 
-        return ObjectAssign({}, initialState, {
+        return ObjectAssign({}, state, {
             level: action.level,
             live: action.live
         });
@@ -100,13 +116,30 @@ const reducer = function (state = initialState, action) {
     }
 
     if (action.type === Constants.GET_RESULTS) {
-        return ObjectAssign({}, state, {
-            hydrated: false,
-            loading: true
-        });
+
+
+        const event = action.request.query.event;
+
+        if ((typeof event !== 'undefined') && (event !== '')) {
+            
+            return ObjectAssign({}, state, {
+                hydrated: false,
+                loading: true,
+                selectedEvent: event
+            });
+        }
+        else {
+
+            return ObjectAssign({}, state, {
+                hydrated: false,
+                loading: true
+            });
+        }
+        
     }
 
     if (action.type === Constants.GET_RESULTS_RESPONSE) {
+
         return ObjectAssign({}, state, {
             hydrated: true,
             loading: false,
@@ -114,6 +147,27 @@ const reducer = function (state = initialState, action) {
             data: action.response.data,
             pages: action.response.pages,
             items: action.response.items
+        });
+    }
+
+    if (action.type === Constants.GET_ACTIVE_EVENTS) {
+
+        return ObjectAssign({}, state, {
+
+        });
+    }
+
+    if (action.type === Constants.GET_ACTIVE_EVENTS_RESPONSE) {
+
+        return ObjectAssign({}, state, {
+            events: action.response
+        });
+    }
+
+    if (action.type === Constants.SET_EVENT) {
+
+        return ObjectAssign({}, state, {
+            selectedEvent: action.name
         });
     }
 

@@ -20,6 +20,12 @@ internals.applyRoutes = function (server, next) {
             auth: {
                 strategy: 'session',
                 scope: 'admin'
+            },
+            validate: {
+                query: {
+                    event: Joi.string().allow(''),
+                    limit: Joi.number().default(10),
+                }
             }
         },
         handler: function (request, reply) {
@@ -31,13 +37,19 @@ internals.applyRoutes = function (server, next) {
                 limit = parseInt(request.query.limit);
             }
 
+            let query = {
+                score: { $gt: 0 },
+                level: { $eq: request.params.level }
+            }
+
+            if ((typeof request.query.event !== 'undefined') && (request.query.event !== '')) {
+                query.event = { $eq: request.query.event }
+            }
+
             // We need to do this to 'sub' the 'userId' for 'username'
             const pipeline = [
                 {
-                    $match: {
-                        score: { $gt: 0 },
-                        level: { $eq: request.params.level }
-                    }
+                    $match: query
                 },
                 {
                     $lookup: {
@@ -89,6 +101,7 @@ internals.applyRoutes = function (server, next) {
                     username: Joi.string().allow(''),
                     dateFrom: Joi.date().allow(''),
                     level: Joi.string().default('casual'),
+                    event: Joi.string().allow(''),
                     sort: Joi.string().default('-score'),
                     limit: Joi.number().default(10),
                     page: Joi.number().default(1)
@@ -118,6 +131,11 @@ internals.applyRoutes = function (server, next) {
             const sort = request.query.sort;
             const limit = request.query.limit;
             const page = request.query.page;
+
+            // If we want scores only for a specific event
+            if ((typeof request.query.event !== 'undefined') && (request.query.event != '')) {
+                query.event = { $eq: request.query.event };
+            }
 
             // Add date range if it's part of the request
             if ((typeof request.query.dateFrom !== 'undefined') && (request.query.dateFrom !== '')) {
@@ -154,6 +172,7 @@ internals.applyRoutes = function (server, next) {
                     });
                 });
             }
+            // Otherwise return results for all users
             else {
 
                 Score.pagedAggregate(query, fields, lookup, sort, limit, page, (err, results) => {

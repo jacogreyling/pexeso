@@ -14,5 +14,8 @@ module.exports = FluxConstant.set([
     'SET_DATE_FROM',
     'SET_LIVE_MODE',
     'GET_RESULTS',
-    'GET_RESULTS_RESPONSE'
+    'GET_RESULTS_RESPONSE',
+    'GET_ACTIVE_EVENTS',
+    'GET_ACTIVE_EVENTS_RESPONSE',
+    'SET_EVENT'
 ]);

@@ -55,6 +55,32 @@ internals.applyRoutes = function (server, next) {
 
     server.route({
         method: 'GET',
+        path: '/events/active',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            }
+        },
+        handler: function (request, reply) {
+
+            const query = { isActive: true };
+            const fields = Event.fieldsAdapter('name');
+
+            Event.find(query, fields, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                reply(results);
+            });
+        }
+    });
+
+
+    server.route({
+        method: 'GET',
         path: '/events/event/{name}',
         config: {
             state: {

@@ -208,10 +208,7 @@ internals.applyRoutes = function (server, next) {
                                             userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
                                             score: request.payload.score,
                                             level: request.payload.level,
-                                            event: {
-                                                id: results.event._id.toString(),
-                                                name: results.event.name
-                                            },
+                                            event: results.event.name,
                                             timestamp: request.response.source.lastPlayed
                                         };
 
@@ -232,10 +229,7 @@ internals.applyRoutes = function (server, next) {
                                         username: request.auth.credentials.user.username,
                                         score: request.payload.score,
                                         level: request.payload.level,
-                                        event: {
-                                            id: results.event._id.toString(),
-                                            name: results.event.name
-                                        },
+                                        event: results.event.name,
                                         timestamp: request.response.source.lastPlayed
                                     });
                                 });

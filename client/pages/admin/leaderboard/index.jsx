@@ -10,6 +10,7 @@ const Store = require('./store');
 const Qs = require('qs');
 const Results = require('./results.jsx');
 const Tiles = require('./tiles.jsx');
+const Events = require('./events.jsx');
 const Io = require('socket.io-client');
 const ReactHelmet = require('react-helmet');
 const Moment = require('moment');
@@ -50,12 +51,21 @@ class Leaderboard extends React.Component {
                 query.level = 'casual';
                 Actions.setLevel('casual');
             }
-            if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.setDateFrom(Moment(query.dateFrom));
+            // If the 'live' flag is set and the event code, still return the top 10 results
+            if (((typeof query.live !== 'undefined') && (query.live)) && (typeof query.event !== 'undefined')) {
+
+                Actions.retrieveTopTenForEvent(query.level, query.event);
             }
+            else {
 
-            Actions.getResults(query);
+                if (typeof query.dateFrom !== 'undefined') {
+
+                    Actions.setDateFrom(Moment(query.dateFrom));
+                }
+    
+                Actions.getResults(query);
+            }
         }
 
         this.els = {};
@@ -68,6 +78,7 @@ class Leaderboard extends React.Component {
         // take the global state instead
         const level = Store.getState().leaderboard.level;
 
+        // Return the 'live' top 10 results if no query params are set
         if (nextProps.location.search === '') {
 
             Actions.retrieveTopTen(level);
@@ -80,13 +91,28 @@ class Leaderboard extends React.Component {
             if (query.level !== level) {
                 query.level = level;
             }
-            if (typeof query.dateFrom !== 'undefined') {
 
-                Actions.setDateFrom(Moment(query.dateFrom));
+            // If the 'live' flag is set and the event code, still return the top 10 results
+            if (((typeof query.live !== 'undefined') && (query.live)) && (typeof query.event !== 'undefined')) {
+
+                Actions.retrieveTopTenForEvent(level, query.event);
             }
+            else {
+                        
+                if (typeof query.dateFrom !== 'undefined') {
 
-            Actions.getResults(query);
+                    Actions.setDateFrom(Moment(query.dateFrom));
+                }
+
+                Actions.getResults(query);
+            }
         }
+    }
+
+    componentWillMount() {
+
+        // Retrieve all 'active' registered events
+        Actions.getActiveEvents();
     }
 
     componentDidMount() {
@@ -165,14 +191,20 @@ class Leaderboard extends React.Component {
     toggleLiveScoring() {
 
         const level = this.state.leaderboard.level;
+        const event = this.state.leaderboard.selectedEvent;
+
+        let query = {};
+
+        // If we're filtering for an event, add that to the query string
+        if (event) {
+            query.event = event
+        }
 
         if (this.state.leaderboard.live) {
             this.deregisterIoListners();
 
             // Now query all records for this level
-            const query = {
-                level
-            };
+            query.level = level;
 
             Actions.changeSearchQuery(query, this.props.history);
         }
@@ -180,7 +212,47 @@ class Leaderboard extends React.Component {
             this.registerIoListners();
 
             Actions.resetDateFrom();
+
+            if (Object.keys(query).length === 0) {
+
+                Actions.resetSearchQuery(this.props.history);
+            }
+            else {
+                query.live = true;
+
+                Actions.changeSearchQuery(query, this.props.history);
+            }
+        }
+    }
+
+    changeEvent(e) {
+
+        const event = e.target.value;
+
+        // If it's the same event or null, ignore it
+        if ((this.state.leaderboard.selectedEvent === event) || (typeof event === 'undefined')) {
+            return;
+        }
+
+        let query = {};
+        
+        if ((typeof event !== 'undefined') && (event !== '')) {
+            query.event = event;
+        
+            if (this.state.leaderboard.live) {
+                query.live = true;
+            }
+        }
+
+        Actions.changeEvent(e.target.value);
+
+        if (Object.keys(query).length === 0) {
+
             Actions.resetSearchQuery(this.props.history);
+        }
+        else {
+
+            Actions.changeSearchQuery(query, this.props.history);
         }
     }
 
@@ -199,9 +271,11 @@ class Leaderboard extends React.Component {
         if (!this.state.leaderboard.hydrated) {
             return (
                 <section className="container">
+                    <Events />
                     <Tiles
                         level={this.state.leaderboard.level}
                         live={this.state.leaderboard.live}
+                        event={this.state.leaderboard.selectedEvent}
                         dateFrom={this.state.leaderboard.dateFrom}
                         onToggleLive={this.toggleLiveScoring.bind(this)}
                         query={Qs.parse(this.props.location.search.substring(1))}
@@ -227,9 +301,14 @@ class Leaderboard extends React.Component {
                     <Helmet>
                         <title>Leaderboard - Live</title>
                     </Helmet>
+                    <Events
+                        list={this.state.leaderboard.events}
+                        active={this.state.leaderboard.selectedEvent}
+                        onSelect={this.changeEvent.bind(this)}/>
                     <Tiles
                         level={this.state.leaderboard.level}
                         live={this.state.leaderboard.live}
+                        event={this.state.leaderboard.selectedEvent}
                         dateFrom={this.state.leaderboard.dateFrom}
                         onToggleLive={this.toggleLiveScoring.bind(this)}
                         query={Qs.parse(this.props.location.search.substring(1))}
@@ -249,9 +328,14 @@ class Leaderboard extends React.Component {
                 <Helmet>
                     <title>Leaderboard</title>
                 </Helmet>
+                <Events
+                        list={this.state.leaderboard.events}
+                        active={this.state.leaderboard.selectedEvent}
+                        onSelect={this.changeEvent.bind(this)}/>
                 <Tiles
                     level={this.state.leaderboard.level}
                     live={this.state.leaderboard.live}
+                    event={this.state.leaderboard.selectedEvent}
                     dateFrom={this.state.leaderboard.dateFrom}
                     onToggleLive={this.toggleLiveScoring.bind(this)}
                     query={Qs.parse(this.props.location.search.substring(1))}

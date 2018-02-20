@@ -14,6 +14,7 @@ require('react-datepicker/dist/react-datepicker.css');
 const propTypes = {
     level: PropTypes.string,
     live: PropTypes.bool,
+    event: PropTypes.string,
     dateFrom: PropTypes.object,
     onToggleLive: PropTypes.func,
     query: PropTypes.object,
@@ -30,6 +31,7 @@ class Tiles extends React.Component {
         this.state = {
             level: props.level,
             live: props.live,
+            event: props.event,
             history: props.history,
             query: props.query
         };
@@ -40,6 +42,7 @@ class Tiles extends React.Component {
         this.setState({
             level: nextProps.level,
             live: nextProps.live,
+            event: nextProps.event,
             history: nextProps.history,
             query: nextProps.query
         });
@@ -53,7 +56,7 @@ class Tiles extends React.Component {
         }
 
         // If in 'live' mode, make sure the search query is removed
-        if (this.state.live) {
+        if ((this.state.live) && (!this.state.event)) {
 
             Actions.resetSearchQuery(this.state.history);
         }

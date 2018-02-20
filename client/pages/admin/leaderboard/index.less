@@ -1,3 +1,35 @@
+/* Date Picker */
+.date-picker * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+html {
+	font-size: 14px !important;
+}
+
+/* Events Selection */
+.events {
+	margin-top: 15px;
+	margin-left: 3px;
+	margin-right: 5px;
+	text-align: right;
+}
+.events .description {
+	display: inline-block;
+	text-align: left;
+	width: 50px;
+}
+.events .options {
+	display: inline;
+}
+select.selectevent {
+	border: thin solid rgba(168,152,146,0.2);
+	width: auto !important;
+}
+
+
+/* FRONT SCREEN */
 .cards {
 	-khtml-user-select: none;
 	-moz-user-select: none;
@@ -11,24 +43,10 @@
 	overflow: hidden;
 	user-select: none;
 }
-
-.date-picker * {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-// Reset to original for datepicker to work properly
-html {
-	font-size: 14px !important;
-}
-
-
-/* FRONT SCREEN */
 .level {
 	height: 200px;
 	width: 100%;
-    margin: 40px 0 26px;
+    margin: 10px 0 25px;
     position: relative;
 }
 .level .card {
@@ -89,7 +107,7 @@ html {
 }
 .leaderboard.page-header {
     padding-bottom: 9px;
-    margin: 40px 3px 20px 3px;
+    margin: 25px 3px 20px 3px;
 	border-bottom: none;
 }
 .leaderboard-table table tr.active-state {
@@ -275,7 +293,7 @@ select, textarea, input, .form-control {
 	}
 	.level {
 		height: 160px;
-		margin: 20px 0 26px;
+		margin: 20px 0 25px;
 	}
 	.level .card {
 		width: 50%;

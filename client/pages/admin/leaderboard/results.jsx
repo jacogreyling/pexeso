@@ -109,7 +109,7 @@ class Results extends React.Component {
                 return (
                     <tr id={record.userId} className={activeClass} key={record._id}>
                         <td>{count}</td>
-                        <td>{typeof record.username === 'undefined' ? '?' : record.username}</td>
+                        <td>{typeof record.username === 'undefined' ? '<deleted>' : record.username}</td>
                         <td className="timestamp">{Moment(timestamp).locale('en-gb').format(timeFormat)}</td>
                         <td>{score}</td>
                     </tr>

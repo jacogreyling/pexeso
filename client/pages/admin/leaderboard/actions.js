@@ -11,8 +11,14 @@ class Actions {
 
     static retrieveTopTen(level) {
 
+        this.retrieveTopTenForEvent(level, null);
+    }
+
+    static retrieveTopTenForEvent(level, event) {
+
         const query = {
-            limit: 10
+            limit: 10,
+            event
         };
 
         ApiActions.get(
@@ -156,6 +162,25 @@ class Actions {
         });
 
         window.scrollTo(0, 0);
+    }
+
+    static getActiveEvents() {
+
+        ApiActions.get(
+            '/api/events/active',
+            null,
+            Store,
+            Constants.GET_ACTIVE_EVENTS,
+            Constants.GET_ACTIVE_EVENTS_RESPONSE
+        );
+    }
+
+    static changeEvent(name) {
+
+        Store.dispatch({
+            type: Constants.SET_EVENT,
+            name
+        });
     }
 }
 
