@@ -82,7 +82,7 @@ class Navbar extends React.Component {
                     <div className={navBarCollapse}>
                         <ul className="nav navbar-nav">
                             <li className={renderAccountClass}>
-                                <a href="/account">My Account</a>
+                                <a href="/account">Home</a>
                             </li>
                             <li className={this.classForPath(/^\/admin\/accounts/)}>
                                 <Link to="/admin/accounts">Accounts</Link>

@@ -27,7 +27,7 @@ const reducer = function (state = initialState, action) {
 
         const event = action.request.query.event;
 
-        if ((typeof event !== 'undefined') && (event !== '')) {
+        if ((event !== null) && (typeof event !== 'undefined') && (event !== '')) {
 
             return ObjectAssign({}, state, {
                 hydrated: false,
@@ -120,7 +120,7 @@ const reducer = function (state = initialState, action) {
 
         const event = action.request.query.event;
 
-        if ((typeof event !== 'undefined') && (event !== '')) {
+        if ((event !== null) && (typeof event !== 'undefined') && (event !== '')) {
             
             return ObjectAssign({}, state, {
                 hydrated: false,
@@ -166,6 +166,8 @@ const reducer = function (state = initialState, action) {
 
     if (action.type === Constants.SET_EVENT) {
 
+        const name = action.name !== null ? action.name : '';
+        
         return ObjectAssign({}, state, {
             selectedEvent: action.name
         });

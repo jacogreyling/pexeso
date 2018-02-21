@@ -43,7 +43,10 @@ internals.applyRoutes = function (server, next) {
             }
 
             if ((typeof request.query.event !== 'undefined') && (request.query.event !== '')) {
-                query.event = { $eq: request.query.event }
+                query.event = { $eq: request.query.event };
+            }
+            else {
+                query.event = null;
             }
 
             // We need to do this to 'sub' the 'userId' for 'username'
@@ -135,6 +138,9 @@ internals.applyRoutes = function (server, next) {
             // If we want scores only for a specific event
             if ((typeof request.query.event !== 'undefined') && (request.query.event != '')) {
                 query.event = { $eq: request.query.event };
+            }
+            else {
+                query.event = null;
             }
 
             // Add date range if it's part of the request

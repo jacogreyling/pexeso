@@ -152,6 +152,10 @@ internals.applyRoutes = function (server, next) {
                 }],
                 accountEvent: ['account', function (results, done) {
 
+                    if (results.account === null) {
+                        return reply();
+                    }
+
                     const event = results.account.event !== undefined ? results.account.event : '';
                     
                     Event.findByEvent(event, done);

@@ -205,6 +205,17 @@ class HomePage extends React.Component {
                                     width={900}
                                     height={300}
                                     options={{
+                                        title: {
+                                            display: true,
+                                            position: 'top',
+                                            fontSize: 14,
+                                            fontStyle: 'normal',
+                                            text: 'Games Won Rate'
+                                        },
+                                        legend: {
+                                            display: true,
+                                            position: 'right'
+                                        },
                                         maintainAspectRatio: false,
                                         animation: {
                                             duration: 0

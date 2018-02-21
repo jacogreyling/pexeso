@@ -35,7 +35,7 @@ class Leaderboard extends React.Component {
         // If no query is passed return default view - top 10 results
         if (this.props.location.search === '') {
 
-            Actions.retrieveTopTen('casual');
+            Actions.retrieveTopTenForEvent('casual', null);
         }
         else {
 
@@ -81,7 +81,7 @@ class Leaderboard extends React.Component {
         // Return the 'live' top 10 results if no query params are set
         if (nextProps.location.search === '') {
 
-            Actions.retrieveTopTen(level);
+            Actions.retrieveTopTenForEvent(level, null);
         }
         else {
 
@@ -147,15 +147,32 @@ class Leaderboard extends React.Component {
         // Let's create our socket listener!
         socket.on('new_score', (res) => {
 
-            // Only update for the current level!
+            // Only update for the current level
             if (this.state.leaderboard.level === res.level) {
 
-                const arrayLength = this.state.leaderboard.data.length;
+                let update = false;
 
-                // If the score is not higher than the lowest then don't bother
-                if ((arrayLength < 10) || (res.score > this.state.leaderboard.data[arrayLength - 1].score)) {
+                // Now check for the event as well
+                if (((typeof this.state.leaderboard.selectedEvent !== 'undefined') && (this.state.leaderboard.selectedEvent !== '')) 
+                    && (res.event === this.state.leaderboard.selectedEvent)) {
+                    
+                    update = true;
+                }
+                else if (((typeof this.state.leaderboard.selectedEvent === 'undefined') || (this.state.leaderboard.selectedEvent === '')) 
+                    && ((typeof res.event === 'undefined') || (res.event === ''))) {
+                   
+                    update = true;
+                }
 
-                    Actions.insertScore(res, this.state.leaderboard.data);
+                if (update) {
+
+                    const arrayLength = this.state.leaderboard.data.length;
+
+                    // If the score is not higher than the lowest then don't bother
+                    if ((arrayLength < 10) || (res.score > this.state.leaderboard.data[arrayLength - 1].score)) {
+
+                        Actions.insertScore(res, this.state.leaderboard.data);
+                    }
                 }
             }
         });

@@ -45,6 +45,7 @@ class Leaderboard extends React.Component {
     }
 
     componentDidMount() {
+        
         this.unsubscribeStore = Store.subscribe(this.onStoreChange.bind(this));
     }
 

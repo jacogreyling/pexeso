@@ -94,8 +94,7 @@ internals.applyRoutes = function (server, next) {
         
                             const username = request.pre.user.username !== undefined ? request.pre.user.username : '';
 
-                            Account.findByUsername(username, done);   
-                            //TODO: Add error handling when there is no Account                         
+                            Account.findByUsername(username, done);                          
                         },
                         accountEvent: ['account', function (results, done) {
 
@@ -103,6 +102,7 @@ internals.applyRoutes = function (server, next) {
                             if (results.account === null) {
                                 return reply();
                             }
+                            
                             const event = results.account.event !== undefined ? results.account.event : '';
                             
                             Event.findByEvent(event, done);

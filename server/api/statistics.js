@@ -204,13 +204,16 @@ internals.applyRoutes = function (server, next) {
                                     }],
                                     updateScore: ['event', function (results, done) {
 
-                                        const document = {
+                                        let document = {
                                             userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
                                             score: request.payload.score,
                                             level: request.payload.level,
-                                            event: results.event.name,
                                             timestamp: request.response.source.lastPlayed
                                         };
+
+                                        if (results.event !== null) {
+                                            document.event = results.event.name;
+                                        }
 
                                         Score.insertOne(document, done);
                                     }]
@@ -223,15 +226,20 @@ internals.applyRoutes = function (server, next) {
                                     // Get the socket.io object
                                     const io = request.plugins['hapi-io'].io;
 
-                                    // Successfully created a new user, increment the user count
-                                    io.emit('new_score', {
+                                    let document = {
                                         _id: results.updateScore[0]._id,
                                         username: request.auth.credentials.user.username,
                                         score: request.payload.score,
                                         level: request.payload.level,
-                                        event: results.event.name,
                                         timestamp: request.response.source.lastPlayed
-                                    });
+                                    };
+
+                                    if (results.event !== null) {
+                                        document.event = results.event.name;
+                                    }
+
+                                    // Successfully created a new user, increment the user count
+                                    io.emit('new_score', document);
                                 });
                             }
                         }
