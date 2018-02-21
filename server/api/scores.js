@@ -73,6 +73,7 @@ internals.applyRoutes = function (server, next) {
                         username: { $arrayElemAt: ['$username.username', 0] },
                         userId: 1,
                         score: 1,
+                        time: 1,
                         level: 1,
                         timestamp: 1
                     }
@@ -127,6 +128,7 @@ internals.applyRoutes = function (server, next) {
                 username: { $arrayElemAt: ['$username.username', 0] },
                 userId: 1,
                 score: 1,
+                time: 1,
                 level: 1,
                 timestamp: 1
             };

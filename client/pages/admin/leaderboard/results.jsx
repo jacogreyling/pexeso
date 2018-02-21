@@ -111,6 +111,7 @@ class Results extends React.Component {
                         <td>{count}</td>
                         <td>{typeof record.username === 'undefined' ? '<deleted>' : record.username}</td>
                         <td className="timestamp">{Moment(timestamp).locale('en-gb').format(timeFormat)}</td>
+                        <td>{Moment(record.time, 'ss.SSS').format('mm:ss.SSS')}</td>
                         <td>{score}</td>
                     </tr>
                 );
@@ -125,6 +126,7 @@ class Results extends React.Component {
                             <th style={{ width: '10%' }}>{rowDescription}</th>
                             <th style={{ width: 'auto' }}>Username</th>
                             <th className="timestamp">Timestamp</th>
+                            <th style={{ width: '15%' }}>Elapsed Time</th>
                             <th style={{ width: '15%' }}>Score</th>
                         </tr>
                     </thead>

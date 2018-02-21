@@ -172,12 +172,13 @@ internals.applyRoutes = function (server, next) {
                     }),
                     status: Joi.string().required(),
                     score: Joi.number().integer().required(),
+                    time: Joi.number().required(),
                     level: Joi.string().required(),
                     seckey: Joi.string().required()
                 }
             },
             ext: {
-                // Use the 'post-handler' to update the Scores table
+                // Use the 'post-handler' to update the Scores collection
                 onPostHandler: {
                     method: function (request, reply) {
 
@@ -207,6 +208,7 @@ internals.applyRoutes = function (server, next) {
                                         let document = {
                                             userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
                                             score: request.payload.score,
+                                            time: request.payload.time,
                                             level: request.payload.level,
                                             timestamp: request.response.source.lastPlayed
                                         };
@@ -230,6 +232,7 @@ internals.applyRoutes = function (server, next) {
                                         _id: results.updateScore[0]._id,
                                         username: request.auth.credentials.user.username,
                                         score: request.payload.score,
+                                        time: request.payload.time,
                                         level: request.payload.level,
                                         timestamp: request.response.source.lastPlayed
                                     };

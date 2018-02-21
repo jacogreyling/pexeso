@@ -2,7 +2,6 @@
 
 module.exports = function (data) {
 
-    const end = new Date();
     const POINTS = 5;
 
     let matched = 0;
@@ -20,8 +19,8 @@ module.exports = function (data) {
 
         // If the end time is before the start time, something went wrong!
         let elapsed = data.timeout;
-        if (end > data.start) {
-            elapsed = (end - data.start) / 1000;
+        if (data.end > data.start) {
+            elapsed = (data.end - data.start) / 1000;
         }
 
         score = Math.round(((matched * POINTS) - wrong) * (data.timeout - elapsed));

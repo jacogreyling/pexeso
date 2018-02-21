@@ -53,11 +53,14 @@ class Actions {
 
         // Calculate the score for this game
         let score = 0;
+        const end = new Date();
+
         if (data.status === 'won') {
             score = CalculateScore({
                 level: data.level,
                 flips: data.flips,
                 start: data.timestamp,
+                end,
                 timeout: data.timeout
             });
         };
@@ -74,6 +77,7 @@ class Actions {
             },
             status: data.status,
             score,
+            time: (end - data.timestamp) / 1000,
             level: data.level,
             seckey : clientSecKey
         };

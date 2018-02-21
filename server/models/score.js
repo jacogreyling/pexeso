@@ -133,6 +133,7 @@ Score.schema = Joi.object().keys({
     _id: Joi.object(),
     userId: Joi.object().required(),
     score: Joi.number().integer().required(),
+    time: Joi.number().required(),
     level: Joi.string().required(),
     event: Joi.string(),
     timestamp: Joi.date().required()
