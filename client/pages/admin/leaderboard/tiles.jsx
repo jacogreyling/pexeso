@@ -32,6 +32,7 @@ class Tiles extends React.Component {
             level: props.level,
             live: props.live,
             event: props.event,
+            dateFrom: props.dateFrom,
             history: props.history,
             query: props.query
         };
@@ -43,6 +44,7 @@ class Tiles extends React.Component {
             level: nextProps.level,
             live: nextProps.live,
             event: nextProps.event,
+            dateFrom: nextProps.dateFrom,
             history: nextProps.history,
             query: nextProps.query
         });
@@ -73,7 +75,60 @@ class Tiles extends React.Component {
 
     handleDateChange(date) {
 
-        Actions.changeDateFrom(date);
+        // Make sure we have a previous date, or set it
+        let firstDate;
+        if (typeof this.props.dateFrom === 'undefined') {
+            firstDate = Moment().unix();
+        }
+        else {
+            firstDate = this.props.dateFrom.unix();
+        }
+
+        // Convert dates to UNIX seconds from epoch
+        const secondDate = date.unix();
+
+        let diff = 0;
+        if (firstDate > secondDate) {
+            diff = firstDate - secondDate;
+        }
+        else {
+            diff = secondDate - firstDate;
+        }
+
+        const duration = Moment.duration(diff, 'seconds');
+        if (duration.asHours() > 23) {
+
+            Actions.changeDateFrom(date);
+        }
+        else {
+            
+            let query = {};
+
+            // We need to turn off 'live' mode first
+            if (this.state.live) {
+
+                Actions.setLiveMode(false);
+
+                query = {
+                    dateFrom: date.utc().format(),
+                    level: this.state.level
+                };
+
+                // Add the event code
+                if (this.state.event) {
+                    query.event = this.state.event;
+                }
+            }
+            else {
+
+                // Just update the time
+                query = this.state.query;
+                query.dateFrom = date.utc().format();
+            }
+
+            // Update the search query string
+            Actions.changeSearchQuery(query, this.state.history);
+        }        
     }
 
     handleClickOutside() {
@@ -91,6 +146,11 @@ class Tiles extends React.Component {
                     dateFrom: this.props.dateFrom.utc().format(),
                     level: this.state.level
                 };
+
+                // Add the event code
+                if (this.state.event) {
+                    query.event = this.state.event;
+                }
             }
             else {
 
@@ -101,9 +161,6 @@ class Tiles extends React.Component {
 
             // Update the search query string
             Actions.changeSearchQuery(query, this.state.history);
-
-            // An update to the results will happen in the 'componentWillReceiveProps'
-            // method for index.jsx
         }
     }
 

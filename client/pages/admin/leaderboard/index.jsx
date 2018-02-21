@@ -162,7 +162,7 @@ class Leaderboard extends React.Component {
     }
 
     deregisterIoListners() {
-
+        
         if (socket) {
             socket.disconnect();
         }

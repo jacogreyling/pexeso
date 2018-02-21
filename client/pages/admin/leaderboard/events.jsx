@@ -20,7 +20,7 @@ class Events extends React.Component {
         super(props);
 
         let active = '';
-        if (props.active) {
+        if (props.active !== null) {
             active = props.active;
         }
 
@@ -31,8 +31,13 @@ class Events extends React.Component {
 
     componentWillReceiveProps(nextProps) {
 
+        let active = '';
+        if (nextProps.active !== null) {
+            active = nextProps.active;
+        }
+
         this.setState({
-            active: nextProps.active
+            active
         });
     }
 
