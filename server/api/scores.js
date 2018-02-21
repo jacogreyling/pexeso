@@ -19,7 +19,7 @@ internals.applyRoutes = function (server, next) {
         config: {
             auth: {
                 strategy: 'session',
-                scope: 'admin'
+                scope: ['admin','account']
             },
             validate: {
                 query: {

@@ -84,6 +84,9 @@ class Navbar extends React.Component {
                             <li className={this.classForPath('/account/settings')}>
                                 <Link to="/account/settings">Settings</Link>
                             </li>
+                            <li className={this.classForPath('/account/leaderboard')}>
+                                <Link to="/account/leaderboard">Leaderboard</Link>
+                            </li>
                             <li className={renderAdminClass}>
                                 <a href="/admin">Admin</a>
                             </li>

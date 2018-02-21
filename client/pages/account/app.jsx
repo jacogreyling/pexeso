@@ -7,6 +7,7 @@ const NotFound = require('./not-found.jsx');
 const React = require('react');
 const ReactRouter = require('react-router-dom');
 const Settings = require('./settings/index.jsx');
+const Leaderboard = require('./leaderboard/index.jsx');
 
 
 const Route = ReactRouter.Route;
@@ -21,6 +22,7 @@ const App = (
             <Switch>
                 <Route path="/account" exact component={Home} />
                 <Route path="/account/settings" exact component={Settings} />
+                <Route path="/account/leaderboard" exact component={Leaderboard} />
 
                 <Route component={NotFound} />
             </Switch>
