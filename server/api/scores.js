@@ -119,8 +119,6 @@ internals.applyRoutes = function (server, next) {
                 query.event = null;
             }
 
-            console.log(request.auth.credentials.user._id);
-
             // We need to do this to 'sub' the 'userId' for 'username'
             const pipeline = [
                 {
