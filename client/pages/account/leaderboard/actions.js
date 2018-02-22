@@ -9,59 +9,28 @@ const Qs = require('qs');
 
 class Actions {
 
-    static retrieveTopTen(level) {
+    static retrieveTopTenForMyEvent(level) {
 
-        this.retrieveTopTenForEvent(level, null);
-    }
-
-    static retrieveTopTenForEvent(level, event) {
-
-        const query = {
-            limit: 10,
-            event
-        };
+        const query = null;
 
         ApiActions.get(
-            `/api/scores/top/${level}`,
+            `/api/scores/top/event/${level}`,
             query,
             Store,
-            Constants.GET_LIVE_SCORES,
-            Constants.GET_LIVE_SCORES_RESPONSE
+            Constants.GET_EVENT_SCORES,
+            Constants.GET_EVENT_SCORES_RESPONSE
         );
+
     }
 
-    static getUser() {
-
-        ApiActions.get(
-            '/api/users/my',
-            undefined,
-            Store,
-            Constants.GET_USER,
-            Constants.GET_USER_RESPONSE
-        );
-    }
-
-    static getEvent() {
-
-        ApiActions.get(
-            '/api/accounts/my/event',
-            undefined,
-            Store,
-            Constants.GET_EVENT,
-            Constants.GET_EVENT_RESPONSE
-        );
-    }
-    
-    static setLevel(level, live) {
+    static setLevel(level) {
 
         // Change the difficulty level, and reset the state
         Store.dispatch({
             type: Constants.SET_LEVEL,
-            level,
-            live
+            level
         });
     }
-
 
     static changeSearchQuery(data, history) {
 

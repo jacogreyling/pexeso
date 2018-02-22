@@ -94,6 +94,79 @@ internals.applyRoutes = function (server, next) {
 
     server.route({
         method: 'GET',
+        path: '/scores/top/event/{level}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: ['admin','account']
+            },
+            validate: {
+                query: {
+                    event: Joi.string().allow(''),
+                    limit: Joi.number().default(10),
+                }
+            }
+        },
+        handler: function (request, reply) {
+
+            const sort = Score.sortAdapter('-score');
+
+            let query = {
+                score: { $gt: 0 },
+                level: { $eq: request.params.level }
+            }
+
+            if ((typeof request.query.event !== 'undefined') && (request.query.event !== '')) {
+                query.event = { $eq: request.query.event };
+            }
+            else {
+                query.event = null;
+            }
+
+            // We need to do this to 'sub' the 'userId' for 'username'
+            const pipeline = [
+                {
+                    $match: query
+                },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userId',
+                        foreignField: '_id',
+                        as: 'username'
+                    }
+                },
+                {
+                    $sort: sort
+                },
+                {
+                    $limit: 10
+                },
+                {
+                    $project: {
+                        username: { $arrayElemAt: ['$username.username', 0] },
+                        userId: 1,
+                        score: 1,
+                        time: 1,
+                        level: 1,
+                        timestamp: 1
+                    }
+                }
+            ];
+
+            Score.aggregate(pipeline, (err, results) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                return reply(results);
+            });
+        }
+    });
+
+    server.route({
+        method: 'GET',
         path: '/scores',
         config: {
             auth: {

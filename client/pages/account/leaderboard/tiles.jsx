@@ -52,20 +52,14 @@ class Tiles extends React.Component {
             return;
         }
 
-        // If in 'live' mode, make sure the search query is removed
-        if (this.state.live) {
-
-            Actions.resetSearchQuery(this.state.history);
-        }
-        else {
+  
 
             const query = this.state.query;
             query.level = level;
 
             Actions.changeSearchQuery(query, this.state.history);
-        }
-
-        Actions.setLevel(level, this.state.live);
+    
+        Actions.setLevel(level);
     }
 
     handleDateChange(date) {
@@ -99,8 +93,6 @@ class Tiles extends React.Component {
             // Update the search query string
             Actions.changeSearchQuery(query, this.state.history);
 
-            // An update to the results will happen in the 'componentWillReceiveProps'
-            // method for index.jsx
         }
     }
 

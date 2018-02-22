@@ -15,7 +15,6 @@ const Moment = require('moment');
 
 const Helmet = ReactHelmet.Helmet;
 
-
 const propTypes = {
     history: PropTypes.object,
     location: PropTypes.object
@@ -27,9 +26,7 @@ class Leaderboard extends React.Component {
 
         super(props);
 
-        Actions.getEvent();
-        Actions.getUser();
-        Actions.retrieveTopTen('casual');
+        Actions.retrieveTopTenForMyEvent('casual');
 
         this.els = {};
         this.state = Store.getState();
@@ -41,7 +38,7 @@ class Leaderboard extends React.Component {
         // take the global state instead
         const level = Store.getState().leaderboard.level;
 
-        Actions.retrieveTopTen(level);
+        Actions.retrieveTopTenForMyEvent(level);
     }
 
     componentDidMount() {
