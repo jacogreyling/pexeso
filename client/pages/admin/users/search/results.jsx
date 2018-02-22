@@ -29,7 +29,7 @@ class Results extends React.Component {
                     <td>{record.username}</td>
                     <td>{record.email}</td>
                     <td>{record.isActive ? 'True' : 'False'}</td>
-                    <td className="nowrap">{record._id}</td>
+                    <td className="nowrap small-devices">{record._id}</td>
                 </tr>
             );
         });
@@ -43,7 +43,7 @@ class Results extends React.Component {
                             <th>username</th>
                             <th className="stretch">email</th>
                             <th>active</th>
-                            <th>id</th>
+                            <th className="small-devices">id</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -27,9 +27,8 @@ class Results extends React.Component {
                         </Link>
                     </td>
                     <td>{record.name}</td>
-                    <td>{record.description}</td>
                     <td>{record.isActive ? 'True' : 'False'}</td>
-                    <td className="nowrap">{record._id}</td>
+                    <td className="nowrap small-devices">{record._id}</td>
                 </tr>
             );
         });
@@ -41,9 +40,8 @@ class Results extends React.Component {
                         <tr>
                             <th></th>
                             <th>name</th>
-                            <th className="stretch">description</th>
                             <th>active</th>
-                            <th>id</th>
+                            <th className="small-devices">id</th>
                         </tr>
                     </thead>
                     <tbody>

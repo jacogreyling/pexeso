@@ -5,24 +5,12 @@
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	background: #fff;
-	color: rgba(0, 0, 0, 0.8);
+	color: rgba(255, 255, 255, 1);
 	font: normal 0/0 Arial, Helvetica, sans-serif;
 	margin: 0;
 	overflow: hidden;
 	user-select: none;
 }
-
-.date-picker * {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-// Reset to original for datepicker to work properly
-html {
-	font-size: 14px !important;
-}
-
 
 /* FRONT SCREEN */
 
@@ -56,21 +44,19 @@ html {
     text-align: center;
     line-height: normal;
     overflow-wrap: break-word;
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 1);
     font-size: 48px;
 }
 .level .card .f:not(.active):hover {
 	opacity: .8;
 }
 .card .f.active {
-	background: #f8d66e;
-	color: rgba(0, 0, 0, 1);
+	background: #ffca1c;
+	color: rgba(255, 255, 255, 1);
 }
-
 .card .f.active .contentbox {
-	-webkit-text-stroke: 1px rgba(0, 0, 0, 1);
+	-webkit-text-stroke: 1px rgba(255, 255, 255, 1);
 }
-
 .card .f .contentbox {
 	text-transform: capitalize;
 }
@@ -84,10 +70,6 @@ html {
 	width: 150px;
 	min-width: 150px;
 }
-.leaderboard-table {
-	margin-left: 3px;
-	margin-right: 3px;
-}
 .leaderboard.page-header {
     padding-bottom: 9px;
     margin: 40px 3px 20px 3px;
@@ -95,8 +77,8 @@ html {
 }
 .leaderboard-table table tr.active-state {
 	font-weight: bold;
-	background: #f8d66e !important;
-	color: black;
+	background: #ffca1c !important;
+	color: white;
 	-moz-transition: 400ms;
 	-ms-transition: 400ms;
 	-o-transition: 400ms;
@@ -120,106 +102,6 @@ html {
 	width: 20%;
 }
 
-
-/* DATE PICKER */
-.level .card .f .box {
-	font: normal 16px/16px Arial,Helvetica,sans-serif;
-	padding: 10px;
-	width: 97%;
-	height: 97%;
-	border: thin solid rgba(168,152,146,0.2);
-	margin-top: 3px;
-	margin-left: 3px;
-}
-.level .card .f.ph:hover {
-    opacity: unset;
-}
-.cards {
-	display: contents;
-}
-.react-datepicker__time-container
-.react-datepicker__time
-.react-datepicker__time-box
-ul.react-datepicker__time-list {
-	padding-left: 0 !important;
-	padding-right: 0 !important;
-	padding-bottom: 5px !important;
-}
-select, textarea, input, .form-control {
-    font-size: 14px !important;
-	border: none;
-	width: 100%;
-	color: rgba(0,0,0,0.5);
-}
-.react-datepicker-wrapper{
-	width: 80%;
-	margin-top: 10px;
-	border-bottom: thin solid rgba(0, 0, 0, 0.2);
-}
-.react-datepicker__input-container {
-    width: 100%;
-	margin-bottom: 2px;
-}
-.react-datepicker-wrapper input {
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	-o-user-select:none; // latest Opera versions support -webkit-
-	user-select:none;
-}
-.react-datepicker-wrapper input:focus {
-	outline: none;
-}
-.date-picker button {
-	bottom: 15%;
-	position: absolute;
-	transform: translate(-50%, 0);
-	left: 50%;
-	width: 25%;
-}
-.box .date-picker h2 {
-	margin-top: 15px;
-}
-.react-datepicker-popper {
-	width: 285px !important;
-}
-
-/* SWITCH */
-
-.live {
-	border-radius: 7.5px;
-	background: #f00;
-	width: 15px;
-	height: 15px;
-	top: 18px;
-	right: 25px;
-	box-shadow: 0 0 0.5em 0px #f00;
-	-moz-transition: 400ms;
-	-ms-transition: 400ms;
-	-o-transition: 400ms;
-	-webkit-transition: 400ms;
-	transition: 400ms;
-}
-.pause {
-	border-radius: 7.5px;
-	background: #a89892;
-	width: 15px;
-	height: 15px;
-	top: 10px;
-	position: relative;
-}
-.switch {
-	border-radius: 8.5px;
-	background: none;
-	width: 15px;
-	height: 25px;
-	position: absolute;
-	top: 18px;
-	right: 25px;
-	border: thin solid #222;
-}
-
-
 /*Responsive Stuff*/
 @media all and (max-width: 976px) {
 	.level {
@@ -228,58 +110,18 @@ select, textarea, input, .form-control {
 	.level .f .contentbox {
 		font-size: 32px;
 	}
-	.date-picker button {
-		bottom: 10%;
-		width: auto;
-		padding: 3px 6px;
-	}
-	.box .date-picker h2 {
-		font-size: 24px;
-	}
-	.switch {
-		border: none;
-	}
-	.pause {
-		top: 0px;
-	}
-	.react-datepicker-wrapper input {
-		font-size: 12px !important;
-	}
 	.timestamp {
 		width: 35%;
 	}
 
 }
-@media all and (max-width: 768px) and (min-width: 470px) {
-	.switch {
-		top: 12px;
-		right: 14px;
-	}
-	.react-datepicker-wrapper {
-		width: 100%;
-	}
-	.box .date-picker h2 {
-		font-size: 22px;
-	}
-}
-@media all and (max-width: 470px) and (min-width: 0px) {
-	.switch {
-		top: 12px;
-		right: 14px;
-	}
-	.react-datepicker-wrapper {
-		width: 100%;
-	}
-	.cards {
-	    display: block;
-	    height: 160px;
-	}
+@media all and (max-width: 540px) and (min-width: 0px) {
 	.level {
 		height: 150px;
 		margin: 20px 0 26px;
 	}
 	.level .f .contentbox {
-		font-size: 24px;
+		font-size: 28px;
 	}
 	.level .card {
 		width: 33.3%;
@@ -287,29 +129,24 @@ select, textarea, input, .form-control {
 	.leaderboard-table {
 		margin: 0px;
 	}
-	.well {
-    	margin: 0px;
-	}
 	.leaderboard-form {
 		margin: 0px;
 	}
 	.row .col-sm-2.right {
     	float: none;
 	}
-	.react-datepicker-popper {
-		transform: translate3d(-160px, -30px, 0px) !important;
-	}
 	input[type='text'],
 	input[type='number'],
 	textarea {
   		font-size: 16px !important;
 	}
-	.react-datepicker-wrapper input {
-		-webkit-user-select:none;
-		-moz-user-select:none;
-		-ms-user-select:none;
-		-o-user-select:none; // latest Opera versions support -webkit-
-		user-select:none;
-		width: 90%;
+}
+@media all and (max-width: 470px) and (min-width: 0px) {
+	.level {
+		height: 100px;
+		margin: 20px 0 26px;
+	}
+	.level .f .contentbox {
+		font-size: 24px;
 	}
 }

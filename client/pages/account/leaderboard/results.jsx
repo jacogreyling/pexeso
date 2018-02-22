@@ -20,31 +20,6 @@ class Results extends React.Component {
 
         super(props);
 
-        this.state = {
-            windowHeight: window.innerHeight,
-            windowWidth: window.innerWidth
-        };
-    }
-
-    componentDidMount() {
-
-        window.addEventListener('resize', this.handleResize.bind(this));
-    }
-
-    componentWillUnmount() {
-
-        window.removeEventListener('resize', this.handleResize.bind(this));
-    }
-
-    handleResize() {
-
-        if (window.innerWidth < 768) {
-
-            this.setState({
-                windowHeight: window.innerHeight,
-                windowWidth: window.innerWidth
-            });
-        }
     }
 
     render() {
@@ -80,12 +55,6 @@ class Results extends React.Component {
                 count = this.props.items.begin - 1;
             }
         }
-
-        // For responsive design, change the time object to shorthand date if viewed on mobile devices
-        let timeFormat = 'LLL';
-        if (this.state.windowWidth < 470) {
-            timeFormat = 'lll';
-        }
         
         let rows = [];
         if (Array.isArray(this.props.data)) {
@@ -110,7 +79,7 @@ class Results extends React.Component {
                     <tr id={record.userId} className={activeClass} key={record._id}>
                         <td>{count}</td>
                         <td>{typeof record.username === 'undefined' ? '?' : record.username}</td>
-                        <td className="timestamp">{Moment(timestamp).locale('en-gb').format(timeFormat)}</td>
+                        <td className="timestamp small-devices">{Moment(timestamp).locale('en-gb').format('LLL')}</td>
                         <td>{Moment(record.time, 'ss.SSS').format('mm:ss.SSS')}</td>
                         <td>{score}</td>
                     </tr>
@@ -125,7 +94,7 @@ class Results extends React.Component {
                         <tr>
                             <th style={{ width: '10%' }}>{rowDescription}</th>
                             <th style={{ width: 'auto' }}>Username</th>
-                            <th className="timestamp">Timestamp</th>
+                            <th className="timestamp small-devices">Timestamp</th>
                             <th style={{ width: '15%' }}>Elapsed Time</th>
                             <th style={{ width: '15%' }}>Score</th>
                         </tr>

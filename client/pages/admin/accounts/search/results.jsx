@@ -28,7 +28,7 @@ class Results extends React.Component {
                     </td>
                     <td>{record.name.first} {record.name.last}</td>
                     <td>{record.user ? record.user.name : '---'}</td>
-                    <td>{record._id}</td>
+                    <td className="small-devices">{record._id}</td>
                 </tr>
             );
         });
@@ -41,7 +41,7 @@ class Results extends React.Component {
                             <th></th>
                             <th className="stretch">name</th>
                             <th>username</th>
-                            <th>id</th>
+                            <th className="small-devices">id</th>
                         </tr>
                     </thead>
                     <tbody>
