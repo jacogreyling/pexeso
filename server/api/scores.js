@@ -110,18 +110,19 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             const sort = Score.sortAdapter('-score');
-
+ 
             let query = {
                 score: { $gt: 0 },
                 level: { $eq: request.params.level }
             }
 
-            if ((typeof request.query.event !== 'undefined') && (request.query.event !== '')) {
-                query.event = { $eq: request.query.event };
+            if ((typeof  request.auth.credentials.roles.account.event !== 'undefined')) {
+                query.event = { $eq: request.auth.credentials.roles.account.event };
             }
             else {
                 query.event = null;
             }
+
 
             // We need to do this to 'sub' the 'userId' for 'username'
             const pipeline = [
