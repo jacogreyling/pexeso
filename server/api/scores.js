@@ -101,10 +101,6 @@ internals.applyRoutes = function (server, next) {
                 scope: ['admin','account']
             },
             validate: {
-                query: {
-                    event: Joi.string().allow(''),
-                    limit: Joi.number().default(10),
-                }
             }
         },
         handler: function (request, reply) {
@@ -123,6 +119,7 @@ internals.applyRoutes = function (server, next) {
                 query.event = null;
             }
 
+            console.log(request.auth.credentials.user._id);
 
             // We need to do this to 'sub' the 'userId' for 'username'
             const pipeline = [
@@ -150,7 +147,8 @@ internals.applyRoutes = function (server, next) {
                         score: 1,
                         time: 1,
                         level: 1,
-                        timestamp: 1
+                        timestamp: 1,
+                        highlight: { $cmp: [ "$userId", request.auth.credentials.user._id ] }
                     }
                 }
             ];

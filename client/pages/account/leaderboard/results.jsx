@@ -71,8 +71,6 @@ class Results extends React.Component {
             rowDescription = 'Rank'; // Default sort is always -score
         }
 
-        console.log(this);
-
         let count = 0;
         if ((this.props.items) && (typeof this.props.items.begin === 'number')) {
             if ((typeof sortDescending !== 'undefined') && (!sortDescending)) {
@@ -88,7 +86,7 @@ class Results extends React.Component {
         if (this.state.windowWidth < 470) {
             timeFormat = 'lll';
         }
-
+        
         let rows = [];
         if (Array.isArray(this.props.data)) {
             rows = this.props.data.map((record) => {
@@ -97,7 +95,7 @@ class Results extends React.Component {
                 const score = record.score;
 
                 let activeClass = '';
-                if (count === this.props.position) {
+                if (record.highlight === 0) {
                     activeClass = 'active-state';
                 }
 
