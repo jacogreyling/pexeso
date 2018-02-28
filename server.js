@@ -1,5 +1,8 @@
 'use strict';
 
+// CA APM Monitoring
+const probe = require('ca-apm-probe').start('localhost', 5005, 'pexeso');
+
 const Glue = require('glue');
 const Hoek = require('hoek');
 const BabelRegister = require('babel-core/register');

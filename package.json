@@ -52,6 +52,7 @@
     "blipp": "^2.3.0",
     "blueimp-md5": "^2.10.0",
     "boom": "^5.2.0",
+    "ca-apm-probe": "^1.10.54",
     "catbox-redis": "^3.1.1",
     "chart.js": "^2.7.1",
     "classnames": "^2.2.5",

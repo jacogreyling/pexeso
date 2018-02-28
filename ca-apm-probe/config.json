@@ -1,0 +1,7 @@
+{
+  "probeName": "pexeso",
+  "probeNameEnvKey": "",
+  "port": 5005,
+  "logFile": "../logs/Probe-pexeso.log"
+  "logLevel": "info"
+}
