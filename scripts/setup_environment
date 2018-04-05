@@ -11,6 +11,7 @@ npm install --verbose --unsafe-perm
 echo "Deployment Group is : " ${DEPLOYMENT_GROUP_NAME}
 
 aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP_NAME}/env .env
+aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP_NAME}/config.json /jet/app/current/ca-apm-probe/config.json
 aws s3 cp s3://pexeso.io/${DEPLOYMENT_GROUP_NAME}/document_root.settings /jet/etc/www/webservers/nginx/conf.d/
 
 kill $(cat /jet/run/nginx/nginx.pid)

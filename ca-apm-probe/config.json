@@ -1,7 +1,8 @@
 {
-  "probeName": "pexeso",
+  "probeName": "Pexeso",
+  "hostname":"AWS-${HOSTNAME}",
   "probeNameEnvKey": "",
   "port": 5005,
-  "logFile": "../logs/Probe-pexeso.log"
+  "logFile": "../logs/Probe-pexeso.log",
   "logLevel": "info"
 }
