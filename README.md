@@ -15,12 +15,13 @@ You can find an example here: https://pexeso-heroku.herokuapp.com
  - Game statistics / telemetry to keep track of participation
  - Showcasing various **Continuous Delivery** solutions from CA Technologies:
    - [Waffle](https://waffle.io) (CA Accelerator)
+   - [Agile Requirements Designer](https://www.ca.com/us/products/ca-agile-requirements-designer.html)
    - [Continuous Delivery Director](https://cddirector.io/#/home)
    - [BlazeMeter](https://www.blazemeter.com)
-   - [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)
    - [Flow Dock](https://www.ca.com/us/products/ca-flowdock.html)
+   - [Digital Experience Insights](https://www.ca.com/us/products/digital-experience-monitoring.html)
    - [Service Virtualization](https://www.ca.com/us/products/ca-service-virtualization.html) Coming Soon!
-   - [Application Performance Management](https://www.ca.com/us/products/ca-application-performance-management.html) Coming Soon!
+   - [Live API Creator](https://www.ca.com/us/products/ca-live-api-creator.html)  Coming Soon!
 
 
 ## Technology
