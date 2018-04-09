@@ -2,6 +2,7 @@
   "probeName": "Pexeso",
   "hostname":"AWS-${HOSTNAME}",
   "probeNameEnvKey": "",
+  "appName":"Pexeso",
   "port": 5005,
   "logFile": "../logs/Probe-pexeso.log",
   "logLevel": "info"
