@@ -3,6 +3,8 @@ os: linux
 files:
   - source: /client
     destination: /jet/app/current/client
+  - source: /ca-apm-probe
+    destination: /jet/app/current/ca-apm-probe
   - source: /config
     destination: /jet/app/current/config
   - source: /gulp
