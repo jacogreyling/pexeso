@@ -108,22 +108,29 @@ internals.applyRoutes = function (server, next) {
                     if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
                         event = request.state['sid-pexeso'].event;
                     }
-
-                    Event.findByEvent(event, done);
+                    if (event != '') {
+                        Event.findByEvent(event, done);
+                    } else {
+                        done();
+                    }
                 }],
                 updateAccount: ['cookieEvent', function (results, done) {
 
-                    // First see if the latest event is 'active'
-                    if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
+                    if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
+                        // First see if the latest event is 'active'
+                        if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
 
-                        const id = results.account._id;
-                        const update = {
-                            $set: {
-                                event: results.cookieEvent.name
-                            }
-                        };
+                            const id = results.account._id;
+                            const update = {
+                                $set: {
+                                    event: results.cookieEvent.name
+                                }
+                            };
 
-                        Account.findByIdAndUpdate(id, update, done);
+                            Account.findByIdAndUpdate(id, update, done);
+                        }
+                    } else {
+                        done();
                     }
                 }],
                 linkUser: ['account', function (results, done) {
