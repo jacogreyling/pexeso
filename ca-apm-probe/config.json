@@ -5,5 +5,5 @@
   "appName":"Pexeso",
   "port": 5005,
   "logFile": "../logs/Probe-pexeso.log",
-  "logLevel": "info"
+  "logLevel": "info" 
 }
