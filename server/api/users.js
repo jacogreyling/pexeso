@@ -48,7 +48,9 @@ internals.applyRoutes = function (server, next) {
                 query.isActive = request.query.isActive === 'true';
             }
             if (request.query.role) {
-                query['roles.' + request.query.role] = { $exists: true };
+                query['roles.' + request.query.role] = {
+                    $exists: true
+                };
             }
             const fields = request.query.fields;
             const sort = request.query.sort;
@@ -135,7 +137,7 @@ internals.applyRoutes = function (server, next) {
 
             Async.auto({
                 user: function (done) {
-                    
+
                     const fields = User.fieldsAdapter('username email roles');
 
                     User.findById(id, fields, done);
@@ -148,7 +150,7 @@ internals.applyRoutes = function (server, next) {
 
                     const username = results.user.username !== undefined ? results.user.username : '';
 
-                    Account.findByUsername(username, done);                            
+                    Account.findByUsername(username, done);
                 }],
                 accountEvent: ['account', function (results, done) {
 
@@ -157,7 +159,7 @@ internals.applyRoutes = function (server, next) {
                     }
 
                     const event = results.account.event !== undefined ? results.account.event : '';
-                    
+
                     Event.findByEvent(event, done);
                 }],
                 cookieEvent: ['accountEvent', function (results, done) {
@@ -197,8 +199,7 @@ internals.applyRoutes = function (server, next) {
                             };
 
                             Account.findByIdAndUpdate(id, rem, done);
-                        }
-                        else {
+                        } else {
                             done(); // Do nothing
                         }
                     }
@@ -230,51 +231,49 @@ internals.applyRoutes = function (server, next) {
                     password: Joi.string().required()
                 }
             },
-            pre: [
-                {
-                    assign: 'usernameCheck',
-                    method: function (request, reply) {
+            pre: [{
+                assign: 'usernameCheck',
+                method: function (request, reply) {
 
-                        const conditions = {
-                            username: request.payload.username
-                        };
+                    const conditions = {
+                        username: request.payload.username
+                    };
 
-                        User.findOne(conditions, (err, user) => {
+                    User.findOne(conditions, (err, user) => {
 
-                            if (err) {
-                                return reply(err);
-                            }
+                        if (err) {
+                            return reply(err);
+                        }
 
-                            if (user) {
-                                return reply(Boom.conflict('Username already in use.'));
-                            }
+                        if (user) {
+                            return reply(Boom.conflict('Username already in use.'));
+                        }
 
-                            reply(true);
-                        });
-                    }
-                }, {
-                    assign: 'emailCheck',
-                    method: function (request, reply) {
-
-                        const conditions = {
-                            email: request.payload.email
-                        };
-
-                        User.findOne(conditions, (err, user) => {
-
-                            if (err) {
-                                return reply(err);
-                            }
-
-                            if (user) {
-                                return reply(Boom.conflict('Email already in use.'));
-                            }
-
-                            reply(true);
-                        });
-                    }
+                        reply(true);
+                    });
                 }
-            ]
+            }, {
+                assign: 'emailCheck',
+                method: function (request, reply) {
+
+                    const conditions = {
+                        email: request.payload.email
+                    };
+
+                    User.findOne(conditions, (err, user) => {
+
+                        if (err) {
+                            return reply(err);
+                        }
+
+                        if (user) {
+                            return reply(Boom.conflict('Email already in use.'));
+                        }
+
+                        reply(true);
+                    });
+                }
+            }]
         },
         handler: function (request, reply) {
 
@@ -350,53 +349,55 @@ internals.applyRoutes = function (server, next) {
                     email: Joi.string().email().lowercase().required()
                 }
             },
-            pre: [
-                {
-                    assign: 'usernameCheck',
-                    method: function (request, reply) {
+            pre: [{
+                assign: 'usernameCheck',
+                method: function (request, reply) {
 
-                        const conditions = {
-                            username: request.payload.username,
-                            _id: { $ne: User._idClass(request.params.id) }
-                        };
+                    const conditions = {
+                        username: request.payload.username,
+                        _id: {
+                            $ne: User._idClass(request.params.id)
+                        }
+                    };
 
-                        User.findOne(conditions, (err, user) => {
+                    User.findOne(conditions, (err, user) => {
 
-                            if (err) {
-                                return reply(err);
-                            }
+                        if (err) {
+                            return reply(err);
+                        }
 
-                            if (user) {
-                                return reply(Boom.conflict('Username already in use.'));
-                            }
+                        if (user) {
+                            return reply(Boom.conflict('Username already in use.'));
+                        }
 
-                            reply(true);
-                        });
-                    }
-                }, {
-                    assign: 'emailCheck',
-                    method: function (request, reply) {
-
-                        const conditions = {
-                            email: request.payload.email,
-                            _id: { $ne: User._idClass(request.params.id) }
-                        };
-
-                        User.findOne(conditions, (err, user) => {
-
-                            if (err) {
-                                return reply(err);
-                            }
-
-                            if (user) {
-                                return reply(Boom.conflict('Email already in use.'));
-                            }
-
-                            reply(true);
-                        });
-                    }
+                        reply(true);
+                    });
                 }
-            ]
+            }, {
+                assign: 'emailCheck',
+                method: function (request, reply) {
+
+                    const conditions = {
+                        email: request.payload.email,
+                        _id: {
+                            $ne: User._idClass(request.params.id)
+                        }
+                    };
+
+                    User.findOne(conditions, (err, user) => {
+
+                        if (err) {
+                            return reply(err);
+                        }
+
+                        if (user) {
+                            return reply(Boom.conflict('Email already in use.'));
+                        }
+
+                        reply(true);
+                    });
+                }
+            }]
         },
         handler: function (request, reply) {
 
@@ -447,7 +448,9 @@ internals.applyRoutes = function (server, next) {
 
                         const conditions = {
                             username: request.payload.username,
-                            _id: { $ne: request.auth.credentials.user._id }
+                            _id: {
+                                $ne: request.auth.credentials.user._id
+                            }
                         };
 
                         User.findOne(conditions, (err, user) => {
@@ -469,7 +472,9 @@ internals.applyRoutes = function (server, next) {
 
                         const conditions = {
                             email: request.payload.email,
-                            _id: { $ne: request.auth.credentials.user._id }
+                            _id: {
+                                $ne: request.auth.credentials.user._id
+                            }
                         };
 
                         User.findOne(conditions, (err, user) => {
@@ -529,22 +534,20 @@ internals.applyRoutes = function (server, next) {
                     password: Joi.string().required()
                 }
             },
-            pre: [
-                {
-                    assign: 'password',
-                    method: function (request, reply) {
+            pre: [{
+                assign: 'password',
+                method: function (request, reply) {
 
-                        User.generatePasswordHash(request.payload.password, (err, hash) => {
+                    User.generatePasswordHash(request.payload.password, (err, hash) => {
 
-                            if (err) {
-                                return reply(err);
-                            }
+                        if (err) {
+                            return reply(err);
+                        }
 
-                            reply(hash);
-                        });
-                    }
+                        reply(hash);
+                    });
                 }
-            ]
+            }]
         },
         handler: function (request, reply) {
 
@@ -649,7 +652,9 @@ internals.applyRoutes = function (server, next) {
                 }
 
                 // Let's delete the game statistics as well
-                const filter = { 'userId': request.params.id.toLowerCase() };
+                const filter = {
+                    'userId': request.params.id.toLowerCase()
+                };
                 Statistic.findOneAndDelete(filter, (err, stat) => {
 
                     if (err) {
@@ -666,11 +671,59 @@ internals.applyRoutes = function (server, next) {
                     count: -1
                 });
 
-                reply({ success: true });
+                reply({
+                    success: true
+                });
             });
         }
     });
 
+
+    server.route({
+        method: 'PAtCH',
+        path: '/users/{id}',
+        config: {
+            auth: {
+                strategy: 'session',
+                scope: 'admin'
+            },
+            validate: {
+                params: {
+                    id: Joi.string().invalid('000000000000000000000000')
+                }
+
+            }
+        },
+        handler: function (request, reply) {
+
+            const id = request.params.id;
+
+            console.log(request.params.id);
+
+            const update = {
+                $set: {
+                    "isActive": true,
+                    "verification.validated": true,
+                    "verification.timeValidated": new Date()
+                }
+            };
+
+            User.findByIdAndUpdate(id, update, (err, user) => {
+
+                if (err) {
+                    return reply(err);
+                }
+
+                if (!user) {
+                    return reply(Boom.notFound('Document not found.'));
+                }
+
+                reply({
+                    success: true
+                });
+            });
+        }
+    });
 
     next();
 };

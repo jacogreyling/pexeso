@@ -2,6 +2,7 @@
 
 const Actions = require('./actions');
 const DeleteForm = require('../../../../../client/pages/admin/components/delete-form.jsx');
+const VerifyForm = require('../../../../../client/pages/admin/components/verify-form.jsx');
 const DetailsForm = require('./details-form.jsx');
 const PasswordForm = require('./password-form.jsx');
 const PropTypes = require('prop-types');
@@ -87,6 +88,10 @@ class DetailsPage extends React.Component {
                         <DetailsForm {...this.state.details} />
                         <RolesForm {...this.state.details.roles} />
                         <PasswordForm {...this.state.password} />
+                        <VerifyForm
+                            {...this.state.verify}
+                            action={Actions.verify.bind(Actions, id, this.props.history)}
+                        />
                         <DeleteForm
                             {...this.state.delete}
                             action={Actions.delete.bind(Actions, id, this.props.history)}

@@ -84,6 +84,25 @@ class Actions {
             }
         );
     }
+
+    static verify(id, history) {
+
+        ApiActions.patch(
+            `/api/users/${id}`,
+            undefined,
+            Store,
+            Constants.VERIFY,
+            Constants.VERIFY_RESPONSE,
+            (err, response) => {
+
+                if (!err) {
+                    history.push('/admin/users');
+
+                    window.scrollTo(0, 0);
+                }
+            }
+        );
+    }
 }
 
 
