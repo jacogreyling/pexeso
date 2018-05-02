@@ -5,7 +5,7 @@
 A memory card game that will test your wits! Three rounds, each one becoming progressively more difficult than the previous round. It also includes user registration, game statistics and a leaderboard (admin users) for those who dare to compete!
 
 You can find an example here: https://pexeso-heroku.herokuapp.com
-
+ 
 ## Features
 
  - Interactive memory card game with multiple levels
