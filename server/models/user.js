@@ -63,6 +63,47 @@ class User extends MongoModels {
         });
     }
 
+
+    static checkValidation(username, callback) {
+
+        const self = this;
+
+        Async.auto({
+            user: function (done) {
+
+                const query = {
+                    "isActive": true,
+                    "verification.validated": true
+                };
+
+                if (username.indexOf('@') > -1) {
+                    query.email = username.toLowerCase();
+                } else {
+                    query.username = username.toLowerCase();
+                }
+
+                self.findOne(query, done);
+            },
+            validated: ['user', function (results, done) {
+
+                if (!results.user) {
+                    return done(null, false);
+                }
+
+                done(null, true);
+            }]
+        }, (err, results) => {
+
+            if (err) {
+                return callback(err);
+            }
+
+            return callback(null, results.validated);
+
+        });
+    }
+
+
     static findByCredentials(username, password, callback) {
 
         const self = this;
@@ -76,8 +117,7 @@ class User extends MongoModels {
 
                 if (username.indexOf('@') > -1) {
                     query.email = username.toLowerCase();
-                }
-                else {
+                } else {
                     query.username = username.toLowerCase();
                 }
 
@@ -108,7 +148,9 @@ class User extends MongoModels {
 
     static findByUsername(username, callback) {
 
-        const query = { username: username.toLowerCase() };
+        const query = {
+            username: username.toLowerCase()
+        };
 
         this.findOne(query, callback);
     }
@@ -120,7 +162,9 @@ class User extends MongoModels {
         Async.auto({
             user: function (done) {
 
-                const query = { 'verification.token': verificationToken.toLowerCase() };
+                const query = {
+                    'verification.token': verificationToken.toLowerCase()
+                };
 
                 self.findOne(query, done);
             },
@@ -250,9 +294,18 @@ User.schema = Joi.object().keys({
 });
 
 
-User.indexes = [
-    { key: { username: 1, unique: 1 } },
-    { key: { email: 1, unique: 1 } }
+User.indexes = [{
+        key: {
+            username: 1,
+            unique: 1
+        }
+    },
+    {
+        key: {
+            email: 1,
+            unique: 1
+        }
+    }
 ];
 
 
