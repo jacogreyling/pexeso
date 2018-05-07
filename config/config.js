@@ -4,7 +4,9 @@ const Confidence = require('confidence');
 const Dotenv = require('dotenv');
 
 
-Dotenv.config({ silent: true });
+Dotenv.config({
+    silent: true
+});
 
 const criteria = {
     env: process.env.NODE_ENV
@@ -32,8 +34,8 @@ const config = {
         $default: 'http://localhost:8000'
     },
     authAttempts: {
-        forIp: 50,
-        forIpAndUser: 7
+        forIp: 150,
+        forIpAndUser: 70
     },
     cookieSecret: {
         $filter: 'env',
