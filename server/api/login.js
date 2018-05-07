@@ -43,7 +43,7 @@ internals.applyRoutes = function (server, next) {
                         }
 
                         if (detected) {
-                            return reply(Boom.badRequest('Maximum number of auth attempts reached. Please try again later.'));
+                            return reply(Boom.locked('Maximum number of auth attempts reached. Please try again later.'));
                         }
 
                         reply();
@@ -82,7 +82,7 @@ internals.applyRoutes = function (server, next) {
                             return reply(err);
                         }
 
-                        return reply(Boom.badRequest('Username and password combination not found or account is inactive.'));
+                        return reply(Boom.unauthorized('Username and password combination not found or account is inactive.'));
                     });
                 }
             }, {
