@@ -43,7 +43,7 @@ internals.applyRoutes = function (server, next) {
                             }
 
                             if (detected) {
-                                return reply(Boom.badRequest('Maximum number of auth attempts reached. Please try again later.'));
+                                return reply(Boom.locked('Maximum number of auth attempts reached. Please try again later.'));
                             }
 
                             reply();
@@ -111,7 +111,7 @@ internals.applyRoutes = function (server, next) {
                                         return reply(err);
                                     }
 
-                                    return reply(Boom.badRequest('Please Check your inbox for your verification email before loggin in. If didnt receive an email please contact and administrator'));
+                                    return reply(Boom.unauthorized('Please Check your inbox for your verification email before loggin in. If didnt receive an email please contact and administrator'));
                                 });
                             } else {
 
