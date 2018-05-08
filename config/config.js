@@ -62,22 +62,25 @@ const config = {
         }
     },
     nodemailer: {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        host: process.env.SMTP_HOSTNAME,
+        port: process.env.SMTP_PORT,
+        secure: false,
         auth: {
-            user: 'ca.pexeso@gmail.com',
+            user: process.env.SMTP_USERNAME,
             pass: process.env.SMTP_PASSWORD
+        },
+        tls: {
+            ciphers: 'SSLv3'
         }
     },
     system: {
         fromAddress: {
             name: 'Pexeso Admin',
-            address: 'ca.pexeso@gmail.com'
+            address: process.env.SMTP_ADDRESS
         },
         toAddress: {
             name: 'Pexeso Admin',
-            address: 'ca.pexeso@gmail.com'
+            address: process.env.SMTP_ADDRESS
         }
     }
 };
