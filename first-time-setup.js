@@ -104,7 +104,12 @@ Async.auto({
                         username: 'root',
                         password: passResults.passwordHash.hash,
                         email: results.rootEmail.toLowerCase(),
-                        timeCreated: new Date()
+                        timeCreated: new Date(),
+                        verification: {
+                            validated: true,
+                            token: "000000000000000000000000",
+                            timeValidated: new Date()
+                        }
                     };
 
                     User.insertOne(document, (err, docs) => {

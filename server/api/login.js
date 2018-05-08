@@ -54,7 +54,7 @@ internals.applyRoutes = function (server, next) {
                     assign: 'validated',
                     method: function (request, reply) {
 
-                        
+
                         const mailer = request.server.plugins.mailer;
                         const username = request.payload.username;
 
@@ -75,8 +75,6 @@ internals.applyRoutes = function (server, next) {
                                     sendEmail: ['user', function (results, done) {
 
                                         if (results.user) {
-
-                                            console.log(results.user);
 
                                             request.payload.publicURL = Config.get('/baseUrl') + '/verify';
                                             request.payload.email = results.user.email;
@@ -99,9 +97,9 @@ internals.applyRoutes = function (server, next) {
                                             });
 
                                             done();
-                                         } else {
+                                        } else {
                                             // Unknown User
-                                            done('Username and password combination not found or account is inactive.', null);
+                                            done(Boom.unauthorized('Username and password combination not found or account is inactive.'), null);
                                         }
 
                                     }]
@@ -154,7 +152,7 @@ internals.applyRoutes = function (server, next) {
                                 return reply(err);
                             }
 
-                            return reply(Boom.badRequest('Username and password combination not found or account is inactive.'));
+                            return reply(Boom.unauthorized('Username and password combination not found or account is inactive.'));
                         });
                     }
                 }, {
