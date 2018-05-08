@@ -4,7 +4,9 @@ const Confidence = require('confidence');
 const Dotenv = require('dotenv');
 
 
-Dotenv.config({ silent: true });
+Dotenv.config({
+    silent: true
+});
 
 const criteria = {
     env: process.env.NODE_ENV
