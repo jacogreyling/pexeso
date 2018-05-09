@@ -192,45 +192,51 @@ internals.applyRoutes = function (server, next) {
 
                                 Async.auto({
                                     account: function (done) {
-        
+
                                         const username = request.auth.credentials.user.username !== undefined ? request.auth.credentials.user.username : '';
-            
-                                        Account.findByUsername(username, done);                            
+
+                                        Account.findByUsername(username, done);
                                     },
                                     event: ['account', function (results, done) {
+                                      
                                         if (results.account !== undefined) {
+                                   
+                                            const event = results.account.event !== undefined ? results.account.event : '';
 
-                                        const event = results.account.event !== undefined ? results.account.event : '';
-                            
-                                        Event.findByEvent(event, done);
+                                            Event.findByEvent(event, done);
                                         } else {
-                                            done("Error : User not Found" );
-                                            console.warn( request.auth.credentials.user.username );
+                                            done("Error - Invalid Account", null);
+                                            console.warn(" Stats look up failed for: " + request.auth.credentials.user.username);
                                         }
- 
 
                                     }],
                                     updateScore: ['event', function (results, done) {
 
-                                        let document = {
-                                            userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
-                                            score: request.payload.score,
-                                            time: request.payload.time,
-                                            level: request.payload.level,
-                                            timestamp: request.response.source.lastPlayed
-                                        };
+                                        if (results.account !== undefined) {
 
-                                        if (results.event !== null) {
-                                            document.event = results.event.name;
+                                            let document = {
+                                                userId: Score.ObjectId(request.auth.credentials.user._id.toString()),
+                                                score: request.payload.score,
+                                                time: request.payload.time,
+                                                level: request.payload.level,
+                                                timestamp: request.response.source.lastPlayed
+                                            };
+
+                                            if (results.event !== null) {
+                                                document.event = results.event.name;
+                                            }
+
+                                            Score.insertOne(document, done);
+                                        } else {
+                                            done("Error - Invalid Account", null);
+                                            console.warn(" Stats look up failed for: " + request.auth.credentials.user.username);
                                         }
-
-                                        Score.insertOne(document, done);
                                     }]
                                 }, (err, results) => {
 
                                     if (err) {
                                         console.warn('Could not update the Score collection with a new document: ' + err);
-                                    
+
                                         return reply.continue();
                                     }
 
@@ -264,7 +270,9 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             const userId = request.auth.credentials.user._id.toString();
-            const filter = { 'userId': userId.toLowerCase() };
+            const filter = {
+                'userId': userId.toLowerCase()
+            };
             const date = new Date();
             const seckey = Md5(request.payload.status + request.payload.score + request.payload.level);
 
@@ -323,8 +331,7 @@ internals.applyRoutes = function (server, next) {
                                 lastPlayed: date
                             }
                         };
-                    }
-                    else {
+                    } else {
                         update = {
                             $set: {
                                 figures: stat.figures,
@@ -343,8 +350,7 @@ internals.applyRoutes = function (server, next) {
                         reply(data);
                     });
                 });
-            }
-            else {
+            } else {
 
                 return reply(Boom.forbidden());
             }
@@ -364,7 +370,9 @@ internals.applyRoutes = function (server, next) {
         handler: function (request, reply) {
 
             const userId = request.params.userId;
-            const filter = { 'userId': userId.toLowerCase() };
+            const filter = {
+                'userId': userId.toLowerCase()
+            };
 
             Statistic.findOneAndDelete(filter, (err, stat) => {
 
@@ -376,7 +384,9 @@ internals.applyRoutes = function (server, next) {
                     return reply(Boom.notFound('Document not found.'));
                 }
 
-                reply({ success: true });
+                reply({
+                    success: true
+                });
             });
         }
     });
