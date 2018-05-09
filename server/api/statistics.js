@@ -198,10 +198,17 @@ internals.applyRoutes = function (server, next) {
                                         Account.findByUsername(username, done);                            
                                     },
                                     event: ['account', function (results, done) {
-                                        
+                                        if (results.account !== undefined) {
+
                                         const event = results.account.event !== undefined ? results.account.event : '';
                             
                                         Event.findByEvent(event, done);
+                                        } else {
+                                            done("Error : User not Found" );
+                                            console.warn( request.auth.credentials.user.username );
+                                        }
+ 
+
                                     }],
                                     updateScore: ['event', function (results, done) {
 
@@ -223,6 +230,8 @@ internals.applyRoutes = function (server, next) {
 
                                     if (err) {
                                         console.warn('Could not update the Score collection with a new document: ' + err);
+                                    
+                                        return reply.continue();
                                     }
 
                                     // Get the socket.io object
