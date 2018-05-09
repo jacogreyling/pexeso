@@ -18,6 +18,7 @@ const ReactRouter = require('react-router-dom');
 const RouteRedirect = require('../../components/route-redirect.jsx');
 const Signup = require('./signup/index.jsx');
 const VerifyAccount = require('./verifyaccount/index.jsx');
+//const BannerAd = require('../../components/bannerAd.jsx');
 
 
 const Route = ReactRouter.Route;

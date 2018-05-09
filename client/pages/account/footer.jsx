@@ -11,9 +11,15 @@ class Footer extends React.Component {
         return (
             <div className="footer">
                 <div className="container">
-                    <span className="copyright pull-right">
-                        &#169; {year} CA Southern Africa
-                    </span>
+                    <div class="row">
+                        <div class="col-sm-8">
+                        </div>
+                        <div class="col-sm-4">
+                            <span className="copyright pull-right">
+                                &#169; {year} CA Southern Africa
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
