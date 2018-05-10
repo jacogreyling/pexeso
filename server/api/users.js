@@ -680,7 +680,7 @@ internals.applyRoutes = function (server, next) {
 
 
     server.route({
-        method: 'PAtCH',
+        method: 'PATCH',
         path: '/users/{id}',
         config: {
             auth: {

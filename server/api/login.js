@@ -30,149 +30,219 @@ internals.applyRoutes = function (server, next) {
                 }
             },
             pre: [{
-                assign: 'abuseDetected',
-                method: function (request, reply) {
+                    assign: 'abuseDetected',
+                    method: function (request, reply) {
 
-                    const ip = request.info.remoteAddress;
-                    const username = request.payload.username;
+                        const ip = request.info.remoteAddress;
+                        const username = request.payload.username;
 
-                    AuthAttempt.abuseDetected(ip, username, (err, detected) => {
+                        AuthAttempt.abuseDetected(ip, username, (err, detected) => {
 
-                        if (err) {
-                            return reply(err);
-                        }
+                            if (err) {
+                                return reply(err);
+                            }
 
-                        if (detected) {
-                            return reply(Boom.locked('Maximum number of auth attempts reached. Please try again later.'));
-                        }
+                            if (detected) {
+                                return reply(Boom.locked('Maximum number of auth attempts reached. Please try again later.'));
+                            }
 
-                        reply();
-                    });
-                }
-            }, {
-                assign: 'user',
-                method: function (request, reply) {
-
-                    const username = request.payload.username;
-                    const password = request.payload.password;
-
-                    User.findByCredentials(username, password, (err, user) => {
-
-                        if (err) {
-                            return reply(err);
-                        }
-
-                        reply(user);
-                    });
-                }
-            }, {
-                assign: 'logAttempt',
-                method: function (request, reply) {
-
-                    if (request.pre.user) {
-                        return reply();
+                            reply();
+                        });
                     }
+                },
+                {
+                    assign: 'validated',
+                    method: function (request, reply) {
 
-                    const ip = request.info.remoteAddress;
-                    const username = request.payload.username;
 
-                    AuthAttempt.create(ip, username, (err, authAttempt) => {
+                        const mailer = request.server.plugins.mailer;
+                        const username = request.payload.username;
 
-                        if (err) {
-                            return reply(err);
+                        User.checkValidation(username, (err, validationComplete) => {
+
+                            if (err) {
+                                return reply(err);
+                            }
+
+                            if (!validationComplete) {
+
+                                // Async Method to send reminder Mail
+                                Async.auto({
+                                    user: function (done) {
+
+                                        User.findByUsername(username, done);
+                                    },
+                                    sendEmail: ['user', function (results, done) {
+
+                                        if (results.user) {
+
+                                            request.payload.publicURL = Config.get('/baseUrl') + '/verify';
+                                            request.payload.email = results.user.email;
+                                            request.payload.verificationToken = results.user.verification.token;
+
+                                            const emailOptions = {
+                                                subject: 'Your ' + Config.get('/projectName') + ' account',
+                                                to: {
+                                                    name: request.payload.username,
+                                                    address: results.user.email
+                                                }
+                                            };
+                                            const template = 'welcome';
+
+                                            mailer.sendEmail(emailOptions, template, request.payload, (err) => {
+
+                                                if (err) {
+                                                    console.warn('sending welcome email failed:', err.stack);
+                                                }
+                                            });
+
+                                            done();
+                                        } else {
+                                            // Unknown User
+                                            done(Boom.unauthorized('Username and password combination not found or account is inactive.'), null);
+                                        }
+
+                                    }]
+                                }, (err, results) => {
+
+                                    if (err) {
+                                        return reply(err);
+                                    }
+
+                                    return reply(Boom.unauthorized('Please Check your inbox for your verification email before loggin in. If didnt receive an email please contact and administrator'));
+                                });
+                            } else {
+
+                                reply(validationComplete);
+                            }
+                        });
+                    }
+                },
+                {
+                    assign: 'user',
+                    method: function (request, reply) {
+
+                        const username = request.payload.username;
+                        const password = request.payload.password;
+
+                        User.findByCredentials(username, password, (err, user) => {
+
+                            if (err) {
+                                return reply(err);
+                            }
+
+                            reply(user);
+                        });
+                    }
+                },
+                {
+                    assign: 'logAttempt',
+                    method: function (request, reply) {
+
+                        if (request.pre.user) {
+                            return reply();
                         }
 
-                        return reply(Boom.unauthorized('Username and password combination not found or account is inactive.'));
-                    });
-                }
-            }, {
-                assign: 'event',
-                method: function (request, reply) {
+                        const ip = request.info.remoteAddress;
+                        const username = request.payload.username;
 
-                    Async.auto({
-                        account: function (done) {
-        
-                            const username = request.pre.user.username !== undefined ? request.pre.user.username : '';
+                        AuthAttempt.create(ip, username, (err, authAttempt) => {
 
-                            Account.findByUsername(username, done);                          
-                        },
-                        accountEvent: ['account', function (results, done) {
-
-                            // Make sure there is an associated account
-                            if (results.account === null) {
-                                return reply();
-                            }
-                            
-                            const event = results.account.event !== undefined ? results.account.event : '';
-                            
-                            Event.findByEvent(event, done);
-                        }],
-                        cookieEvent: ['accountEvent', function (results, done) {
-
-                            let event = '';
-                            if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
-                                event = request.state['sid-pexeso'].event;
+                            if (err) {
+                                return reply(err);
                             }
 
-                            Event.findByEvent(event, done);
-                        }],
-                        updateAccount: ['cookieEvent', function (results, done) {
+                            return reply(Boom.unauthorized('Username and password combination not found or account is inactive.'));
+                        });
+                    }
+                }, {
+                    assign: 'event',
+                    method: function (request, reply) {
 
-                            // First see if we have a *new* event in our cookie
-                            if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
+                        Async.auto({
+                            account: function (done) {
 
-                                const id = results.account._id;
-                                const update = {
-                                    $set: {
-                                        event: results.cookieEvent.name
-                                    }
-                                };
+                                const username = request.pre.user.username !== undefined ? request.pre.user.username : '';
 
-                                Account.findByIdAndUpdate(id, update, done);
-                            }
-                            // Else check to see if the account holds an existing event
-                            else {
+                                Account.findByUsername(username, done);
+                            },
+                            accountEvent: ['account', function (results, done) {
 
-                                // Delete any inactive events from the account
-                                if ((results.accountEvent) && (results.accountEvent.isActive === false)) {
+                                // Make sure there is an associated account
+                                if (results.account === null) {
+                                    return reply();
+                                }
+
+                                const event = results.account.event !== undefined ? results.account.event : '';
+
+                                Event.findByEvent(event, done);
+                            }],
+                            cookieEvent: ['accountEvent', function (results, done) {
+
+                                let event = '';
+                                if (request.state['sid-pexeso'] && request.state['sid-pexeso'].event) {
+                                    event = request.state['sid-pexeso'].event;
+                                }
+
+                                Event.findByEvent(event, done);
+                            }],
+                            updateAccount: ['cookieEvent', function (results, done) {
+
+                                // First see if we have a *new* event in our cookie
+                                if ((results.cookieEvent) && (results.cookieEvent.isActive === true)) {
 
                                     const id = results.account._id;
-                                    const rem = {
-                                        $unset: {
-                                            event: ''
+                                    const update = {
+                                        $set: {
+                                            event: results.cookieEvent.name
                                         }
                                     };
-    
-                                    Account.findByIdAndUpdate(id, rem, done);
+
+                                    Account.findByIdAndUpdate(id, update, done);
                                 }
+                                // Else check to see if the account holds an existing event
                                 else {
-                                    done(); // Do nothing
+
+                                    // Delete any inactive events from the account
+                                    if ((results.accountEvent) && (results.accountEvent.isActive === false)) {
+
+                                        const id = results.account._id;
+                                        const rem = {
+                                            $unset: {
+                                                event: ''
+                                            }
+                                        };
+
+                                        Account.findByIdAndUpdate(id, rem, done);
+                                    } else {
+                                        done(); // Do nothing
+                                    }
                                 }
+                            }]
+                        }, (err, results) => {
+
+                            if (err) {
+                                return reply(err);
                             }
-                        }]
-                    }, (err, results) => {
 
-                        if (err) {
-                            return reply(err);
-                        }
-        
-                        return reply(results);
-                    });
+                            return reply(results);
+                        });
+                    }
+                }, {
+                    assign: 'session',
+                    method: function (request, reply) {
+
+                        Session.create(request.pre.user._id.toString(), (err, session) => {
+
+                            if (err) {
+                                return reply(err);
+                            }
+
+                            return reply(session);
+                        });
+                    }
                 }
-            }, {
-                assign: 'session',
-                method: function (request, reply) {
-
-                    Session.create(request.pre.user._id.toString(), (err, session) => {
-
-                        if (err) {
-                            return reply(err);
-                        }
-
-                        return reply(session);
-                    });
-                }
-            }]
+            ]
         },
         handler: function (request, reply) {
 
@@ -230,7 +300,9 @@ internals.applyRoutes = function (server, next) {
                         }
 
                         if (!user) {
-                            return reply({ success: true }).takeover();
+                            return reply({
+                                success: true
+                            }).takeover();
                         }
 
                         reply(user);
@@ -282,7 +354,9 @@ internals.applyRoutes = function (server, next) {
                     return reply(err);
                 }
 
-                reply({ success: true });
+                reply({
+                    success: true
+                });
             });
         }
     });
@@ -305,7 +379,9 @@ internals.applyRoutes = function (server, next) {
 
                     const conditions = {
                         email: request.payload.email,
-                        'resetPassword.expires': { $gt: Date.now() }
+                        'resetPassword.expires': {
+                            $gt: Date.now()
+                        }
                     };
 
                     User.findOne(conditions, (err, user) => {
@@ -360,7 +436,9 @@ internals.applyRoutes = function (server, next) {
                     return reply(err);
                 }
 
-                reply({ success: true });
+                reply({
+                    success: true
+                });
             });
         }
     });
