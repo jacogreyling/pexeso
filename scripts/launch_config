@@ -11,6 +11,22 @@ sudo ./install auto
 
 pkill node
 
+npm install -g node-pre-gyp
+export PATH=$PATH:/jet/var/mothership/capabilities/bin/lib/node_modules/node-pre-gyp/bin/
+
+npm install -g bcrypt
+
+# Install APM Agent
+cd /home/ec2-user
+
+aws s3 cp s3://pexeso.io/APM/Node.js_v1.tar Node.js_v1.tar
+tar -xf Node.js_v1.tar
+cd apmia/
+
+./apmia-ca-installer.sh install
+
+
+
  #   1  export PATH=$PATH:/jet/bin/
  #   2  npm install
  #   3  npm install node-pre-gyp
